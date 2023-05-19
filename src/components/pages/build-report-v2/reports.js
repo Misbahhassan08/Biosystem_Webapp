@@ -57,12 +57,12 @@ function BuildReportV2() {
       Data_Req: dataType,
     };
     if (requestJson) {
-      const RequestTopic = "biogas/client/request/all";
+      const RequestTopic = "biogas/client/all";
       const RequestPayload = JSON.stringify(requestJson);
 
       const client = mqtt.connect(host, options);
       client.publish(RequestTopic, RequestPayload, { qos: 0 });
-      console.log("Data published");
+      console.log(requestJson, "Data published");
       // client.end();
     }
   }

@@ -6,7 +6,7 @@ function AllColorChart(props) {
   const [prevPayload, setPrevPayload] = useState("");
   const isDashboard = false;
 
-  console.log(props.wavelength, "this is the wavelength in props");
+  console.log(props.dataType, "this is the dataType in props");
 
   const VioPoint = [props.dataType + "_Avg_Vio_450nm"];
   const BluPoint = [props.dataType + "_Avg_Blu_500nm"];
@@ -31,7 +31,7 @@ function AllColorChart(props) {
     // console.log("this is propes inside 1", props);
     const data = [
       {
-        id: "violet",
+        id: "Vio",
         data: [
           {
             x: parsedData[0]?.Time_Stamp,
@@ -40,7 +40,7 @@ function AllColorChart(props) {
         ],
       },
       {
-        id: "blue",
+        id: "Blu",
         data: [
           {
             x: parsedData[0]?.Time_Stamp,
@@ -49,7 +49,7 @@ function AllColorChart(props) {
         ],
       },
       {
-        id: "green",
+        id: "Grn",
         data: [
           {
             x: parsedData[0]?.Time_Stamp,
@@ -58,7 +58,7 @@ function AllColorChart(props) {
         ],
       },
       {
-        id: "yellow",
+        id: "Yel",
         data: [
           {
             x: parsedData[0]?.Time_Stamp,
@@ -67,7 +67,7 @@ function AllColorChart(props) {
         ],
       },
       {
-        id: "orange",
+        id: "Org",
         data: [
           {
             x: parsedData[0]?.Time_Stamp,
@@ -76,7 +76,7 @@ function AllColorChart(props) {
         ],
       },
       {
-        id: "red",
+        id: "Red",
         data: [
           {
             x: parsedData[0]?.Time_Stamp,
@@ -108,7 +108,7 @@ function AllColorChart(props) {
 
         const maindata = [
           {
-            id: "violet",
+            id: "Vio",
             data: [
               {
                 x: parsedData[0]?.Time_Stamp,
@@ -117,7 +117,7 @@ function AllColorChart(props) {
             ],
           },
           {
-            id: "blue",
+            id: "Blu",
             data: [
               {
                 x: parsedData[0]?.Time_Stamp,
@@ -126,7 +126,7 @@ function AllColorChart(props) {
             ],
           },
           {
-            id: "green",
+            id: "Grn",
             data: [
               {
                 x: parsedData[0]?.Time_Stamp,
@@ -135,7 +135,7 @@ function AllColorChart(props) {
             ],
           },
           {
-            id: "yellow",
+            id: "Yel",
             data: [
               {
                 x: parsedData[0]?.Time_Stamp,
@@ -144,7 +144,7 @@ function AllColorChart(props) {
             ],
           },
           {
-            id: "orange",
+            id: "Org",
             data: [
               {
                 x: parsedData[0]?.Time_Stamp,
@@ -153,7 +153,7 @@ function AllColorChart(props) {
             ],
           },
           {
-            id: "red",
+            id: "Red",
             data: [
               {
                 x: parsedData[0]?.Time_Stamp,

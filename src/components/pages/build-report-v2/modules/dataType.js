@@ -32,6 +32,7 @@ function DataTypeSelect(props) {
           <MenuItem value=""></MenuItem>
           <MenuItem value={"Raw"}>Raw Data</MenuItem>
           <MenuItem value={"Cal"}>Calibrated</MenuItem>
+          <MenuItem value={"Norm"}>Normalized</MenuItem>
         </Select>
       </FormControl>
     </div>
