@@ -48,66 +48,199 @@ import Qc from "./components/pages/maintenance/qc"
 import Systemstatsone from "./components/pages/maintenance/systemstatsone"
 
 import Test101 from './components/pages/test101/test101';
-
+import BuildReportV1 from "./components/pages/build-report-v1/reports";
+import BuildReportV2 from "./components/pages/build-report-v2/reports";
+import Mqttservice from "./services/mqtt-services";
+import MqttGetResponse from "./services/mqttGetResponse";
 
 function App() {
   return (
     <>
       <Router>
-      <Header></Header>
-      <div className="main-content-part">
-      
-     
-        <Routes>
-        <Route  element={<SidebarLayout />} >
-          <Route exact path={`${process.env.PUBLIC_URL}/readerstatus`} element={<ReaderStatus/>} />
-          <Route exact path={`${process.env.PUBLIC_URL}/rack1/error`} element={<RackError/>} />
-          <Route exact path={`${process.env.PUBLIC_URL}/rack1/completed`} element={<RackCompleted/>} />
-          <Route path={`${process.env.PUBLIC_URL}/review-report`} element={<ReviewReport/>} />
-          <Route path={`${process.env.PUBLIC_URL}/cassette`} element={<Cassette/>} />
-          <Route path={`${process.env.PUBLIC_URL}/cassette/manually`} element={<CassetteManually/>} />
-          <Route path={`${process.env.PUBLIC_URL}/cassette/batch-entry`} element={<CassetteResult/>} />
-          <Route path={`${process.env.PUBLIC_URL}/cassette/load-cassette`} element={<Load/>} />
-          <Route path={`${process.env.PUBLIC_URL}/maintenance`} element={<MaintenanceLogin/>} />
-          <Route path={`${process.env.PUBLIC_URL}/maintenance/view`} element={<Maintenance/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/isolatereports-status`} element={<IsolateReportsStatus/>} />
-          <Route path={`${process.env.PUBLIC_URL}/maintenance/alert`} element={<Alert/>} />
-          <Route path={`${process.env.PUBLIC_URL}/maintenance/systemstats`} element={<Systemstats/>} />
-          <Route path={`${process.env.PUBLIC_URL}/maintenance/systemstatsone`} element={<Systemstatsone/>} />
-          <Route path={`${process.env.PUBLIC_URL}/maintenance/qc`} element={<Qc/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports`} element={<Reports/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/login`} element={<ReportsLogin/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/isolate-reports`} element={<IsolateReports/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/isolate-reports1`} element={<IsolateReports1/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/isloate-reportsnew`} element={<IsolatereportsNew/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/generate-reports`} element={<Generatereports/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/unverified-reports`} element={<Unverifiedreports/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/view-report`} element={<Viewreport/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/report1`} element={<ReportOne/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/report1-two`} element={<ReportOneTwo/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/reportsattribute`} element={<ReportsAttribute/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/reportsattributetwo`} element={<ReportsAttributeTwo/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/sample-report`} element={<ReportsSample/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/support`} element={<ReportsSupport/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/qc-reports`} element={<Qcreports/>} />
-          <Route path={`${process.env.PUBLIC_URL}/reports/qc-status`} element={<Qcstatus/>} />
-          <Route path={`${process.env.PUBLIC_URL}/order`} element={<Order/>} />
-          <Route path={`${process.env.PUBLIC_URL}/order/:productSlug`} element={<ProductDetail/>} />
-          <Route path={`${process.env.PUBLIC_URL}/system-setup/system-setupnew`} element={<Systmsetup/>} />
-          <Route path={`${process.env.PUBLIC_URL}/system-setup`} element={<SystemSetup/>} />
-          <Route path={`${process.env.PUBLIC_URL}/system-setup/ip`} element={<SystemSetupIp/>} />
-          <Route path={`${process.env.PUBLIC_URL}/system-setup/business-info`} element={<SystemSetupBInfo/>} />
-          <Route path={`${process.env.PUBLIC_URL}/system-setup/personal-info`} element={<SystemSetupPInfo/>} />
-          <Route path={`${process.env.PUBLIC_URL}/support`} element={<Support/>} />
+        <Header></Header>
+        <Mqttservice />
+        <MqttGetResponse />
+        <div className="main-content-part">
+          <Routes>
+            <Route element={<SidebarLayout />}>
+              <Route
+                exact
+                path={`${process.env.PUBLIC_URL}/readerstatus`}
+                element={<ReaderStatus />}
+              />
+              <Route
+                exact
+                path={`${process.env.PUBLIC_URL}/rack1/error`}
+                element={<RackError />}
+              />
+              <Route
+                exact
+                path={`${process.env.PUBLIC_URL}/rack1/completed`}
+                element={<RackCompleted />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/review-report`}
+                element={<ReviewReport />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/cassette`}
+                element={<Cassette />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/cassette/manually`}
+                element={<CassetteManually />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/cassette/batch-entry`}
+                element={<CassetteResult />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/cassette/load-cassette`}
+                element={<Load />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/maintenance`}
+                element={<MaintenanceLogin />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/maintenance/view`}
+                element={<Maintenance />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/isolatereports-status`}
+                element={<IsolateReportsStatus />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/maintenance/alert`}
+                element={<Alert />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/maintenance/systemstats`}
+                element={<Systemstats />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/maintenance/systemstatsone`}
+                element={<Systemstatsone />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/maintenance/qc`}
+                element={<Qc />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports`}
+                element={<Reports />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/login`}
+                element={<ReportsLogin />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/isolate-reports`}
+                element={<IsolateReports />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/isolate-reports1`}
+                element={<IsolateReports1 />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/isloate-reportsnew`}
+                element={<IsolatereportsNew />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/generate-reports`}
+                element={<Generatereports />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/unverified-reports`}
+                element={<Unverifiedreports />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/view-report`}
+                element={<Viewreport />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/report1`}
+                element={<ReportOne />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/report1-two`}
+                element={<ReportOneTwo />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/reportsattribute`}
+                element={<ReportsAttribute />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/reportsattributetwo`}
+                element={<ReportsAttributeTwo />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/sample-report`}
+                element={<ReportsSample />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/support`}
+                element={<ReportsSupport />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/qc-reports`}
+                element={<Qcreports />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/qc-status`}
+                element={<Qcstatus />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/order`}
+                element={<Order />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/order/:productSlug`}
+                element={<ProductDetail />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/system-setup/system-setupnew`}
+                element={<Systmsetup />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/system-setup`}
+                element={<SystemSetup />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/system-setup/ip`}
+                element={<SystemSetupIp />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/system-setup/business-info`}
+                element={<SystemSetupBInfo />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/system-setup/personal-info`}
+                element={<SystemSetupPInfo />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/support`}
+                element={<Support />}
+              />
 
-          {/* test101 */}
-          <Route path={`${process.env.PUBLIC_URL}/test101`} element={<Test101/>} />
+              {/* test101 */}
+              <Route
+                path={`${process.env.PUBLIC_URL}/test101`}
+                element={<Test101 />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/build-report-v1`}
+                element={<BuildReportV1 />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/build-report-v2`}
+                element={<BuildReportV2 />}
+              />
 
-          <Route path="*" element={<NoMatch />} />
-          </Route>
-          <Route path={`${process.env.PUBLIC_URL}/`} element={<Login/>} />
-        </Routes>
-        
+              <Route path="*" element={<NoMatch />} />
+            </Route>
+            <Route path={`${process.env.PUBLIC_URL}/`} element={<Login />} />
+          </Routes>
         </div>
       </Router>
     </>

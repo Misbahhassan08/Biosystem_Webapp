@@ -274,280 +274,635 @@ const onSend_Close_LinearStepperMotor = () => {
   const UI = () => {
 
 
-    return(
-        <Fragment>
-            
-                <div className="layout-right-side">
-                    <Container>
-                  
-                    <Card className="text-center border-1 ">
-                            <Card.Body>
-                                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">AVERAGE MAG Sensor Status: {subscribeValue}</Card.Title>
+    return (
+      <Fragment>
+        <div className="layout-right-side">
+          <Container>
+            <Card className="text-center border-1 ">
+              <Card.Body>
+                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
+                  AVERAGE MAG Sensor Status: {subscribeValue}
+                </Card.Title>
+              </Card.Body>
+              <Row className="maintenance-row system-setup-row">
+                <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">
+                  Sensor Status: {subscribeValue}{" "}
+                </Card.Title>
+              </Row>
+            </Card>
+            <span></span>
+            <Card className="text-center border-1 ">
+              <Card.Body>
+                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
+                  Motor On/off{" "}
+                </Card.Title>
+                <Card.Text className="mx-auto mb-4" style={{ width: "40rem" }}>
+                  Motor on off control from here...
+                </Card.Text>
+              </Card.Body>
+              <Row className="maintenance-row system-setup-row">
+                <div className="col-md-12">
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onBtnOnClicked()}
+                  >
+                    on
+                  </button>
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onBtnOffClicked()}
+                  >
+                    off
+                  </button>
+                </div>
+              </Row>
 
-                            </Card.Body>
-                            <Row className="maintenance-row system-setup-row">
+              <Row className="maintenance-row system-setup-row">
+                <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">
+                  {" "}
+                </Card.Title>
+              </Row>
+            </Card>
+            <span></span>
 
-                            <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">Sensor Status: {subscribeValue} </Card.Title>
+            <Card className="text-center border-1 ">
+              <Card.Body>
+                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
+                  GET LED's SENSOR 10 Average VALUES
+                </Card.Title>
+              </Card.Body>
+              <Row>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED0 10 avr values
+                  </h1>
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led_sensor_1_value}
+                  </h13>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{
+                    fontFamily: "Corbel",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED1 10 avr values
+                  </h1>
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led_sensor_2_value}
+                  </h13>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED2 10 avr values
+                  </h1>
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led_sensor_3_value}
+                  </h13>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED3 10 avr values
+                  </h1>
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led_sensor_4_value}
+                  </h13>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED4 10 avr values
+                  </h1>
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led_sensor_5_value}
+                  </h13>
+                </div>
+              </Row>
+            </Card>
 
-                        </Row>
-                        
-                        </Card>
-                        <span></span>
-                        <Card className="text-center border-1 ">
-                            <Card.Body>
-                                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">Motor On/off </Card.Title>
-                                <Card.Text className="mx-auto mb-4" style={{ width: '40rem' }}>Motor on off control from here...</Card.Text>
-
-                            </Card.Body>
-                            <Row className="maintenance-row system-setup-row">
-
-                            <div className="col-md-12">
-                                    <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onBtnOnClicked()}>on</button>
-                                    <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onBtnOffClicked()}>off</button>
-                            </div>
-                        </Row>
-
-                        <Row className="maintenance-row system-setup-row">
-
-                            <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase"> </Card.Title>
-
-                        </Row>
-                        
-                        </Card>
-                        <span></span>
-                        
-                        <Card className="text-center border-1 ">
-                            <Card.Body>
-                                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">GET LED's SENSOR 10 Average VALUES</Card.Title>
-                            </Card.Body>
-                            <Row>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel", marginTop:'-2px', marginInline:'20px'}}>LED0 10 avr values</h1>
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led_sensor_1_value}</h13>
-                                </div>
-                                <div className="col-md-12" style={{fontFamily: "Corbel",display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel",marginTop:'-2px', marginInline:'20px'}}>LED1 10 avr values</h1>
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led_sensor_2_value}</h13>
-                                </div>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel",marginTop:'-2px', marginInline:'20px'}}>LED2 10 avr values</h1>
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led_sensor_3_value}</h13>
-                                </div>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel",marginTop:'-2px', marginInline:'20px'}}>LED3 10 avr values</h1>
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led_sensor_4_value}</h13>
-                                </div>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel",marginTop:'-2px', marginInline:'20px'}}>LED4 10 avr values</h1>
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led_sensor_5_value}</h13>
-                                </div>
-                                </Row>
-                        </Card>
-                        
-                        <Card className="text-center border-1 ">
-                            <Card.Body>
-                                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">Control LED's Brightness</Card.Title>
-                            </Card.Body>
-                            <Row>
-                            <ReportOne></ReportOne>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel", marginTop:'-2px', marginInline:'20px'}}>LED0</h1>
-                                    <input type="range" min="0" max={MAX} style={getBackgroundSize()}
-                                            onChange={(e) => setLed1_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
-                                            value={led1_bright}
-                                            
-                                        />
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led1_bright}</h13>
-                                </div>
-                                <div className="col-md-12">
-                                <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onSendLedBrigtness1()}>Send LED0</button>
-                                
-                                </div>
-                                <div className="col-md-12" style={{fontFamily: "Corbel",display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel",marginTop:'-2px', marginInline:'20px'}}>LED1</h1>
-                                    <input type="range" min="0" max={MAX} style={getBackgroundSize()}
-                                            onChange={(e) => setLed2_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
-                                            value={led2_bright}
-                                            
-                                        />
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led2_bright}</h13>
-                                </div>
-                                <div className="col-md-12">
-                                <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onSendLedBrigtness2()}>Send LED1</button>
-                                
-                                </div>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel",marginTop:'-2px', marginInline:'20px'}}>LED2</h1>
-                                    <input type="range" min="0" max={MAX} style={getBackgroundSize()}
-                                            onChange={(e) => setLed3_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
-                                            value={led3_bright}
-                                            
-                                        />
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led3_bright}</h13>
-                                </div>
-                                <div className="col-md-12">
-                                <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onSendLedBrigtness3()}>Send LED2</button>
-                                
-                                </div>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel",marginTop:'-2px', marginInline:'20px'}}>LED3</h1>
-                                    <input type="range" min="0" max={MAX} style={getBackgroundSize()}
-                                            onChange={(e) => setLed4_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
-                                            value={led4_bright}
-                                            
-                                        />
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led4_bright}</h13>
-                                </div>
-                                <div className="col-md-12">
-                                <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onSendLedBrigtness4()}>Send LED3</button>
-                                
-                                </div>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel",marginTop:'-2px', marginInline:'20px'}}>LED4</h1>
-                                    <input type="range" min="0" max={MAX} style={getBackgroundSize()}
-                                            onChange={(e) => setLed5_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
-                                            value={led5_bright}
-                                            
-                                        />
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{led5_bright}</h13>
-                                </div>
-                                <div className="col-md-12">
-                                <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onSendLedBrigtness5()}>Send LED4</button>
-                                
-                                </div>
-
-                                
-                                <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase"> </Card.Title>
-
-                                </Row>
-                                
-                        </Card>
-                        
-
-                        
-                        <Card className="text-center border-1 ">
-                            <Card.Body>
-                                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">Stepper Motor Control</Card.Title>
-                            </Card.Body>
-                            <Row>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel", marginTop:'-2px', marginInline:'20px'}}>Steps Con</h1>
-                                    <input type="range" min="0" max={MAX} style={getBackgroundSize()}
-                                            onChange={(e) => setStepperCounts(e.target.value)} // dcMotor_speed_value, set_dcMotor_sped_value
-                                            value={var_stepper_counts}
-                                            
-                                        />
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{var_stepper_counts}</h13>
-                                </div>
-                                <div className="col-md-12" style={{fontFamily: "Corbel",display:'flex', justifyContent: 'center'}}>
-                                <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onSendStepperMotor()}>Send</button>
-                                    
-                                <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">. </Card.Title>
-
-                                    
-                                </div>
-                                
-                                </Row>
-                        </Card>
-
-                        <Card className="text-center border-1 ">
-                            <Card.Body>
-                                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">Linear Stepper Motor Counts </Card.Title>
-                            </Card.Body>
-                            <Row>
-                                <div className="col-md-12" style={{display:'flex', justifyContent: 'center'}}>
-                                    <h1 className="" style={{fontFamily: "Corbel", marginTop:'-2px', marginInline:'20px'}}>Steps Con</h1>
-                                    <input type="range" min="0" max={MAX} style={getBackgroundSize()}
-                                            onChange={(e) => linear_setStepperCounts(e.target.value)} // dcMotor_speed_value, set_dcMotor_sped_value
-                                            value={linear_var_stepper_counts}
-                                            
-                                        />
-                                    <h13 className="" style={{fontFamily: "Corbel",fontSize:'5rem', width: '15rem' }}>{linear_var_stepper_counts}</h13>
-                                </div>
-                                <div className="col-md-12" style={{fontFamily: "Corbel",display:'flex', justifyContent: 'center'}}>
-                                <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onSend_Open_LinearStepperMotor()}>Open</button>
-                                <button type="btn" className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn" onClick={() => onSend_Close_LinearStepperMotor()}>Close</button>
-                                    
-                                <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">. </Card.Title>
-
-                                    
-                                </div>
-                                
-                                </Row>
-                        </Card>
-
-
-                        <Card className="text-center border-1 ">
-                            <Card.Body>
-                                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">Grid Implementation</Card.Title>
-                            </Card.Body>
-                            <Row>
-                            <div className="table-responsive" style={{height:"400px", overflow: "auto",fontFamily: "Corbel", marginTop:'-2px', marginInline:'20px', width:'96%'}}>
-                            <table className='reports-tab'>
-                                    <thead>
-                                        <tr className="one">
-                                            <th>Data_Point</th>
-                                            <th>Sample_Num</th>
-                                            <th>Time_Stamp</th>
-                                            <th>Time_Per</th>
-                                            <th>Temp</th>
-                                            <th>Gain</th>
-                                            <th>Int_Time</th>
-                                            <th>Allowable_Dev</th>
-
-                                            <th>Raw_Used_Vio</th>
-                                            <th>Raw_Values_Vio_450nm</th>
-                                            <th>Raw_Selected_Vio_450nm</th>
-                                            <th>Raw_Avg_Vio_450nm</th>
-                                            <th>Raw_StdDev_Vio_450nm</th>
-                                            <th>Call_Used_Vio</th>
-                                            <th>Call_Values_Vio_450nm</th>
-                                            <th>Cal_Selected_Vio_450nm</th>
-                                            <th>Cal_Avg_Vio_450nm</th>
-                                            <th>Cal_StdDev_Vio_450nm'</th>
-
-                                            <th>Raw_Used_Blu</th>
-                                            <th>Raw_Values_Blu_500nm</th>
-                                            <th>Raw_Selected_Blu_500nm</th>
-                                            <th>Raw_Avg_Blu_500nm</th>
-                                            <th>Raw_StdDev_Blu_500nm</th>
-                                            <th>Call_Used_Blu</th>
-                                            <th>Call_Values_Blu_500nm</th>
-                                            <th>Cal_Selected_Blu_500nm</th>
-                                            <th>Cal_Avg_Blu_500nm</th>
-                                            <th>Cal_StdDev_Blu_500nm'</th>
-
-                                            <th>Raw_Used_Grn</th>
-                                            <th>Raw_Values_Grn_550nm</th>
-                                            <th>Raw_Selected_Grn_550nm</th>
-                                            <th>Raw_Avg_Grn_550nm</th>
-                                            <th>Raw_StdDev_Grn_550nm</th>
-                                            <th>Call_Used_Grn</th>
-                                            <th>Call_Values_Grn_550nm</th>
-                                            <th>Cal_Selected_Grn_550nm</th>
-                                            <th>Cal_Avg_Grn_550nm</th>
-                                            <th>Cal_StdDev_Grn_550nm'</th>
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <TableRows rowsData={rowsData} />
-                                    </tbody>
-                                </table>
-                            </div>
-                            </Row>
-                           
-                            
-                            
-                        </Card>
-                        
-                    </Container>
+            <Card className="text-center border-1 ">
+              <Card.Body>
+                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
+                  Control LED's Brightness
+                </Card.Title>
+              </Card.Body>
+              <Row>
+                <ReportOne></ReportOne>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED0
+                  </h1>
+                  <input
+                    type="range"
+                    min="0"
+                    max={MAX}
+                    style={getBackgroundSize()}
+                    onChange={(e) => setLed1_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
+                    value={led1_bright}
+                  />
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led1_bright}
+                  </h13>
+                </div>
+                <div className="col-md-12">
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onSendLedBrigtness1()}
+                  >
+                    Send LED0
+                  </button>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{
+                    fontFamily: "Corbel",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED1
+                  </h1>
+                  <input
+                    type="range"
+                    min="0"
+                    max={MAX}
+                    style={getBackgroundSize()}
+                    onChange={(e) => setLed2_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
+                    value={led2_bright}
+                  />
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led2_bright}
+                  </h13>
+                </div>
+                <div className="col-md-12">
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onSendLedBrigtness2()}
+                  >
+                    Send LED1
+                  </button>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED2
+                  </h1>
+                  <input
+                    type="range"
+                    min="0"
+                    max={MAX}
+                    style={getBackgroundSize()}
+                    onChange={(e) => setLed3_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
+                    value={led3_bright}
+                  />
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led3_bright}
+                  </h13>
+                </div>
+                <div className="col-md-12">
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onSendLedBrigtness3()}
+                  >
+                    Send LED2
+                  </button>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED3
+                  </h1>
+                  <input
+                    type="range"
+                    min="0"
+                    max={MAX}
+                    style={getBackgroundSize()}
+                    onChange={(e) => setLed4_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
+                    value={led4_bright}
+                  />
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led4_bright}
+                  </h13>
+                </div>
+                <div className="col-md-12">
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onSendLedBrigtness4()}
+                  >
+                    Send LED3
+                  </button>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    LED4
+                  </h1>
+                  <input
+                    type="range"
+                    min="0"
+                    max={MAX}
+                    style={getBackgroundSize()}
+                    onChange={(e) => setLed5_value(Number(e.target.value))} // dcMotor_speed_value, set_dcMotor_sped_value
+                    value={led5_bright}
+                  />
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {led5_bright}
+                  </h13>
+                </div>
+                <div className="col-md-12">
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onSendLedBrigtness5()}
+                  >
+                    Send LED4
+                  </button>
                 </div>
 
+                <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">
+                  {" "}
+                </Card.Title>
+              </Row>
+            </Card>
 
+            <Card className="text-center border-1 ">
+              <Card.Body>
+                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
+                  Stepper Motor Control
+                </Card.Title>
+              </Card.Body>
+              <Row>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    Steps Con
+                  </h1>
+                  <input
+                    type="range"
+                    min="0"
+                    max={MAX}
+                    style={getBackgroundSize()}
+                    onChange={(e) => setStepperCounts(e.target.value)} // dcMotor_speed_value, set_dcMotor_sped_value
+                    value={var_stepper_counts}
+                  />
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {var_stepper_counts}
+                  </h13>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{
+                    fontFamily: "Corbel",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onSendStepperMotor()}
+                  >
+                    Send
+                  </button>
 
-        </Fragment>
-    )
+                  <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">
+                    .{" "}
+                  </Card.Title>
+                </div>
+              </Row>
+            </Card>
+
+            <Card className="text-center border-1 ">
+              <Card.Body>
+                <Card.Title className="texhxt-green text-center justify-content-center text-uppercase font-38">
+                  Linear Stepper Motor Counts{" "}
+                </Card.Title>
+              </Card.Body>
+              <Row>
+                <div
+                  className="col-md-12"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <h1
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      marginTop: "-2px",
+                      marginInline: "20px",
+                    }}
+                  >
+                    Steps Con
+                  </h1>
+                  <input
+                    type="range"
+                    min="0"
+                    max={MAX}
+                    style={getBackgroundSize()}
+                    onChange={(e) => linear_setStepperCounts(e.target.value)} // dcMotor_speed_value, set_dcMotor_sped_value
+                    value={linear_var_stepper_counts}
+                  />
+                  <h13
+                    className=""
+                    style={{
+                      fontFamily: "Corbel",
+                      fontSize: "5rem",
+                      width: "15rem",
+                    }}
+                  >
+                    {linear_var_stepper_counts}
+                  </h13>
+                </div>
+                <div
+                  className="col-md-12"
+                  style={{
+                    fontFamily: "Corbel",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onSend_Open_LinearStepperMotor()}
+                  >
+                    Open
+                  </button>
+                  <button
+                    type="btn"
+                    className="btn  menu-btn menu-btn2 btn btn-primary motor_on_off_btn"
+                    onClick={() => onSend_Close_LinearStepperMotor()}
+                  >
+                    Close
+                  </button>
+
+                  <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">
+                    .{" "}
+                  </Card.Title>
+                </div>
+              </Row>
+            </Card>
+
+            <Card className="text-center border-1 ">
+              <Card.Body>
+                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
+                  Grid Implementation
+                </Card.Title>
+              </Card.Body>
+              <Row>
+                <div
+                  className="table-responsive"
+                  style={{
+                    height: "400px",
+                    overflow: "auto",
+                    fontFamily: "Corbel",
+                    marginTop: "-2px",
+                    marginInline: "20px",
+                    width: "96%",
+                  }}
+                >
+                  <table className="reports-tab">
+                    <thead>
+                      <tr className="one">
+                        <th>Data_Point</th>
+                        <th>Sample_Num</th>
+                        <th>Time_Stamp</th>
+                        <th>Time_Per</th>
+                        <th>Temp</th>
+                        <th>Gain</th>
+                        <th>Int_Time</th>
+                        <th>Allowable_Dev</th>
+
+                        <th>Raw_Used_Vio</th>
+                        <th>Raw_Values_Vio_450nm</th>
+                        <th>Raw_Selected_Vio_450nm</th>
+                        <th>Raw_Avg_Vio_450nm</th>
+                        <th>Raw_StdDev_Vio_450nm</th>
+                        <th>Call_Used_Vio</th>
+                        <th>Call_Values_Vio_450nm</th>
+                        <th>Cal_Selected_Vio_450nm</th>
+                        <th>Cal_Avg_Vio_450nm</th>
+                        <th>Cal_StdDev_Vio_450nm'</th>
+
+                        <th>Raw_Used_Blu</th>
+                        <th>Raw_Values_Blu_500nm</th>
+                        <th>Raw_Selected_Blu_500nm</th>
+                        <th>Raw_Avg_Blu_500nm</th>
+                        <th>Raw_StdDev_Blu_500nm</th>
+                        <th>Call_Used_Blu</th>
+                        <th>Call_Values_Blu_500nm</th>
+                        <th>Cal_Selected_Blu_500nm</th>
+                        <th>Cal_Avg_Blu_500nm</th>
+                        <th>Cal_StdDev_Blu_500nm'</th>
+
+                        <th>Raw_Used_Grn</th>
+                        <th>Raw_Values_Grn_550nm</th>
+                        <th>Raw_Selected_Grn_550nm</th>
+                        <th>Raw_Avg_Grn_550nm</th>
+                        <th>Raw_StdDev_Grn_550nm</th>
+                        <th>Call_Used_Grn</th>
+                        <th>Call_Values_Grn_550nm</th>
+                        <th>Cal_Selected_Grn_550nm</th>
+                        <th>Cal_Avg_Grn_550nm</th>
+                        <th>Cal_StdDev_Grn_550nm'</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <TableRows rowsData={rowsData} />
+                    </tbody>
+                  </table>
+                </div>
+              </Row>
+            </Card>
+          </Container>
+        </div>
+      </Fragment>
+    );
   }
 
   return(

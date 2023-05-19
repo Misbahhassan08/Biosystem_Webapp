@@ -1648,3 +1648,16 @@ padding-bottom: 0!important;
     display: none;
 }
   }
+.MuiOutlinedInput-notchedOutline {
+  border-width: 1px !important;
+  border-color: white !important;
+}
+
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #ffc107 !important;
+}
+
+.MuiFormLabel-root,
+.MuiInputBase-input {
+  color: white !important
+}
