@@ -50,16 +50,13 @@ import Systemstatsone from "./components/pages/maintenance/systemstatsone"
 import Test101 from './components/pages/test101/test101';
 import BuildReportV1 from "./components/pages/build-report-v1/reports";
 import BuildReportV2 from "./components/pages/build-report-v2/reports";
-import Mqttservice from "./services/mqtt-services";
-import MqttGetResponse from "./services/mqttGetResponse";
 
 function App() {
   return (
     <>
       <Router>
         <Header></Header>
-        <Mqttservice />
-        <MqttGetResponse />
+
         <div className="main-content-part">
           <Routes>
             <Route element={<SidebarLayout />}>

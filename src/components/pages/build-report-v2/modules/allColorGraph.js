@@ -24,7 +24,7 @@ function AllColorChart(props) {
   };
 
   function showFirstData() {
-    const graph = localStorage.getItem("mqttResponseData");
+    const graph = localStorage.getItem("mqttResponseDataAll");
 
     const parsedData = JSON.parse(graph);
     setPrevPayload(graph);
@@ -99,7 +99,7 @@ function AllColorChart(props) {
   useEffect(() => {
     const intervalId = setInterval(() => {
       // console.log(props, "this is props every time");
-      const txt = localStorage.getItem("mqttResponseData");
+      const txt = localStorage.getItem("mqttResponseDataAll");
       if (txt !== prevPayload) {
         setPrevPayload(txt);
         console.log("condition is true txt is not equal to rev paylad");
@@ -179,7 +179,7 @@ function AllColorChart(props) {
   }, [prevPayload]);
 
   return (
-    <div style={{ height: "50vh" }}>
+    <div style={{ height: "60vh" }}>
       <ResponsiveLine
         data={finalData}
         theme={{

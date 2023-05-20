@@ -56,15 +56,15 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit0}
-              id="x1-min"
+              id="x0-min"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
-                "& .MuiInputBase-root, .MuiInputBase-root:hover": {
+                "& .MuiFilledInput-root, .MuiFilledInput-root:hover": {
                   background: "#fff",
                 },
                 "& .css-1ff8729-MuiInputBase-root-MuiFilledInput-root": {
@@ -81,11 +81,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit0}
-              id="x1-max"
+              id="x0-max"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -110,11 +110,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit0}
-              id="y1-min"
+              id="y0-min"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -135,11 +135,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit0}
-              id="y1-max"
+              id="y0-max"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -190,11 +190,11 @@ function TextFields(props) {
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
-                "& .MuiInputBase-root, .MuiInputBase-root:hover": {
+                "& .MuiFilledInput-root, .MuiFilledInput-root:hover": {
                   background: "#fff",
                 },
                 "& .css-1ff8729-MuiInputBase-root-MuiFilledInput-root": {
@@ -215,7 +215,7 @@ function TextFields(props) {
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -244,7 +244,7 @@ function TextFields(props) {
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -269,7 +269,7 @@ function TextFields(props) {
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -316,15 +316,15 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit2}
-              id="x1-min"
+              id="x2-min"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
-                "& .MuiInputBase-root, .MuiInputBase-root:hover": {
+                "& .MuiFilledInput-root, .MuiFilledInput-root:hover": {
                   background: "#fff",
                 },
                 "& .css-1ff8729-MuiInputBase-root-MuiFilledInput-root": {
@@ -341,11 +341,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit2}
-              id="x1-max"
+              id="x2-max"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -370,11 +370,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit2}
-              id="y1-min"
+              id="y2-min"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -395,11 +395,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit2}
-              id="y1-max"
+              id="y2-max"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -446,15 +446,15 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit3}
-              id="x1-min"
+              id="x3-min"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
-                "& .MuiInputBase-root, .MuiInputBase-root:hover": {
+                "& .MuiFilledInput-root, .MuiFilledInput-root:hover": {
                   background: "#fff",
                 },
                 "& .css-1ff8729-MuiInputBase-root-MuiFilledInput-root": {
@@ -468,14 +468,15 @@ function TextFields(props) {
                 },
               }}
             />
+
             <TextField
               hiddenLabel
               disabled={edit3}
-              id="x1-max"
+              id="x3-max"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -500,11 +501,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit3}
-              id="y1-min"
+              id="y3-min"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -525,11 +526,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit3}
-              id="y1-max"
+              id="y3-max"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -576,15 +577,15 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit4}
-              id="x1-min"
+              id="x4-min"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
-                "& .MuiInputBase-root, .MuiInputBase-root:hover": {
+                "& .MuiFilledInput-root, .MuiFilledInput-root:hover": {
                   background: "#fff",
                 },
                 "& .css-1ff8729-MuiInputBase-root-MuiFilledInput-root": {
@@ -601,11 +602,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit4}
-              id="x1-max"
+              id="x4-max"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -630,11 +631,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit4}
-              id="y1-min"
+              id="y4-min"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
@@ -655,11 +656,11 @@ function TextFields(props) {
             <TextField
               hiddenLabel
               disabled={edit4}
-              id="y1-max"
+              id="y4-max"
               variant="filled"
               size="small"
               sx={{
-                width: 50,
+                width: "50%",
                 "& .MuiInputBase-input": {
                   height: 15,
                 },
