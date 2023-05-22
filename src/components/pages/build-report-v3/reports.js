@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import TextFields from "./modules/axis-text-fields";
 import DataTypeSelect from "./modules/dataType";
-import AllColorChart from "./modules/allColorGraph";
 import Mqtt from "../../../services/mqttService";
+import GraphData from "./modules/graphData";
 
 const mqtt = new Mqtt();
-function BuildReportV2() {
-  const [sensor, setSensor] = useState();
+function BuildReportV3() {
+  const [sensor, setSensor] = useState([]);
   const [dataType, setDataType] = useState();
   const [checkResponse, setCheckResponse] = useState(false);
-  const [prevPoint, setPrevPoint] = useState([]); //this is for graph
-  const requestTopicAll = "biogas/client/request/all/wavelength";
-
-  const updatePrevPoint = (newPoints) => {
-    setPrevPoint(newPoints);
-  };
+  const requestTopic = "biogas/client/request/select/multi/sensors";
 
   function getSensorsClicked(value) {
     setSensor(value);
+
+    console.log(sensor, "sensors clicked");
   }
 
   function getDataTypeClicked(value) {
@@ -34,29 +31,24 @@ function BuildReportV2() {
       const requestPayload = JSON.stringify(requestJson);
 
       console.log(requestPayload, "this is the data published");
-      mqtt.requestData(requestTopicAll, requestPayload);
+      mqtt.requestData(requestTopic, requestPayload);
     }
 
-    // mqtt.checkData = checkData;
-    setTimeout(() => {
-      checkData();
-    }, 7000);
+    mqtt.checkData = checkData;
 
     resetChart();
   }
 
   function checkData() {
-    if (localStorage.getItem("mqttResponseDataAll")) {
+    if (localStorage.getItem("mqttResponseDataSelected")) {
       setCheckResponse(true);
     } else {
-      // console.error("There is no data in response");
       console.error("Error");
     }
   }
 
   function resetChart() {
     setCheckResponse(false);
-    setPrevPoint([]);
   }
 
   useEffect(() => {
@@ -71,10 +63,10 @@ function BuildReportV2() {
             <Card className="text-center border-0 ">
               <Card.Body>
                 <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
-                  Attributes needed for the report
+                  Attributes needed for thfe report
                 </Card.Title>
                 <Card.Text className="mx-auto mb-4" style={{ width: "40rem" }}>
-                  Format Graph
+                  Get Multiple Sensor Data
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -162,17 +154,14 @@ function BuildReportV2() {
               </Col>
             </Row>
           </Container>
-          {checkResponse && (
-            <AllColorChart
-              prevPoint={prevPoint}
-              updatePrevPoint={updatePrevPoint}
-              dataType={dataType}
-            />
-          )}
+          {checkResponse &&
+            sensor.map((item, index) => (
+              <GraphData key={index} dataType={dataType} index={index} />
+            ))}
         </div>
       </div>
     </>
   );
 }
 
-export default BuildReportV2;
+export default memo(BuildReportV3);

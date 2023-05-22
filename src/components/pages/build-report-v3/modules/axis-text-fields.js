@@ -14,19 +14,23 @@ function TextFields(props) {
   const [sensorsClicked, setSensorsClicked] = useState([]);
 
   useEffect(() => {
-    if (edit0 == false) {
-      setSensorsClicked(0);
-    } else if (edit1 == false) {
-      setSensorsClicked(1);
-    } else if (edit2 == false) {
-      setSensorsClicked(2);
-    } else if (edit3 == false) {
-      setSensorsClicked(3);
-    } else if (edit4 == false) {
-      setSensorsClicked(4);
-    } else {
-      setSensorsClicked();
+    const clickedSensors = [];
+    if (!edit0) {
+      clickedSensors.push(0);
     }
+    if (!edit1) {
+      clickedSensors.push(1);
+    }
+    if (!edit2) {
+      clickedSensors.push(2);
+    }
+    if (!edit3) {
+      clickedSensors.push(3);
+    }
+    if (!edit4) {
+      clickedSensors.push(4);
+    }
+    setSensorsClicked(clickedSensors);
   }, [edit0, edit1, edit2, edit3, edit4]);
 
   useEffect(() => {

@@ -48,9 +48,7 @@ function BuildReportV1() {
       // client.end();
     }
 
-    setTimeout(() => {
-      checkData();
-    }, 10000);
+    mqtt.checkData = checkData;
 
     resetChart();
   }
