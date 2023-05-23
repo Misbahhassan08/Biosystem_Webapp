@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import TextFields from "./modules/axis-text-fields";
 import DataTypeSelect from "./modules/dataType";
@@ -10,12 +10,11 @@ function BuildReportV3() {
   const [sensor, setSensor] = useState([]);
   const [dataType, setDataType] = useState();
   const [checkResponse, setCheckResponse] = useState(false);
+  const [renderGraphData, setRenderGraphData] = useState();
   const requestTopic = "biogas/client/request/select/multi/sensors";
 
   function getSensorsClicked(value) {
     setSensor(value);
-
-    console.log(sensor, "sensors clicked");
   }
 
   function getDataTypeClicked(value) {
@@ -35,6 +34,7 @@ function BuildReportV3() {
     }
 
     mqtt.checkData = checkData;
+    setRenderGraphData(sensor);
 
     resetChart();
   }
@@ -62,6 +62,7 @@ function BuildReportV3() {
           <Container>
             <Card className="text-center border-0 ">
               <Card.Body>
+                {" "}
                 <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
                   Attributes needed for thfe report
                 </Card.Title>
@@ -142,20 +143,11 @@ function BuildReportV3() {
                 >
                   Build Graph
                 </Button>
-                {/* <Button
-                  type="submit"
-                  className="mx-2 menu-btn menu-btn1"
-                  onClick={() => {
-                    checkData();
-                  }}
-                >
-                  Build Graph
-                </Button> */}
               </Col>
             </Row>
           </Container>
           {checkResponse &&
-            sensor.map((item, index) => (
+            renderGraphData.map((item, index) => (
               <GraphData key={index} dataType={dataType} index={index} />
             ))}
         </div>
@@ -164,4 +156,4 @@ function BuildReportV3() {
   );
 }
 
-export default memo(BuildReportV3);
+export default BuildReportV3;

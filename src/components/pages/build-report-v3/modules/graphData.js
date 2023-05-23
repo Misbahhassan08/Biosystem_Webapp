@@ -1,10 +1,9 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect } from "react";
 import { ResponsiveLine } from "@nivo/line";
-import Chart from "./Chart";
 
 function GraphData(props) {
   const [finalData, setFinalData] = useState([]);
-  const [sensorNum, setSensorNum] = useState();
+  const [sensorNum, setSensorNum] = useState("");
 
   const isDashboard = false;
 
@@ -29,7 +28,9 @@ function GraphData(props) {
     const parsedData = JSON.parse(data);
     setSensorNum(parsedData);
 
-    const sampleLength = parsedData[0].Samples;
+    console.log(props.index, "this is the index");
+    // debugger;
+    const sampleLength = parsedData[props.index].Samples;
     setSensorNum(parsedData[props.index].Data_Point);
 
     const maindata = [
@@ -112,7 +113,6 @@ function GraphData(props) {
         },
       ];
 
-      // maindata.push(data);
       for (let i = 0; i <= 5; i++) {
         maindata[i]?.data.push(text[i]?.data[0]);
       }
@@ -130,11 +130,10 @@ function GraphData(props) {
   }, []);
 
   return (
-    // <div>
-    //   <Chart />
-    // </div>
-    <div style={{ height: "60vh", marginTop: 50 }}>
-      <h3>This is Sensor Number : {sensorNum} Graph</h3>
+    <div style={{ height: "60vh" }}>
+      <h3 style={{ marginTop: 90 }}>
+        This is Sensor Number : {sensorNum} Graph
+      </h3>
       <ResponsiveLine
         data={finalData}
         theme={{
@@ -186,17 +185,17 @@ function GraphData(props) {
         axisRight={null}
         axisBottom={{
           orient: "bottom",
-          tickSize: 0,
+          tickSize: 7,
           tickPadding: 5,
-          tickRotation: 0,
+          tickRotation: 40,
           legend: isDashboard ? undefined : "Time", // added
-          legendOffset: 36,
+          legendOffset: 46,
           legendPosition: "middle",
         }}
         axisLeft={{
           orient: "left",
           tickValues: 5, // added
-          tickSize: 3,
+          tickSize: 7,
           tickPadding: 5,
           tickRotation: 0,
           legend: isDashboard ? undefined : "Value", // added
@@ -242,4 +241,4 @@ function GraphData(props) {
   );
 }
 
-export default memo(GraphData);
+export default GraphData;
