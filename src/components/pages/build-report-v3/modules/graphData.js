@@ -6,6 +6,7 @@ function GraphData(props) {
   const [sensorNum, setSensorNum] = useState("");
 
   const isDashboard = false;
+  let dataType;
 
   const VioPoint = [props.dataType + "_Avg_Vio_450nm"];
   const BluPoint = [props.dataType + "_Avg_Blu_500nm"];
@@ -21,6 +22,12 @@ function GraphData(props) {
     Org: "orange",
     Red: "red",
   };
+
+  if (props.dataType == "Cal") {
+    dataType = "Calibrated";
+  } else if (props.dataType == "Raw") {
+    dataType = "Raw";
+  }
 
   function showGraphData() {
     const data = localStorage.getItem("mqttResponseDataSelected");
@@ -131,8 +138,8 @@ function GraphData(props) {
 
   return (
     <div style={{ height: "60vh" }}>
-      <h3 style={{ marginTop: 90 }}>
-        This is Sensor Number : {sensorNum} Graph
+      <h3 style={{ marginTop: 90, textAlign: "center" }}>
+        {dataType} data : P{sensorNum} Graph
       </h3>
       <ResponsiveLine
         data={finalData}
