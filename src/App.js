@@ -50,6 +50,7 @@ import Systemstatsone from "./components/pages/maintenance/systemstatsone"
 import Test101 from './components/pages/test101/test101';
 import BuildReportV1 from "./components/pages/build-report-v1/reports";
 import BuildReportV2 from "./components/pages/build-report-v2/reports";
+import BuildReportV3 from "./components/pages/build-report-v3/reports";
 
 function App() {
   return (
@@ -232,6 +233,11 @@ function App() {
               <Route
                 path={`${process.env.PUBLIC_URL}/build-report-v2`}
                 element={<BuildReportV2 />}
+              />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/build-report-v3`}
+                element={<BuildReportV3 />}
               />
 
               <Route path="*" element={<NoMatch />} />

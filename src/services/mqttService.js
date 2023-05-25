@@ -3,6 +3,7 @@ import mqtt from "precompiled-mqtt";
 
 export class Mqtt extends Component {
   responseTopicAll = "biogas/server/response/all/wavelength";
+  responseTopicSelected = "biogas/server/response/select/multi/sensors";
   responseTopicSingle = "biogas/server/response";
 
   clientId = "mqttjs_" + Math.random().toString(16).substr(2, 8);
@@ -29,19 +30,22 @@ export class Mqtt extends Component {
   }
 
   client = mqtt.connect(this.host, this.options);
-  constructor() {
-    super();
+  constructor(checkData) {
+    super(checkData);
 
     console.log("Connecting mqtt client");
     this.client.on("connect", () => {
       console.log("Connected");
       this.client.subscribe(this.responseTopicSingle, { qos: 0 });
       this.client.subscribe(this.responseTopicAll, { qos: 0 });
+      this.client.subscribe(this.responseTopicSelected, { qos: 0 });
     });
 
     this.client.on("reconnect", () => {
       this.client.subscribe(this.responseTopicSingle, { qos: 0 });
       this.client.subscribe(this.responseTopicAll, { qos: 0 });
+      this.client.subscribe(this.responseTopicSelected, { qos: 0 });
+
       console.log("Reconnecting...");
     });
 
@@ -50,6 +54,7 @@ export class Mqtt extends Component {
         try {
           if (message) {
             localStorage.setItem("mqttResponseDataSingle", message);
+            this.checkData();
           }
         } catch (err) {
           console.error("Error getting response:", err);
@@ -58,6 +63,17 @@ export class Mqtt extends Component {
         try {
           if (message) {
             localStorage.setItem("mqttResponseDataAll", message);
+            // this.checkData();
+          }
+        } catch (err) {
+          console.error("Error getting response:", err);
+        }
+      }
+      if (topic === this.responseTopicSelected) {
+        try {
+          if (message) {
+            localStorage.setItem("mqttResponseDataSelected", message);
+            this.checkData();
           }
         } catch (err) {
           console.error("Error getting response:", err);
