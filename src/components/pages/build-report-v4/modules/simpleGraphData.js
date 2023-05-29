@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ResponsiveLine } from "@nivo/line";
 
-function GraphData(props) {
+function SimpleGraphData(props) {
   const [finalData, setFinalData] = useState([]);
   const [sensorNum, setSensorNum] = useState("");
 
@@ -27,12 +27,12 @@ function GraphData(props) {
     dataType = "Calibrated";
   } else if (props.dataType == "Raw") {
     dataType = "Raw";
-  } else if (props.dataType == "Nor") {
+  } else if (props.dataType == "Nrm") {
     dataType = "Normalized";
   }
 
   function showGraphData() {
-    const data = localStorage.getItem("mqttResponseDataSelected");
+    const data = localStorage.getItem("mqttResponseDataNormalized");
 
     const parsedData = JSON.parse(data);
     setSensorNum(parsedData);
@@ -250,4 +250,4 @@ function GraphData(props) {
   );
 }
 
-export default GraphData;
+export default SimpleGraphData;

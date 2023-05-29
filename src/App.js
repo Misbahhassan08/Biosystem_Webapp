@@ -51,6 +51,7 @@ import Test101 from './components/pages/test101/test101';
 import BuildReportV1 from "./components/pages/build-report-v1/reports";
 import BuildReportV2 from "./components/pages/build-report-v2/reports";
 import BuildReportV3 from "./components/pages/build-report-v3/reports";
+import BuildReportV4 from "./components/pages/build-report-v4/reports";
 
 function App() {
   return (
@@ -238,6 +239,11 @@ function App() {
               <Route
                 path={`${process.env.PUBLIC_URL}/build-report-v3`}
                 element={<BuildReportV3 />}
+              />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/build-report-v4`}
+                element={<BuildReportV4 />}
               />
 
               <Route path="*" element={<NoMatch />} />

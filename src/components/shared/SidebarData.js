@@ -62,6 +62,12 @@ const SidebarData = [
     icon: Media.Images.sixthicon,
     cName: "nav-text",
   },
+  {
+    title: "Build Report 4",
+    path: "/build-report-v4",
+    icon: Media.Images.sixthicon,
+    cName: "nav-text",
+  },
 ];
 
 

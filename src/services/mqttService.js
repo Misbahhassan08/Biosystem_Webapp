@@ -5,6 +5,7 @@ export class Mqtt extends Component {
   responseTopicAll = "biogas/server/response/all/wavelength";
   responseTopicSelected = "biogas/server/response/select/multi/sensors";
   responseTopicSingle = "biogas/server/response";
+  responseTopicNormalized = "biogas/server/response/normlized";
 
   clientId = "mqttjs_" + Math.random().toString(16).substr(2, 8);
 
@@ -39,12 +40,14 @@ export class Mqtt extends Component {
       this.client.subscribe(this.responseTopicSingle, { qos: 0 });
       this.client.subscribe(this.responseTopicAll, { qos: 0 });
       this.client.subscribe(this.responseTopicSelected, { qos: 0 });
+      this.client.subscribe(this.responseTopicNormalized, { qos: 0 });
     });
 
     this.client.on("reconnect", () => {
       this.client.subscribe(this.responseTopicSingle, { qos: 0 });
       this.client.subscribe(this.responseTopicAll, { qos: 0 });
       this.client.subscribe(this.responseTopicSelected, { qos: 0 });
+      this.client.subscribe(this.responseTopicNormalized, { qos: 0 });
 
       console.log("Reconnecting...");
     });
@@ -81,29 +84,12 @@ export class Mqtt extends Component {
       } else {
         console.error("Some Error Occured While Getting The Message");
       }
-    });
-  }
 
-  requestData(topic, message) {
-    this.client.publish(topic, message, { qos: 0 });
-    console.log(topic, "Topic");
-    console.log(message, "Data published");
-  }
-
-  responseData() {
-    this.client.on("message", (topic, message, packet) => {
-      if (topic === this.responseTopicSingle) {
+      if (topic === this.responseTopicNormalized) {
         try {
           if (message) {
-            localStorage.setItem("mqttResponseDataSingle", message);
-          }
-        } catch (err) {
-          console.error("Error getting response:", err);
-        }
-      } else if (topic === this.responseTopicAll) {
-        try {
-          if (message) {
-            localStorage.setItem("mqttResponseDataAll", message);
+            localStorage.setItem("mqttResponseDataNormalized", message);
+            this.checkData();
           }
         } catch (err) {
           console.error("Error getting response:", err);
@@ -113,6 +99,36 @@ export class Mqtt extends Component {
       }
     });
   }
+
+  requestData(topic, message) {
+    this.client.publish(topic, message, { qos: 0 });
+    console.log(topic, "Topic");
+    console.log(message, "Data published");
+  }
+
+  // responseData() {
+  //   this.client.on("message", (topic, message, packet) => {
+  //     if (topic === this.responseTopicSingle) {
+  //       try {
+  //         if (message) {
+  //           localStorage.setItem("mqttResponseDataSingle", message);
+  //         }
+  //       } catch (err) {
+  //         console.error("Error getting response:", err);
+  //       }
+  //     } else if (topic === this.responseTopicAll) {
+  //       try {
+  //         if (message) {
+  //           localStorage.setItem("mqttResponseDataAll", message);
+  //         }
+  //       } catch (err) {
+  //         console.error("Error getting response:", err);
+  //       }
+  //     } else {
+  //       console.error("Some Error Occured While Getting The Message");
+  //     }
+  //   });
+  // }
 
   render() {
     return <div></div>;

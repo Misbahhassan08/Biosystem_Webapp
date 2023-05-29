@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import { ResponsiveLine } from "@nivo/line";
 
-function GraphData(props) {
+function SensorGraphData(props) {
   const [finalData, setFinalData] = useState([]);
   const [sensorNum, setSensorNum] = useState("");
+  const [isDataValid, setIsDataValid] = useState(false);
 
   const isDashboard = false;
-  let dataType;
+  let graphs;
 
-  const VioPoint = [props.dataType + "_Avg_Vio_450nm"];
-  const BluPoint = [props.dataType + "_Avg_Blu_500nm"];
-  const GrnPoint = [props.dataType + "_Avg_Grn_550nm"];
-  const YelPoint = [props.dataType + "_Avg_Yel_570nm"];
-  const OrgPoint = [props.dataType + "_Avg_Org_600nm"];
-  const RedPoint = [props.dataType + "_Avg_Red_650nm"];
+  const VioPoint = [props.graphs + "_Avg_Vio_450nm"];
+  const BluPoint = [props.graphs + "_Avg_Blu_500nm"];
+  const GrnPoint = [props.graphs + "_Avg_Grn_550nm"];
+  const YelPoint = [props.graphs + "_Avg_Yel_570nm"];
+  const OrgPoint = [props.graphs + "_Avg_Org_600nm"];
+  const RedPoint = [props.graphs + "_Avg_Red_650nm"];
   const colorsNivo = {
     Vio: "violet",
     Blu: "blue",
@@ -23,25 +24,34 @@ function GraphData(props) {
     Red: "red",
   };
 
-  if (props.dataType == "Cal") {
-    dataType = "Calibrated";
-  } else if (props.dataType == "Raw") {
-    dataType = "Raw";
-  } else if (props.dataType == "Nor") {
-    dataType = "Normalized";
+  if (props.graphs == "Cal") {
+    graphs = "Calibrated";
+  } else if (props.graphs == "Raw") {
+    graphs = "Raw";
+  } else if (props.graphs == "Nrm") {
+    graphs = "Normalized";
   }
 
   function showGraphData() {
-    const data = localStorage.getItem("mqttResponseDataSelected");
+    const data = localStorage.getItem("mqttResponseDataNormalized");
 
     const parsedData = JSON.parse(data);
-    setSensorNum(parsedData);
+    // setSensorNum(parsedData);
 
     console.log(props.index, "this is the index");
-    // debugger;
+    console.log(props.graphs, "this is the grahps");
+
+    // get the samples of every data point
     const sampleLength = parsedData[props.index].Samples;
+    // const sampleLength = parsedData[props.index];
+
+    //check if data is correct
+    if (sampleLength) {
+      setIsDataValid(true);
+    }
     setSensorNum(parsedData[props.index].Data_Point);
 
+    //make the data object
     const maindata = [
       {
         id: "Vio",
@@ -126,9 +136,9 @@ function GraphData(props) {
         maindata[i]?.data.push(text[i]?.data[0]);
       }
 
-      console.log("====================================");
-      console.log(maindata, "this is updatedPoints at", i);
-      console.log("====================================");
+      //   console.log("====================================");
+      //   console.log(maindata, "this is updatedPoints at", i);
+      //   console.log("====================================");
     }
 
     setFinalData(maindata);
@@ -141,7 +151,7 @@ function GraphData(props) {
   return (
     <div style={{ height: "60vh" }}>
       <h3 style={{ marginTop: 90, textAlign: "center" }}>
-        {dataType} data : P{sensorNum} Graph
+        {graphs} data : Normalized P{sensorNum}
       </h3>
       <ResponsiveLine
         data={finalData}
@@ -250,4 +260,4 @@ function GraphData(props) {
   );
 }
 
-export default GraphData;
+export default SensorGraphData;
