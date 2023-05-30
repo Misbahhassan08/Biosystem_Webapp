@@ -1661,3 +1661,15 @@ padding-bottom: 0!important;
 .MuiInputBase-input {
   color: white !important
 }
+
+.report-image{
+  border-radius: 20px;
+  width: 60%;
+}
+
+/* Data Grid Css */
+
+.MuiTablePagination-select{
+  color:grey !important;
+}
+

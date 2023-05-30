@@ -52,6 +52,9 @@ import BuildReportV1 from "./components/pages/build-report-v1/reports";
 import BuildReportV2 from "./components/pages/build-report-v2/reports";
 import BuildReportV3 from "./components/pages/build-report-v3/reports";
 import BuildReportV4 from "./components/pages/build-report-v4/reports";
+import BuildReport from "./components/pages/build-report-v5";
+import BuildReportV5Grid from "./components/pages/build-report-v5/grid/reports";
+import BuildReportV5Graph from "./components/pages/build-report-v5/graph/reports";
 
 function App() {
   return (
@@ -244,6 +247,21 @@ function App() {
               <Route
                 path={`${process.env.PUBLIC_URL}/build-report-v4`}
                 element={<BuildReportV4 />}
+              />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/build-report-v5`}
+                element={<BuildReport />}
+              />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/build-report-v5/grid`}
+                element={<BuildReportV5Grid />}
+              />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/build-report-v5/graph`}
+                element={<BuildReportV5Graph />}
               />
 
               <Route path="*" element={<NoMatch />} />
