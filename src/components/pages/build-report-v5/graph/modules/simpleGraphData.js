@@ -1,10 +1,12 @@
-import { ResponsiveLine } from "@nivo/line";
 import { useState, useEffect } from "react";
+import { ResponsiveLine } from "@nivo/line";
 
-function AllColorChart(props) {
+function SimpleGraphData(props) {
   const [finalData, setFinalData] = useState([]);
-  const [prevPayload, setPrevPayload] = useState("");
+  const [sensorNum, setSensorNum] = useState("");
+
   const isDashboard = false;
+  let dataType;
 
   const VioPoint = [props.dataType + "_Avg_Vio_450nm"];
   const BluPoint = [props.dataType + "_Avg_Blu_500nm"];
@@ -21,157 +23,126 @@ function AllColorChart(props) {
     Red: "red",
   };
 
-  function showFirstData() {
-    const graph = localStorage.getItem("mqttResponseDataAll");
+  if (props.dataType == "Cal") {
+    dataType = "Calibrated";
+  } else if (props.dataType == "Raw") {
+    dataType = "Raw";
+  } else if (props.dataType == "Nrm") {
+    dataType = "Normalized";
+  }
 
-    const parsedData = JSON.parse(graph);
-    setPrevPayload(graph);
-    const data = [
+  function showGraphData() {
+    const data = localStorage.getItem("mqttResponseDataNormalized");
+
+    const parsedData = JSON.parse(data);
+    setSensorNum(parsedData);
+
+    console.log(props.index, "this is the index");
+    // debugger;
+    const sampleLength = parsedData[props.index].Samples;
+    setSensorNum(parsedData[props.index].Data_Point);
+
+    const maindata = [
       {
         id: "Vio",
-        data: [
-          {
-            x: parsedData[0]?.Time_Stamp,
-            y: parsedData[0]?.[VioPoint],
-          },
-        ],
+        data: [],
       },
       {
         id: "Blu",
-        data: [
-          {
-            x: parsedData[0]?.Time_Stamp,
-            y: parsedData[0]?.[BluPoint],
-          },
-        ],
+        data: [],
       },
       {
         id: "Grn",
-        data: [
-          {
-            x: parsedData[0]?.Time_Stamp,
-            y: parsedData[0]?.[GrnPoint],
-          },
-        ],
+        data: [],
       },
       {
         id: "Yel",
-        data: [
-          {
-            x: parsedData[0]?.Time_Stamp,
-            y: parsedData[0]?.[YelPoint],
-          },
-        ],
+        data: [],
       },
       {
         id: "Org",
-        data: [
-          {
-            x: parsedData[0]?.Time_Stamp,
-            y: parsedData[0]?.[OrgPoint],
-          },
-        ],
+        data: [],
       },
       {
         id: "Red",
-        data: [
-          {
-            x: parsedData[0]?.Time_Stamp,
-            y: parsedData[0]?.[RedPoint],
-          },
-        ],
+        data: [],
       },
     ];
 
-    setFinalData(data);
-    props.updatePrevPoint(data);
+    for (let i = 0; i < sampleLength.length; i++) {
+      console.log(props.index);
+      const text = [
+        {
+          data: [
+            {
+              x: parsedData[props.index].Samples[i].Time_Stamp,
+              y: parsedData[props.index].Samples[i]?.[VioPoint],
+            },
+          ],
+        },
+        {
+          data: [
+            {
+              x: parsedData[props.index].Samples[i].Time_Stamp,
+              y: parsedData[props.index].Samples[i]?.[BluPoint],
+            },
+          ],
+        },
+        {
+          data: [
+            {
+              x: parsedData[props.index].Samples[i].Time_Stamp,
+              y: parsedData[props.index].Samples[i]?.[GrnPoint],
+            },
+          ],
+        },
+        {
+          data: [
+            {
+              x: parsedData[props.index].Samples[i].Time_Stamp,
+              y: parsedData[props.index].Samples[i]?.[YelPoint],
+            },
+          ],
+        },
+        {
+          data: [
+            {
+              x: parsedData[props.index].Samples[i].Time_Stamp,
+              y: parsedData[props.index].Samples[i]?.[OrgPoint],
+            },
+          ],
+        },
+        {
+          data: [
+            {
+              x: parsedData[props.index].Samples[i].Time_Stamp,
+              y: parsedData[props.index].Samples[i]?.[RedPoint],
+            },
+          ],
+        },
+      ];
+
+      for (let i = 0; i <= 5; i++) {
+        maindata[i]?.data.push(text[i]?.data[0]);
+      }
+
+      console.log("====================================");
+      console.log(maindata, "this is updatedPoints at", i);
+      console.log("====================================");
+    }
+
+    setFinalData(maindata);
   }
 
   useEffect(() => {
-    showFirstData();
+    showGraphData();
   }, []);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const txt = localStorage.getItem("mqttResponseDataAll");
-      if (txt !== prevPayload) {
-        setPrevPayload(txt);
-        const parsedData = JSON.parse(txt);
-
-        const maindata = [
-          {
-            id: "Vio",
-            data: [
-              {
-                x: parsedData[0]?.Time_Stamp,
-                y: parsedData[0]?.[VioPoint],
-              },
-            ],
-          },
-          {
-            id: "Blu",
-            data: [
-              {
-                x: parsedData[0]?.Time_Stamp,
-                y: parsedData[0]?.[BluPoint],
-              },
-            ],
-          },
-          {
-            id: "Grn",
-            data: [
-              {
-                x: parsedData[0]?.Time_Stamp,
-                y: parsedData[0]?.[GrnPoint],
-              },
-            ],
-          },
-          {
-            id: "Yel",
-            data: [
-              {
-                x: parsedData[0]?.Time_Stamp,
-                y: parsedData[0]?.[YelPoint],
-              },
-            ],
-          },
-          {
-            id: "Org",
-            data: [
-              {
-                x: parsedData[0]?.Time_Stamp,
-                y: parsedData[0]?.[OrgPoint],
-              },
-            ],
-          },
-          {
-            id: "Red",
-            data: [
-              {
-                x: parsedData[0]?.Time_Stamp,
-                y: parsedData[0]?.[RedPoint],
-              },
-            ],
-          },
-        ];
-
-        const updatedPoints = [...props.prevPoint];
-
-        for (let i = 0; i <= 5; i++) {
-          updatedPoints[i]?.data.push(maindata[i]?.data[0]);
-        }
-
-        setFinalData(updatedPoints);
-        props.updatePrevPoint(updatedPoints);
-        console.log(finalData, "this is the final data");
-      }
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [prevPayload]);
 
   return (
     <div style={{ height: "60vh" }}>
+      <h3 style={{ marginTop: 90, textAlign: "center" }}>
+        {dataType} data : P{sensorNum} Graph
+      </h3>
       <ResponsiveLine
         data={finalData}
         theme={{
@@ -223,17 +194,17 @@ function AllColorChart(props) {
         axisRight={null}
         axisBottom={{
           orient: "bottom",
-          tickSize: 0,
+          tickSize: 7,
           tickPadding: 5,
-          tickRotation: 0,
+          tickRotation: 40,
           legend: isDashboard ? undefined : "Time", // added
-          legendOffset: 36,
+          legendOffset: 46,
           legendPosition: "middle",
         }}
         axisLeft={{
           orient: "left",
           tickValues: 5, // added
-          tickSize: 3,
+          tickSize: 7,
           tickPadding: 5,
           tickRotation: 0,
           legend: isDashboard ? undefined : "Value", // added
@@ -279,4 +250,4 @@ function AllColorChart(props) {
   );
 }
 
-export default AllColorChart;
+export default SimpleGraphData;

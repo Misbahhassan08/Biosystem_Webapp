@@ -1,35 +1,8 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useState, useEffect } from "react";
 
-function SingleColorChart(props) {
-  const [finalData, setFinalData] = useState([]);
-  const [prevPayload, setPrevPayload] = useState("");
+function Chart(props) {
   const isDashboard = false;
-
-  let nmValue;
-  switch (props.wavelength) {
-    case "Vio":
-      nmValue = "450nm";
-      break;
-    case "Blu":
-      nmValue = "500nm";
-      break;
-    case "Grn":
-      nmValue = "550nm";
-      break;
-    case "Yel":
-      nmValue = "570nm";
-      break;
-    case "Org":
-      nmValue = "600nm";
-      break;
-    case "Red":
-      nmValue = "650nm";
-      break;
-  }
-
-  const dataReq = [props.dataType + "_Avg_" + props.wavelength + "_" + nmValue];
-
   const colorsNivo = {
     Vio: "violet",
     Blu: "blue",
@@ -38,69 +11,11 @@ function SingleColorChart(props) {
     Org: "orange",
     Red: "red",
   };
-
-  function showFirstData() {
-    const graph = localStorage.getItem("mqttResponseDataSingle");
-
-    const parsedData = JSON.parse(graph);
-    setPrevPayload(graph);
-    const data = [
-      {
-        id: parsedData[1]?.WaveLength,
-        data: [
-          {
-            x: parsedData[0]?.Time_Stamp,
-            y: parsedData[0]?.[dataReq],
-          },
-        ],
-      },
-    ];
-
-    setFinalData(data);
-    props.updatePrevPoint(data);
-  }
-
-  useEffect(() => {
-    showFirstData();
-  }, []);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const txt = localStorage.getItem("mqttResponseDataSingle");
-      if (txt !== prevPayload) {
-        setPrevPayload(txt);
-        const parsedData = JSON.parse(txt);
-
-        const maindata = [
-          {
-            id: parsedData[1]?.WaveLength,
-            data: [
-              {
-                x: parsedData[0]?.Time_Stamp,
-                y: parsedData[0]?.[dataReq],
-              },
-            ],
-          },
-        ];
-
-        const updatedPoints = [...props.prevPoint];
-
-        for (let i = 0; i <= 5; i++) {
-          updatedPoints[i]?.data.push(maindata[i]?.data[0]);
-        }
-
-        setFinalData(updatedPoints);
-        props.updatePrevPoint(updatedPoints);
-      }
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [prevPayload]);
-
   return (
-    <div style={{ height: "60vh" }}>
+    <div style={{ height: "60vh", marginTop: 50 }}>
+      <h3>This is Sensor Number : Graph</h3>
       <ResponsiveLine
-        data={finalData}
+        data={[]}
         theme={{
           axis: {
             domain: {
@@ -206,4 +121,4 @@ function SingleColorChart(props) {
   );
 }
 
-export default SingleColorChart;
+export default Chart;
