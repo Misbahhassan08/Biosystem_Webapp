@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col, Button, Table } from "react-bootstrap";
+import axios from "axios";
 
 import Mqtt from "../../../../services/mqttService";
 import DataTable from "./modules/grid";
@@ -7,11 +8,13 @@ import DataTable from "./modules/grid";
 const mqtt = new Mqtt();
 function BuildReportV5Graph() {
   const [checkResponse, setCheckResponse] = useState(false);
+  const [csvdata, setCsvData] = useState();
+  const [csvError, setCsvError] = useState();
 
-  const requestTopic = "biogas/client/request/normlized";
+  const requestTopic = "biogas/client/request/csv";
 
   function checkData() {
-    if (localStorage.getItem("mqttResponseDataNormalized")) {
+    if (localStorage.getItem("mqttResponseDataCSV")) {
       setCheckResponse(true);
     } else {
       console.error("Error");
@@ -23,8 +26,14 @@ function BuildReportV5Graph() {
     setCheckResponse(false);
   }
 
+  const getCVSData = () => {
+    mqtt.requestData(requestTopic, "send");
+  };
+
   useEffect(() => {
     document.title = "Build Report";
+
+    getCVSData();
   }, []);
 
   return (

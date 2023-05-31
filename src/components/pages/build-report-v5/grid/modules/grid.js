@@ -5,57 +5,124 @@ const DataTable = () => {
   const [rows, setRows] = useState([]);
   const [prevPayload, setPrevPayload] = useState("");
 
-  //   useEffect(() => {
-  //     const txt = localStorage.getItem("mqttResponseDataNormalized");
+  useEffect(() => {
+    const txt = localStorage.getItem("mqttResponseDataNormalized");
 
-  //     const parsedData = JSON.parse(txt);
-  //     console.log("this is parsed Data", parsedData);
-  //     setPrevPayload(txt);
+    const parsedData = JSON.parse(txt);
+    console.log("this is parsed Data", parsedData);
+    setPrevPayload(txt);
 
-  //     const newRow = Object.keys(parsedData.Data_Point).map((key) => ({
-  //       Data_Point: parsedData.Data_Point[key],
-  //       Sample_Num: parsedData.Sample_Num[key],
-  //       Time_Stamp: parsedData.Time_Stamp[key],
-  //       Time_Per: parsedData.Time_Per[key],
-  //       Temp: parsedData.Temp[key],
-  //       Gain: parsedData.Gain[key],
-  //       Int_Time: parsedData.Int_Time[key],
-  //     }));
+    const newRow = Object.keys(parsedData.Data_Point).map((key) => ({
+      Data_Point: parsedData.Data_Point[key],
+      Sample_Num: parsedData.Sample_Num[key],
+      Time_Stamp: parsedData.Time_Stamp[key],
+      Time_Per: parsedData.Time_Per[key],
+      Temp: parsedData.Temp[key],
+      Allowable_Dev: parsedData.Allowable_Dev[key],
+      Gain: parsedData.Gain[key],
+      Int_Time: parsedData.Int_Time[key],
 
-  //     const row = newRow;
+      Raw_Used_Vio: parsedData.Raw_Used_Vio[key],
+      Raw_Values_Vio_450nm: parsedData.Raw_Values_Vio_450nm[key],
+      Raw_Selected_Vio_450nm: parsedData.Raw_Selected_Vio_450nm[key],
+      Raw_Avg_Vio_450nm: parsedData.Raw_Avg_Vio_450nm[key],
+      Raw_StdDev_Vio: parsedData.Raw_StdDev_Vio[key],
+      Cal_Used_Vio: parsedData.Cal_Used_Vio[key],
+      Cal_Values_Vio_450nm: parsedData.Cal_Values_Vio_450nm[key],
+      Cal_Selected_Vio_450nm: parsedData.Cal_Selected_Vio_450nm[key],
+      Cal_Avg_Vio_450nm: parsedData.Cal_Avg_Vio_450nm[key],
+      Cal_StdDev_Vio: parsedData.Cal_StdDev_Vio[key],
 
-  //     setRows(row);
-  //   }, []);
+      Raw_Used_Blu: parsedData.Raw_Used_Blu[key],
+      Raw_Values_Blu_500nm: parsedData.Raw_Values_Blu_500nm[key],
+      Raw_Selected_Blu_500nm: parsedData.Raw_Selected_Blu_500nm[key],
+      Raw_Avg_Blu_500nm: parsedData.Raw_Avg_Blu_500nm[key],
+      Raw_StdDev_Blu: parsedData.Raw_StdDev_Blu[key],
+      Cal_Used_Blu: parsedData.Cal_Used_Blu[key],
+      Cal_Values_Blu_500nm: parsedData.Cal_Values_Blu_500nm[key],
+      Cal_Selected_Blu_500nm: parsedData.Cal_Selected_Blu_500nm[key],
+      Cal_Avg_Blu_500nm: parsedData.Cal_Avg_Blu_500nm[key],
+      Cal_StdDev_Blu: parsedData.Cal_StdDev_Blu[key],
 
-  //   useEffect(() => {
-  //     const intervalId = setInterval(() => {
-  //       const txt = localStorage.getItem("mqttResponseDataNormalized");
-  //       if (txt !== prevPayload) {
-  //         const parsedData = JSON.parse(txt);
-  //         console.log("Table's Parsed Data", parsedData);
-  //         setPrevPayload(txt);
+      Raw_Used_Grn: parsedData.Raw_Used_Grn[key],
+      Raw_Values_Grn_550nm: parsedData.Raw_Values_Grn_550nm[key],
+      Raw_Selected_Grn_550nm: parsedData.Raw_Selected_Grn_550nm[key],
+      Raw_Avg_Grn_550nm: parsedData.Raw_Avg_Grn_550nm[key],
+      Raw_StdDev_Grn: parsedData.Raw_StdDev_Grn[key],
+      Cal_Used_Grn: parsedData.Cal_Used_Grn[key],
+      Cal_Values_Grn_550nm: parsedData.Cal_Values_Grn_550nm[key],
+      Cal_Selected_Grn_550nm: parsedData.Cal_Selected_Grn_550nm[key],
+      Cal_Avg_Grn_550nm: parsedData.Cal_Avg_Grn_550nm[key],
+      Cal_StdDev_Grn: parsedData.Cal_StdDev_Grn[key],
 
-  //         const newRow = Object.keys(parsedData.Data_Point).map((key) => ({
-  //           Data_Point: parsedData.Data_Point[key],
-  //           Sample_Num: parsedData.Sample_Num[key],
-  //           Time_Stamp: parsedData.Time_Stamp[key],
-  //           Time_Per: parsedData.Time_Per[key],
-  //           Temp: parsedData.Temp[key],
-  //           Gain: parsedData.Gain[key],
-  //           Int_Time: parsedData.Int_Time[key],
-  //         }));
+      Raw_Used_Yel: parsedData.Raw_Used_Yel[key],
+      Raw_Values_Yel_570nm: parsedData.Raw_Values_Yel_570nm[key],
+      Raw_Selected_Yel_570nm: parsedData.Raw_Selected_Yel_570nm[key],
+      Raw_Avg_Yel_570nm: parsedData.Raw_Avg_Yel_570nm[key],
+      Raw_StdDev_Yel: parsedData.Raw_StdDev_Yel[key],
+      Cal_Used_Yel: parsedData.Cal_Used_Yel[key],
+      Cal_Values_Yel_570nm: parsedData.Cal_Values_Yel_570nm[key],
+      Cal_Selected_Yel_570nm: parsedData.Cal_Selected_Yel_570nm[key],
+      Cal_Avg_Yel_570nm: parsedData.Cal_Avg_Yel_570nm[key],
+      Cal_StdDev_Yel: parsedData.Cal_StdDev_Yel[key],
 
-  //         const row = [];
+      Raw_Used_Org: parsedData.Raw_Used_Org[key],
+      Raw_Values_Org_600nm: parsedData.Raw_Values_Org_600nm[key],
+      Raw_Selected_Org_600nm: parsedData.Raw_Selected_Org_600nm[key],
+      Raw_Avg_Org_600nm: parsedData.Raw_Avg_Org_600nm[key],
+      Raw_StdDev_Org: parsedData.Raw_StdDev_Org[key],
+      Cal_Used_Org: parsedData.Cal_Used_Org[key],
+      Cal_Values_Org_600nm: parsedData.Cal_Values_Org_600nm[key],
+      Cal_Selected_Org_600nm: parsedData.Cal_Selected_Org_600nm[key],
+      Cal_Avg_Org_600nm: parsedData.Cal_Avg_Org_600nm[key],
+      Cal_StdDev_Org: parsedData.Cal_StdDev_Org[key],
 
-  //         row.push(...rows, newRow[0]);
-  //         console.log("this is the final output", row);
+      Raw_Used_Red: parsedData.Raw_Used_Red[key],
+      Raw_Values_Red_650nm: parsedData.Raw_Values_Red_650nm[key],
+      Raw_Selected_Red_650nm: parsedData.Raw_Selected_Red_650nm[key],
+      Raw_Avg_Red_650nm: parsedData.Raw_Avg_Red_650nm[key],
+      Raw_StdDev_Red: parsedData.Raw_StdDev_Red[key],
+      Cal_Used_Red: parsedData.Cal_Used_Red[key],
+      Cal_Values_Red_650nm: parsedData.Cal_Values_Red_650nm[key],
+      Cal_Selected_Red_650nm: parsedData.Cal_Selected_Red_650nm[key],
+      Cal_Avg_Red_650nm: parsedData.Cal_Avg_Red_650nm[key],
+      Cal_StdDev_Red: parsedData.Cal_StdDev_Red[key],
+    }));
 
-  //         setRows(row);
-  //       }
-  //     }, 1000);
+    const row = newRow;
 
-  //     return () => clearInterval(intervalId);
-  //   }, [prevPayload, rows]);
+    setRows(row);
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const txt = localStorage.getItem("mqttResponseDataNormalized");
+      if (txt !== prevPayload) {
+        const parsedData = JSON.parse(txt);
+        console.log("Table's Parsed Data", parsedData);
+        setPrevPayload(txt);
+
+        const newRow = Object.keys(parsedData.Data_Point).map((key) => ({
+          Data_Point: parsedData.Data_Point[key],
+          Sample_Num: parsedData.Sample_Num[key],
+          Time_Stamp: parsedData.Time_Stamp[key],
+          Time_Per: parsedData.Time_Per[key],
+          Temp: parsedData.Temp[key],
+          Gain: parsedData.Gain[key],
+          Int_Time: parsedData.Int_Time[key],
+        }));
+
+        const row = [];
+
+        row.push(...rows, newRow[0]);
+        console.log("this is the final output", row);
+
+        setRows(row);
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [prevPayload, rows]);
 
   const columns = [
     { field: "CsvfileID", headerName: "CSV File Id" },
