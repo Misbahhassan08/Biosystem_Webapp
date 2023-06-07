@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import dayjs from "dayjs";
 import { ResponsiveLine } from "@nivo/line";
 
 function SimpleGraphData(props) {
@@ -23,11 +24,11 @@ function SimpleGraphData(props) {
     Red: "red",
   };
 
-  if (props.dataType == "Cal") {
+  if (props.dataType === "Cal") {
     dataType = "Calibrated";
-  } else if (props.dataType == "Raw") {
+  } else if (props.dataType === "Raw") {
     dataType = "Raw";
-  } else if (props.dataType == "Nrm") {
+  } else if (props.dataType ==="Nrm") {
     dataType = "Normalized";
   }
 
@@ -41,6 +42,8 @@ function SimpleGraphData(props) {
     // debugger;
     const sampleLength = parsedData[props.index].Samples;
     setSensorNum(parsedData[props.index].Data_Point);
+
+    let filteredData = [];
 
     const maindata = [
       {
@@ -70,68 +73,83 @@ function SimpleGraphData(props) {
     ];
 
     for (let i = 0; i < sampleLength.length; i++) {
-      console.log(props.index);
-      const text = [
-        {
-          data: [
-            {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
-              y: parsedData[props.index].Samples[i]?.[VioPoint],
-            },
-          ],
-        },
-        {
-          data: [
-            {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
-              y: parsedData[props.index].Samples[i]?.[BluPoint],
-            },
-          ],
-        },
-        {
-          data: [
-            {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
-              y: parsedData[props.index].Samples[i]?.[GrnPoint],
-            },
-          ],
-        },
-        {
-          data: [
-            {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
-              y: parsedData[props.index].Samples[i]?.[YelPoint],
-            },
-          ],
-        },
-        {
-          data: [
-            {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
-              y: parsedData[props.index].Samples[i]?.[OrgPoint],
-            },
-          ],
-        },
-        {
-          data: [
-            {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
-              y: parsedData[props.index].Samples[i]?.[RedPoint],
-            },
-          ],
-        },
-      ];
+      const dataDateTime = dayjs(parsedData[props.index].Samples[i].Time_Stamp);
+      if (
+        dataDateTime >= props.xMinValue[props.index] &&
+        dataDateTime <= props.xMaxValue[props.index]
+      ) {
+        const text = [
+          {
+            data: [
+              {
+                x: parsedData[props.index].Samples[i].Time_Stamp,
+                y: parsedData[props.index].Samples[i]?.[VioPoint],
+              },
+            ],
+          },
+          {
+            data: [
+              {
+                x: parsedData[props.index].Samples[i].Time_Stamp,
+                y: parsedData[props.index].Samples[i]?.[BluPoint],
+              },
+            ],
+          },
+          {
+            data: [
+              {
+                x: parsedData[props.index].Samples[i].Time_Stamp,
+                y: parsedData[props.index].Samples[i]?.[GrnPoint],
+              },
+            ],
+          },
+          {
+            data: [
+              {
+                x: parsedData[props.index].Samples[i].Time_Stamp,
+                y: parsedData[props.index].Samples[i]?.[YelPoint],
+              },
+            ],
+          },
+          {
+            data: [
+              {
+                x: parsedData[props.index].Samples[i].Time_Stamp,
+                y: parsedData[props.index].Samples[i]?.[OrgPoint],
+              },
+            ],
+          },
+          {
+            data: [
+              {
+                x: parsedData[props.index].Samples[i].Time_Stamp,
+                y: parsedData[props.index].Samples[i]?.[RedPoint],
+              },
+            ],
+          },
+        ];
 
-      for (let i = 0; i <= 5; i++) {
-        maindata[i]?.data.push(text[i]?.data[0]);
+        for (let i = 0; i <= 5; i++) {
+          maindata[i]?.data.push(text[i]?.data[0]);
+          filteredData = maindata.filter(
+            (item) =>
+            // console.log(item.data[i]?.y, "this is the item"),
+              item.data[i]?.y >= props.yMinValue[props.index] &&
+              item.data[i]?.y <= props.yMaxValue[props.index]
+          );
+          // console.log(filteredData, "this is filtered data");
+        }
+
+        // console.log("====================================");
+        // console.log(maindata, "this is updatedPoints at", i);
+        // console.log("====================================");
+        // }
       }
-
-      console.log("====================================");
-      console.log(maindata, "this is updatedPoints at", i);
-      console.log("====================================");
     }
 
-    setFinalData(maindata);
+    console.log(filteredData, "this is the filtered data");
+
+    setFinalData(filteredData);
   }
 
   useEffect(() => {
@@ -144,6 +162,7 @@ function SimpleGraphData(props) {
         {dataType} data : P{sensorNum} Graph
       </h3>
       <ResponsiveLine
+        // {...console.log(finalData, "this is final data")}
         data={finalData}
         theme={{
           axis: {

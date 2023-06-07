@@ -29,7 +29,6 @@ function DataTypeSelect(props) {
             width: "100%",
           }}
         >
-          <MenuItem value=""></MenuItem>
           <MenuItem value={"Raw"}>Raw Data</MenuItem>
           <MenuItem value={"Cal"}>Calibrated</MenuItem>
           <MenuItem value={"Nrm"}>Normalized</MenuItem>

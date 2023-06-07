@@ -1716,30 +1716,6 @@ padding-bottom: 0!important;
   background-color: "grey" !important;
 }
 
-/* .css-4pax7l-MuiPickersLayout-root{
-  background-color: transparent !important;
+.Axis-Text-Field-Row:hover{
+  background: #3996bd;
 }
-
-.MuiPickersDay-dayWithMargin, .MuiDayCalendar-weekDayLabel{
-  color: white !important;
-}
-
-.MuiSvgIcon-root{
-  fill: white !important;
-}
-
-.MuiPickersToolbar-content button span, .css-1hbyad5-MuiTypography-root{
-  color: white !important ;
-}
-
-.MuiDialogActions-root button{
-color: white !important;
-}
-
-.MuiClockNumber-root{
-  color: white !important;
-}
-
-.MuiDateTimePickerToolbar-separator{
-  color: white !important;
-} */

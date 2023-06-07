@@ -1,20 +1,13 @@
 import { useState, useEffect } from "react";
 import { ResponsiveLine } from "@nivo/line";
+import dayjs from "dayjs";
 
 function WaveLengthGraphData(props) {
   const [finalData, setFinalData] = useState([]);
+
   const isDashboard = false;
-  let dataType;
   let wave;
 
-  const colorsNivo = {
-    Raw_Vio_P2: "violet",
-    Blu: "blue",
-    Grn: "green",
-    Yel: "yellow",
-    Org: "orange",
-    Red: "red",
-  };
   switch (props.wave) {
     case "Vio":
       wave = "Vio_450nm";
@@ -34,91 +27,22 @@ function WaveLengthGraphData(props) {
     case "Red":
       wave = "Red_650nm";
       break;
+    default:
+      break;
   }
 
   useEffect(() => {
     showGraphData();
   }, []);
 
-  //   function showGraphData() {
-  //     const data = localStorage.getItem("mqttResponseDataNormalized");
-
-  //     const parsedData = JSON.parse(data);
-  //     const sensorNum = parsedData.length;
-
-  //     // for (let i = 0; i < parsedData.length; i++) {
-  //     //   const data = [
-  //     //     {
-  //     //       id: props.dataType + "_Avg_" + wave + "_P" + parsedData[i].Data_Point,
-  //     //       data: [],
-  //     //     },
-  //     //   ];
-
-  //     //   maindata.push(data[0]);
-
-  //     //   for (let i = 0; i < parsedData.length; i++) {
-  //     //     console.log(props.index);
-  //     //     const text = [
-  //     //       {
-  //     //         data: [
-  //     //           {
-  //     //             x: parsedData[i].Samples[i].Time_Stamp,
-  //     //             y: parsedData[i].Samples[i]?.[VioPoint],
-  //     //           },
-  //     //         ],
-  //     //       },
-  //     //     ];
-
-  //     //     maindata[i]?.data.push(text[i]?.data[0]);
-
-  //     //     //   for (let i = 0; i <= 5; i++) {
-  //     //     //     maindata[i]?.data.push(text[i]?.data[0]);
-  //     //     //   }
-  //     //   }
-
-  //     //   console.log(maindata, "this is the main data");
-  //     // }
-
-  //     // const samples = [];
-
-  //     const final = [];
-
-  //     for (let i = 0; i < parsedData.length; i++) {
-  //       const samples = parsedData[i].Samples;
-  //       //   console.log(samples);
-  //       const graphData = {
-  //         id: props.dataType + "_Avg_" + wave + "_P" + samples[i].Sample_Num,
-  //         data: [],
-  //       };
-
-  //       //   finalData
-
-  //       console.log(graphData, "this is graph data");
-
-  //       for (let j = 0; j < samples.length; j++) {
-  //         const time = samples[j].Time_Stamp;
-  //         const value = samples[j][props.dataType + "_Avg_" + wave];
-
-  //         const data = {
-  //           x: time,
-  //           y: value,
-  //         };
-
-  //           console.log(graphData, "this is graph data");
-  //         //   result.push(graphData);
-  //       }
-  //     }
-
-  //     setFinalData(result);
-  //   }
   function showGraphData() {
     const data = localStorage.getItem("mqttResponseDataNormalized");
 
     const parsedData = JSON.parse(data);
     const sensorNum = parsedData.length;
 
-    const result = [];
-
+    const _result = [];
+    let filteredData = [];
     for (let i = 0; i < parsedData.length; i++) {
       const samples = parsedData[i].Samples;
       const graphData = {
@@ -127,22 +51,46 @@ function WaveLengthGraphData(props) {
       };
 
       for (let j = 0; j < samples.length; j++) {
-        const time = samples[j].Time_Stamp;
-        const value = samples[j][props.dataType + "_Avg_" + wave];
+        const dataDateTime = dayjs(parsedData[i].Samples[j].Time_Stamp);
 
-        const dataPoint = {
-          x: time,
-          y: value,
-        };
+        // console.log(props.xMinValue[i], "these are the min Value");
+        // console.log(props.xMaxValue[i], "these are the max Value");
+        // console.log(dataDateTime, "this is data datetime");
 
-        graphData.data.push(dataPoint);
+        if (
+          dataDateTime >= props.xMinValue[i] &&
+          dataDateTime <= props.xMaxValue[i]
+        ) {
+
+          const time = samples[j].Time_Stamp;
+          const value = samples[j][props.dataType + "_Avg_" + wave];
+
+          const dataPoint = {
+            x: time,
+            y: value,
+          };
+
+          graphData.data.push(dataPoint);
+        }
       }
+      _result.push(graphData);
+      console.log(_result[i].data, "this is result data at", i);
 
-      result.push(graphData);
-      console.log(result, "this is the result");
+      props.yValueLoop.map((item, index) => {
+        for (let k = 0; k < _result[i].data.length; k++) {
+          // console.log("######## ---- Idex of Y axis = "+ i + "and result = "+ result[i].data[0][0])
+          filteredData = _result.filter(
+            (item) =>
+              // console.log(item.data[k]?.y, "this is data at" ,k)
+              item.data[k]?.y >= props.yMinValue[index] &&
+              item.data[k]?.y <= props.yMaxValue[index]
+          );
+        }
+        return <div>dlkfj</div>;
+      });
+      // setFilteredData((prevFilteredData) => filterd);
     }
-
-    setFinalData(result);
+    setFinalData(filteredData);
   }
 
   return (

@@ -14,6 +14,10 @@ function BuildReportGraph() {
   const [renderGraphData, setRenderGraphData] = useState();
   const [graphName, setGraphName] = useState();
   const [normalizedGraph, setNormalizedGraph] = useState(false);
+  const [minDateTime, setMinDateTime] = useState();
+  const [maxDateTime, setMaxDateTime] = useState();
+  const [minYValue, setMinYValue] = useState();
+  const [maxYValue, setMaxYValue] = useState();
   const requestTopic = "biogas/client/request/normlized";
 
   function getSensorsClicked(value) {
@@ -22,6 +26,24 @@ function BuildReportGraph() {
 
   function getDataTypeClicked(value) {
     setDataType(value);
+  }
+
+  function getMinDateTime(value) {
+    setMinDateTime(value);
+  }
+
+  function getMaxDateTime(value) {
+    setMaxDateTime(value);
+  }
+
+  function getMinYValue(value) {
+    setMinYValue(value);
+    // console.log(value,"this is the y min value");
+  }
+
+  function getMaxYValue(value) {
+    setMaxYValue(value);
+    // console.log(value, "this is the y max value");
   }
 
   function requestData() {
@@ -38,7 +60,9 @@ function BuildReportGraph() {
 
     mqtt.checkData = checkData;
     setRenderGraphData(sensor.sort());
+
     setGraphName(dataType);
+    // console.log(minDateTime, "this is min value");
     checkNormalizedGraph();
 
     resetChart();
@@ -132,7 +156,13 @@ function BuildReportGraph() {
                 <h5 className="text-white">Change Scale:</h5>
               </Col>
               <Col className="py-3">
-                <TextFields getSensors={getSensorsClicked} />
+                <TextFields
+                  getSensors={getSensorsClicked}
+                  getMaxDateTime={getMaxDateTime}
+                  getMinDateTime={getMinDateTime}
+                  getMinYValue={getMinYValue}
+                  getMaxYValue={getMaxYValue}
+                />
               </Col>
             </Row>
           </Container>
@@ -168,6 +198,10 @@ function BuildReportGraph() {
                 <NormalizedGraphData
                   key={renderGraphData}
                   dataType={graphName}
+                  xMinValue={minDateTime}
+                  xMaxValue={maxDateTime}
+                  yMinValue={minYValue}
+                  yMaxValue={maxYValue}
                   loop={renderGraphData}
                   // index={index}
                 />
@@ -178,6 +212,10 @@ function BuildReportGraph() {
                 <SimpleGraphData
                   key={index}
                   dataType={graphName}
+                  xMinValue={minDateTime}
+                  xMaxValue={maxDateTime}
+                  yMinValue={minYValue}
+                  yMaxValue={maxYValue}
                   index={index}
                 />
               ))}
