@@ -223,20 +223,35 @@ padding-bottom: 30px;
 .list-item{
   background-color: #39C2D3;
   border-radius: 20px;
-  width: 45%;
+  width: 100%;
   padding: 30px;
   margin: auto;
 
 }
-.card1{
-min-width: 73%;
-margin-right: 55px;
+.cardOpen{
+min-width: 45vw;
 border: none;
 }
-.card3, .card2{
+.cardClose{
+  max-width: 50px;
+  min-width: 5px;
+  height: 480px;
 background-color: #39C2D3;
 border-radius: 20px!important;
-margin-left:20px!important;
+margin: auto !important;
+/* margin-left:20px!important; */
+}
+
+.cardClose form{
+  display: none;
+}
+.errorSliderColClose{
+  max-width: 50px;
+  min-width: 5px;
+}
+.errorSliderColOpen, .errorSliderColClose{
+  padding: 0px !important;
+  margin: 0px 3px;
 }
 .list-item1{
   background-color: #39C2D3;
@@ -404,7 +419,7 @@ color: #fff !important;
 
     }
     .rack-status label {
-      width: 28%;
+      width: 70%;
       font-size: 18px;
     }
     .reports-tab th,.reports-tab td {
@@ -1244,7 +1259,7 @@ line-height: 20px;
   display: flex;
     justify-content: space-between;
  }
- .alerts .card1{
+ .alerts .cardOpen{
   width:100% !important;
   margin-right: 0 !important;
  }
@@ -1408,13 +1423,16 @@ margin-bottom: 30px;
 .rack-status label {
   width: 33%;
 }
-.card1 {
+.cardOpen {
   min-width: 100%;
   margin-right: 0;
 }
-.card3, .card2 {
+.cardClose {
   margin-left: 0px!important;
 }
+/* .errorSilderCol{
+  padding: 0px !important;
+} */
 .list-item1 {
   padding: 20px;
 }
@@ -1488,7 +1506,7 @@ padding-bottom: 0!important;
 }
 }
 @media (min-width:768px) and (max-width:991px){
-  .card1 {
+  .cardOpen {
     margin-right: 16px;
 }
 .scan-code {
