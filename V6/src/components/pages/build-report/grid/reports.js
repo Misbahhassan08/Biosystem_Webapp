@@ -7,9 +7,9 @@ import CSVRows from "./modules/csvRows";
 
 function BuildReportGrid() {
   const get_csv_list_endpoint =
-    "https://9bd1-182-178-187-67.ngrok-free.app/api/get_list_of_csv";
+    "https://biomass-gcp-server-rnt37kunua-uc.a.run.app/api/get_list_of_csv";
   const post_metaData_endpoint =
-    "https://9bd1-182-178-187-67.ngrok-free.app/api/get_meta_data";
+    "https://biomass-gcp-server-rnt37kunua-uc.a.run.app/api/get_meta_data";
   const [rowsData, setRowsData] = useState([]);
   const [csvRowsData, setCsvRowsData] = useState();
 
