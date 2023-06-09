@@ -1,0 +1,17 @@
+version: '3'
+services:
+  client:
+    build:
+      context: './WebApp'
+      dockerfile: Dockerfile
+    ports:
+      - 3000:80
+    container_name: biogas_dock_cont
+    environment:
+      - WATCHPACK_POLLING=true
+    networks:
+      - biogas-docker-network
+    volumes:
+      - ./WebApp:/app
+networks:
+  biogas-docker-network:

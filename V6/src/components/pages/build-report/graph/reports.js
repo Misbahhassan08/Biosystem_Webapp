@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import TextFields from "./modules/axis-text-fields";
 import DataTypeSelect from "./modules/dataType";
-import Mqtt from "../../../../services/mqttService";
 import SimpleGraphData from "./modules/simpleGraphData";
 import NormalizedGraphData from "./modules/normalizedGraph/normalizedGraphs";
 
-const mqtt = new Mqtt();
 function BuildReportGraph() {
+  const get_graph_data =
+    "https://biomass-gcp-server-rnt37kunua-uc.a.run.app/api/get_graph_meta_data";
+
   const [sensor, setSensor] = useState([]);
   const [dataType, setDataType] = useState();
   const [checkResponse, setCheckResponse] = useState(false);
@@ -18,7 +19,6 @@ function BuildReportGraph() {
   const [maxDateTime, setMaxDateTime] = useState();
   const [minYValue, setMinYValue] = useState();
   const [maxYValue, setMaxYValue] = useState();
-  const requestTopic = "biogas/client/request/normlized";
 
   function getSensorsClicked(value) {
     setSensor(value);
@@ -49,16 +49,20 @@ function BuildReportGraph() {
   function requestData() {
     const requestJson = {
       Data_Point: sensor,
-      Data_Req: dataType,
+      // Data_Req: dataType,
+      // userId: Math.random().toString(36).slice(2),
     };
-    if (requestJson) {
-      const requestPayload = JSON.stringify(requestJson);
+    console.log(requestJson, "this is data request")
 
-      console.log(requestPayload, "this is the data published");
-      mqtt.requestData(requestTopic, requestPayload);
-    }
+    // if (requestJson) {
+    //   const requestPayload = JSON.stringify(requestJson);
 
-    mqtt.checkData = checkData;
+    //   console.log(requestPayload, "this is the data published");
+    //   mqtt.requestData(requestTopic, requestPayload);
+    // }
+
+    requestDataApi(requestJson);
+
     setRenderGraphData(sensor.sort());
 
     setGraphName(dataType);
@@ -66,6 +70,27 @@ function BuildReportGraph() {
     checkNormalizedGraph();
 
     resetChart();
+  }
+
+  function requestDataApi(reqObj) {
+    fetch(get_graph_data, {
+      method: "POST",
+      body: JSON.stringify(reqObj),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        let newdata = data["result"];
+        console.log(newdata, "new data")
+        localStorage.setItem("mqttResponseDataNormalized", JSON.stringify(newdata));
+        checkData();
+        // setRowsData(newdata);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
 
   function checkData() {
