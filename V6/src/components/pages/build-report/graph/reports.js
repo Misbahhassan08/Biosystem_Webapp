@@ -4,6 +4,8 @@ import TextFields from "./modules/axis-text-fields";
 import DataTypeSelect from "./modules/dataType";
 import SimpleGraphData from "./modules/simpleGraphData";
 import NormalizedGraphData from "./modules/normalizedGraph/normalizedGraphs";
+import Groups from "./modules/groups";
+import Sensors from "./modules/sensors";
 
 function BuildReportGraph() {
   const get_graph_data =
@@ -136,6 +138,9 @@ function BuildReportGraph() {
               </Card.Body>
             </Card>
           </Container>
+          <Container>
+          <Groups />
+          </Container>
           <Container style={{ backgroundColor: "#2484ac" }}>
             <Row className="border-bottom border-warning">
               <Col className="p-3 mt-2 align-self-center ">
@@ -143,7 +148,6 @@ function BuildReportGraph() {
               </Col>
               <Col className="p-3" style={{ borderLeft: "1px solid #ffc107" }}>
                 <Row>
-                  <Col className="col-md-3"></Col>
                   <Col className="text-center pe-4">
                     <Row className="text-warning">
                       <span>X-axis</span>
@@ -178,7 +182,7 @@ function BuildReportGraph() {
                 className="p-3 col-md-6"
                 style={{ borderRight: "1px solid #ffc107" }}
               >
-                <h5 className="text-white">Change Scale:</h5>
+                <Sensors />
               </Col>
               <Col className="py-3">
                 <TextFields
@@ -241,6 +245,7 @@ function BuildReportGraph() {
                   xMaxValue={maxDateTime}
                   yMinValue={minYValue}
                   yMaxValue={maxYValue}
+                  resetChart= {resetChart}
                   index={index}
                 />
               ))}

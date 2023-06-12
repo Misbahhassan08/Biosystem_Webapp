@@ -156,6 +156,7 @@ function SimpleGraphData(props) {
     showGraphData();
   }, []);
 
+
   return (
     <div style={{ height: "60vh" }}>
       <h3 style={{ marginTop: 90, textAlign: "center" }}>
