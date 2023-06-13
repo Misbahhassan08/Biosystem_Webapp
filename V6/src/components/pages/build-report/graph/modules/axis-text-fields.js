@@ -33,28 +33,6 @@ function TextFields(props) {
     },
   };
 
-  //------------------------------------ GET THE SENSORS & DATETIME & Y AXIS CLICKED --------------------------------------
-
-  useEffect(() => {
-    const clickedSensors = [];
-    const xMinvalue = [];
-    const xMaxvalue = [];
-
-    const yMinvalue = [];
-    const yMaxvalue = [];
-    setXMinValue(xMinvalue);
-    setXMaxValue(xMaxvalue);
-    setYMinValue(yMinvalue);
-    setYMaxValue(yMaxvalue);
-    // console.log(xMinValue, "this is the min X value");
-    // console.log(xMaxValue, "this is the max X value");
-    // console.log(yMinValue, "this is the min Y value");
-    // console.log(yMaxValue, "this is the max Y value");
-  }, [xMinValue,xMaxValue, yMinValue, yMaxValue
-  ]);
-
-  //------------------------------------ SAVE THE DATETIME IN STATE --------------------------------------
-
   function getDateTime(value, id) {
     switch (id) {
       case "x-min":
@@ -70,12 +48,16 @@ function TextFields(props) {
 
   //-------------------------------------- PASS THE SENSORS CLICKED TO PARENT----------------------------
 
-  // useEffect(() => {
-  //   props.getMinDateTime(xMinValue);
-  //   props.getMaxDateTime(xMaxValue);
-  //   props.getMinYValue(yMinValue);
-  //   props.getMaxYValue(yMaxValue);
-  // }, []);
+  useEffect(() => {
+    props.getMinTime(xMinValue);
+    props.getMaxTime(xMaxValue);
+    props.getMinYValue(yMinValue);
+    props.getMaxYValue(yMaxValue);
+    // console.log(xMinValue, 'xMinValue');
+    // console.log(xMaxValue, 'xMaxValue');
+    // console.log(yMinValue, 'yMinValue');
+    // console.log(yMaxValue, 'yMaxValue');
+  }, [xMinValue, xMaxValue, yMinValue, yMaxValue]);
 
   return (
     <>

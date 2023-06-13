@@ -24,7 +24,82 @@ function Sensors(props) {
   const [editC2, setEditC2] = useState(false);
   const [editC3, setEditC3] = useState(false);
   const [editC4, setEditC4] = useState(false);
-  const [sensorsClicked, setSensorsClicked] = useState([]);
+
+  const [clickedASensors, setclickedASensors] = useState([]);
+  const [clickedBSensors, setclickedBSensors] = useState([]);
+  const [clickedCSensors, setclickedCSensors] = useState([]);
+  // const [sensorsClicked, setSensorsClicked] = useState([]);
+
+  useEffect(() => {
+    const clickedSensors = [];
+    if (editA0) {
+      clickedSensors.push(0);
+    }
+    if (editA1) {
+      clickedSensors.push(1);
+    }
+    if (editA2) {
+      clickedSensors.push(2);
+    }
+    if (editA3) {
+      clickedSensors.push(3);
+    }
+    if (editA4) {
+      clickedSensors.push(4);
+    }
+    setclickedASensors(clickedSensors);
+  }, [editA0, editA1, editA2, editA3, editA4]);
+
+  useEffect(() => {
+    const clickedSensors = [];
+    if (editB0) {
+      clickedSensors.push(0);
+    }
+    if (editB1) {
+      clickedSensors.push(1);
+    }
+    if (editB2) {
+      clickedSensors.push(2);
+    }
+    if (editB3) {
+      clickedSensors.push(3);
+    }
+    if (editB4) {
+      clickedSensors.push(4);
+    }
+    setclickedBSensors(clickedSensors);
+  }, [editB0, editB1, editB2, editB3, editB4]);
+
+  useEffect(() => {
+    const clickedSensors = [];
+    if (editC0) {
+      clickedSensors.push(0);
+    }
+    if (editC1) {
+      clickedSensors.push(1);
+    }
+    if (editC2) {
+      clickedSensors.push(2);
+    }
+    if (editC3) {
+      clickedSensors.push(3);
+    }
+    if (editC4) {
+      clickedSensors.push(4);
+    }
+    setclickedCSensors(clickedSensors);
+  }, [editC0, editC1, editC2, editC3, editC4]);
+
+  useEffect(() => {
+    // const sensors = clickedASensors.concat(clickedBSensors.concat(clickedCSensors))
+    const sensors = [clickedASensors, clickedBSensors, clickedCSensors]
+    // const sensors = {
+    //   "A": [clickedASensors],
+    //   "B": [clickedBSensors],
+    //   "C": [clickedCSensors],    }
+    // sensorsClicked(sensors);
+    props.getSensors(sensors)
+  }, [clickedASensors, clickedBSensors, clickedCSensors]);
 
   return (
     <>
