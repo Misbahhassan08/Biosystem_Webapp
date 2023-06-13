@@ -83,7 +83,7 @@ function BuildReportGraph() {
 
     requestDataApi(requestJson);
 
-    setRenderGraphData(sensor);
+    setRenderGraphData(sensor[0]);
 
     setGraphName(dataType);
     // console.log(minTime, "this is min value");
@@ -106,7 +106,7 @@ function BuildReportGraph() {
         console.log(newdata, "new data");
         localStorage.setItem(
           "mqttResponseDataNormalized",
-          newdata//JSON.stringify(newdata)
+          JSON.stringify(newdata)
         );
         checkData();
         // setRowsData(newdata);
@@ -369,6 +369,7 @@ function BuildReportGraph() {
             : // ))
               checkResponse &&
               renderGraphData.map((item, index) => (
+                console.log(renderGraphData, "this is the index"),
                 <SimpleGraphData
                   key={index}
                   dataType={graphName}

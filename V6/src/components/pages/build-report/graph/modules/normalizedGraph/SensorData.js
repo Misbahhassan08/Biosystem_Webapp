@@ -80,19 +80,20 @@ function SensorGraphData(props) {
     ];
 
     for (let i = 0; i < sampleLength.length; i++) {
-      const dataDateTime = dayjs(parsedData[props.index].Samples[i].Time_Stamp);
+      const time= parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1]
+      const dataDateTime = dayjs(time, "HH:mm:ss");
 
       // console.log(props.yMinValue[props.index], "this is y min value");
 
       if (
-        dataDateTime >= props.xMinValue[props.index] &&
-        dataDateTime <= props.xMaxValue[props.index]
+        dataDateTime >= props.xMinValue &&
+        dataDateTime <= props.xMaxValue
       ) {
         const text = [
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp,
+                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
                 y: parsedData[props.index].Samples[i]?.[VioPoint],
               },
             ],
@@ -100,7 +101,7 @@ function SensorGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp,
+                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
                 y: parsedData[props.index].Samples[i]?.[BluPoint],
               },
             ],
@@ -108,7 +109,7 @@ function SensorGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp,
+                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
                 y: parsedData[props.index].Samples[i]?.[GrnPoint],
               },
             ],
@@ -116,7 +117,7 @@ function SensorGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp,
+                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
                 y: parsedData[props.index].Samples[i]?.[YelPoint],
               },
             ],
@@ -124,7 +125,7 @@ function SensorGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp,
+                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
                 y: parsedData[props.index].Samples[i]?.[OrgPoint],
               },
             ],
@@ -132,7 +133,7 @@ function SensorGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp,
+                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
                 y: parsedData[props.index].Samples[i]?.[RedPoint],
               },
             ],
@@ -144,8 +145,8 @@ function SensorGraphData(props) {
           filteredData = maindata.filter(
             (item) =>
               // console.log(item.data[i]?.y, "this is the item"),
-              item.data[i]?.y >= props.yMinValue[props.index] &&
-              item.data[i]?.y <= props.yMaxValue[props.index]
+              item.data[i]?.y >= props.yMinValue &&
+              item.data[i]?.y <= props.yMaxValue
           );
         }
 

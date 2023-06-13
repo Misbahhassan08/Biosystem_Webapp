@@ -52,18 +52,20 @@ function WaveLengthGraphData(props) {
       };
 
       for (let j = 0; j < samples.length; j++) {
-        const dataDateTime = dayjs(parsedData[i].Samples[j].Time_Stamp);
+        // const dataDateTime = dayjs(parsedData[i].Samples[j].Time_Stamp);
+        const time= parsedData[i].Samples[j].Time_Stamp.split(" ")[1]
+        const dataDateTime = dayjs(time, "HH:mm:ss");
 
         // console.log(props.xMinValue[i], "these are the min Value");
         // console.log(props.xMaxValue[i], "these are the max Value");
         // console.log(dataDateTime, "this is data datetime");
 
         if (
-          dataDateTime >= props.xMinValue[i] &&
-          dataDateTime <= props.xMaxValue[i]
+          dataDateTime >= props.xMinValue &&
+          dataDateTime <= props.xMaxValue
         ) {
 
-          const time = samples[j].Time_Stamp;
+          const time = samples[j].Time_Stamp.split(" ")[1];
           const value = samples[j][props.dataType + "_Avg_" + wave];
 
           const dataPoint = {
@@ -83,8 +85,8 @@ function WaveLengthGraphData(props) {
           filteredData = _result.filter(
             (item) =>
               // console.log(item.data[k]?.y, "this is data at" ,k)
-              item.data[k]?.y >= props.yMinValue[index] &&
-              item.data[k]?.y <= props.yMaxValue[index]
+              item.data[k]?.y >= props.yMinValue &&
+              item.data[k]?.y <= props.yMaxValue
           );
         }
         return <div>dlkfj</div>;
