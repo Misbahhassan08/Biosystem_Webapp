@@ -14,6 +14,7 @@ function Groups(props) {
   const [selectedFavList, setSelectedFavList] = useState("");
   const [favListSettingObj, setFavListSettingObj] = useState()
 
+
   const [favList, setFavList] = useState([]);
 
   const get_list_of_groups = baseApiUrl + "/api/get_list_of_group";
@@ -33,9 +34,10 @@ function Groups(props) {
     setSelectedFavList(event.target.value);
     if (event.target.value !== "custom"){
       const index = favList.map(item => item.SettingsName).indexOf(event.target.value)
-    const settingObj = favList[index].SettingObj;
-    setFavListSettingObj(favList[index].SettingObj)
-    console.log(settingObj, "setting object");
+    var settingObj = favList[index].SettingObj;
+    var v = JSON.parse(settingObj.replace(/'/g, '"'))
+    //setFavListSettingObj(favList[index].SettingObj)
+    console.log(v, "setting object"); 
     }
     // console.log(selectedFavList, "this is fav list");
   };

@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col, Button, Table } from "react-bootstrap";
-
-//import Mqtt from "../../../../services/mqttService";
 import TableRows from "./modules/TableRows";
 import CSVRows from "./modules/csvRows";
+import { baseApiUrl } from "../../../../config";
 
 function BuildReportGrid() {
-  const get_csv_list_endpoint =
-    "https://biomass-gcp-server-rnt37kunua-uc.a.run.app/api/get_list_of_csv";
-  const post_metaData_endpoint =
-    "https://biomass-gcp-server-rnt37kunua-uc.a.run.app/api/get_meta_data";
+  const get_csv_list_endpoint = baseApiUrl + "/api/get_list_of_csv";
+  const post_metaData_endpoint =baseApiUrl + "/api/get_meta_data";
   const [rowsData, setRowsData] = useState([]);
   const [csvRowsData, setCsvRowsData] = useState();
 

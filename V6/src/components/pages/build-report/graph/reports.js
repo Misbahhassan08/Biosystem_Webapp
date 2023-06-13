@@ -106,7 +106,7 @@ function BuildReportGraph() {
         console.log(newdata, "new data");
         localStorage.setItem(
           "mqttResponseDataNormalized",
-          JSON.stringify(newdata)
+          newdata//JSON.stringify(newdata)
         );
         checkData();
         // setRowsData(newdata);
