@@ -38,8 +38,9 @@ function SimpleGraphData(props) {
     const parsedData = JSON.parse(data);
     setSensorNum(parsedData);
     //debugger;
+    console.log(parsedData[0], "this is parsed data");
     console.log(props.index, "this is the index");
-    // debugger;
+    debugger;
     const sampleLength = parsedData[props.index].Samples;
     setSensorNum(parsedData[props.index].Data_Point);
 
@@ -155,6 +156,7 @@ function SimpleGraphData(props) {
   useEffect(() => {
     showGraphData();
   }, []);
+
 
   return (
     <div style={{ height: "60vh" }}>
