@@ -6,6 +6,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { CSVLink } from "react-csv";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import XMLExport from "../../XMLExport";
 
 function SimpleGraphData(props) {
   const [headers, setheaders] = useState([
@@ -17,6 +18,18 @@ function SimpleGraphData(props) {
     { label: "Orange", key: "org" },
     { label: "Red", key: "red" },
   ]);
+
+  const fieldsAsObjects = {
+    "timestamp":"Date column header",
+    "vio": "vio column header",
+    "blu": "blue column header",
+    "grn": "green column header",
+    "yel": "yelloow column header",
+    "org": "orange data column header", 
+    "red":"red data column header"
+  };
+
+
   const [finalData, setFinalData] = useState([]);
   const [sensorNum, setSensorNum] = useState("");
   const [rowData, setrowData] = useState([]);
@@ -198,6 +211,7 @@ function SimpleGraphData(props) {
   const csvReport = {
     data: rowData,
     headers: headers,
+    xsd_filename: dataType+'data_P'+sensorNum+'.xml',
     filename: dataType + "data_P" + sensorNum + ".csv",
   };
   return (
@@ -209,6 +223,7 @@ function SimpleGraphData(props) {
       <Button type="submit" className="mx-2 menu-btn menu-btn1">
         <CSVLink {...csvReport}>Export Data to CSV</CSVLink>
       </Button>
+      
       <Button
         type="submit"
         className="mx-2 menu-btn menu-btn2"
@@ -216,6 +231,7 @@ function SimpleGraphData(props) {
       >
         Export Image
       </Button>
+      <XMLExport data={rowData} fields={fieldsAsObjects} fileName={csvReport.xsd_filename} />
       <div id={"graph-container"+sensorNum} style={{ height: "60vh" }}>
         <ResponsiveLine
           // {...console.log(finalData, "this is final data")}

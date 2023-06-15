@@ -5,6 +5,7 @@ import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import XMLExport from "../../../XMLExport";
 
 function SensorGraphData(props) {
   const [finalData, setFinalData] = useState([]);
@@ -19,6 +20,17 @@ function SensorGraphData(props) {
     { label: "_Avg_Org_600nm", key: "org" },
     { label: "_Avg_Red_650nm", key: "red" },
   ]);
+
+  const fieldsAsObjects = {
+    "timestamp":"Date column header",
+    "vio": "vio column header",
+    "blu": "blue column header",
+    "grn": "green column header",
+    "yel": "yelloow column header",
+    "org": "orange data column header", 
+    "red":"red data column header"
+  };
+
   const [rowData, setrowData] = useState([]);
   const isDashboard = false;
   let graphs;
@@ -199,6 +211,7 @@ function SensorGraphData(props) {
   const csvReport = {
     data: rowData,
     headers: headers,
+    xsd_filename: graphs + "data_Normalize_P" + sensorNum + ".xml",
     filename: graphs + "data_Normalize_P" + sensorNum + ".csv",
   };
   return (
@@ -216,6 +229,7 @@ function SensorGraphData(props) {
       >
         Export Image
       </Button>
+      <XMLExport data={rowData} fields={fieldsAsObjects} fileName={csvReport.xsd_filename} />
       <div id={"graph-container" + graphs+ sensorNum} style={{ height: "60vh" }}>
         <ResponsiveLine
           data={finalData}

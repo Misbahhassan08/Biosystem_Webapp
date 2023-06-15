@@ -5,6 +5,7 @@ import { CSVLink } from "react-csv";
 import { Button } from "react-bootstrap";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import XMLExport from "../../../XMLExport";
 
 function WaveLengthGraphData(props) {
   const [finalData, setFinalData] = useState([]);
@@ -14,6 +15,7 @@ function WaveLengthGraphData(props) {
   const [rowData, setrowData] = useState([]);
   const isDashboard = false;
   let wave;
+  
 
   switch (props.wave) {
     case "Vio":
@@ -21,6 +23,7 @@ function WaveLengthGraphData(props) {
       break;
     case "Blu":
       wave = "Blu_500nm";
+      
       break;
     case "Grn":
       wave = "Grn_550nm";
@@ -36,8 +39,12 @@ function WaveLengthGraphData(props) {
       break;
     default:
       break;
+    
   }
-
+  const fieldsAsObjects = {
+    "timestamp":"Date column header",
+    wave:"color data column header"
+  };
   useEffect(() => {
     showGraphData();
   }, []);
@@ -122,6 +129,7 @@ function WaveLengthGraphData(props) {
   const csvReport = {
     data: rowData,
     headers: headers,
+    xsd_filename:  props.dataType+'data_Normalized_Avg'+wave+'.xml',
     filename: props.dataType+'data_Normalized_Avg'+wave+'.csv'
   };
   return (
@@ -137,6 +145,7 @@ function WaveLengthGraphData(props) {
       >
         Export Image
       </Button>
+      <XMLExport data={rowData} fields={fieldsAsObjects} fileName={csvReport.xsd_filename} />
       <div id = {"graph-container"+props.dataType + wave} style={{ height: "60vh" }}>
         <ResponsiveLine
           data={finalData}
