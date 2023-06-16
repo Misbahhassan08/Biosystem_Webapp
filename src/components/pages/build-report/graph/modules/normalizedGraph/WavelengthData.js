@@ -91,9 +91,11 @@ function WaveLengthGraphData(props) {
           dataDateTime >= props.xMinValue &&
           dataDateTime <= props.xMaxValue
         ) {
-
+          const firstValue = samples[0][props.dataType + "_Avg_" + wave];
+          
           const time = samples[j].Time_Stamp.split(" ")[1];
-          const value = samples[j][props.dataType + "_Avg_" + wave];
+          const value = (samples[j][props.dataType + "_Avg_" + wave]/firstValue)-1;
+          console.log(value, "this is first value for", wave, "at", j);
           let row = {
             timestamp : time.toString(),
             vio : value
