@@ -8,15 +8,15 @@ import Select from "@mui/material/Select";
 
 function DataTypeSelect(props) {
   const [dataType, setDataType] = React.useState("");
-  const [isNorm, setisNorm] = useState(false);
+  const [isNrm, setisNrm] = useState(false);
 
   const handleChange = (event) => {
     setDataType(event.target.value);
   };
 
   useEffect(() => {
-    props.getDataType(dataType);
-  }, [dataType]);
+    props.getDataType(dataType, isNrm);
+  }, [dataType, isNrm]);
 
   useEffect(() => {
     if (props.settingsButtonClicked) {
@@ -70,10 +70,9 @@ function DataTypeSelect(props) {
           <Checkbox
             id="normalized"
             style={{ color: "white" }}
-            checked={isNorm}
+            checked={isNrm}
             onChange={(e) => {
-              setisNorm(e.target.checked)
-              setDataType("Nrm");
+              setisNrm(e.target.checked)
             }}
           />
         }

@@ -4,14 +4,14 @@ import TextFields from "./modules/axis-text-fields";
 import DataTypeSelect from "./modules/dataType";
 import SimpleGraphData from "./modules/simpleGraphData";
 import NormalizedGraphData from "./modules/normalizedGraph/normalizedGraphs";
+import WaveLengthGraphData from "./modules/WavelengthData";
 import Groups from "./modules/groups";
 import Sensors from "./modules/sensors";
 import CustomFavNameDialog from "./modules/customFav";
 import { baseApiUrl } from "../../../../config";
 import dayjs from "dayjs";
-import WaveTypeSelect from './modules/waveType'
+import WaveTypeSelect from "./modules/waveType";
 import { fetchPostReq } from "../../../../services/restService";
-
 
 function BuildReportGraph() {
   const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
@@ -19,6 +19,7 @@ function BuildReportGraph() {
 
   const [sensor, setSensor] = useState([]);
   const [dataType, setDataType] = useState();
+  const [isNrm, setIsNrm] = useState();
   const [waveType, setWaveType] = useState();
   const [checkResponse, setCheckResponse] = useState(false);
   const [renderGraphData, setRenderGraphData] = useState();
@@ -35,6 +36,10 @@ function BuildReportGraph() {
   const [gfsid, setGfsid] = useState();
   const [settingsButtonClicked, setsettingsButtonClicked] = useState(false);
 
+  //-------------------variable to use when All waveType is selected-------------------------
+  const allWaveSelected = ["Vio", "Blu", "Grn", "Yel", "Org", "Red"];
+
+  //-------------------functions to get values form childs ----------------------------------
   function getSensorsClicked(value) {
     setSensor(value);
   }
@@ -44,8 +49,10 @@ function BuildReportGraph() {
     console.log(value, "wave type clicked");
   }
 
-  function getDataTypeClicked(value) {
-    setDataType(value);
+  function getDataTypeClicked(dataType, isNrm) {
+    setDataType(dataType);
+    setIsNrm(isNrm);
+    console.log(dataType, "is data type with normalized", isNrm);
   }
 
   function getMinTime(value) {
@@ -77,7 +84,7 @@ function BuildReportGraph() {
 
   function setFavSetting() {
     setsettingsButtonClicked(true);
-    resetChart()
+    resetChart();
   }
 
   function settingButtonFalse() {
@@ -106,8 +113,6 @@ function BuildReportGraph() {
 
     setGraphName(dataType);
     // console.log(minTime, "this is min value");
-    checkNormalizedGraph();
-
     resetChart();
   }
 
@@ -140,16 +145,6 @@ function BuildReportGraph() {
       setCheckResponse(true);
     } else {
       console.error("Error");
-    }
-  }
-
-  function checkNormalizedGraph() {
-    if (dataType === "Nrm") {
-      setNormalizedGraph(true);
-      console.log(normalizedGraph, "this is the normalized graph");
-    } else {
-      setNormalizedGraph(false);
-      console.log(normalizedGraph, "this is the normalized graph");
     }
   }
 
@@ -410,38 +405,63 @@ function BuildReportGraph() {
             </Row>
           </Container>
 
-          {normalizedGraph
-            ? checkResponse && (
-                // renderGraphData.map((item, index) => (
-                <NormalizedGraphData
-                  key={renderGraphData}
-                  dataType={graphName}
+          {checkResponse &&
+            renderGraphData.map(
+              (item, index) => (
+                console.log(renderGraphData, "this is the index"),
+                (
+                  <SimpleGraphData
+                    key={index}
+                    dataType={graphName}
+                    isNrm={isNrm}
+                    xMinValue={minTime}
+                    xMaxValue={maxTime}
+                    yMinValue={minYValue}
+                    yMaxValue={maxYValue}
+                    resetChart={resetChart}
+                    index={index}
+                  />
+                )
+              )
+            )}
+          {/* {
+                checkResponse &&
+                <WaveLengthGraphData
+                  dataType={dataType}
+                  isNrm={isNrm}
+                  wave={waveType}
                   xMinValue={minTime}
                   xMaxValue={maxTime}
                   yMinValue={minYValue}
                   yMaxValue={maxYValue}
-                  loop={renderGraphData}
-                  // index={index}
                 />
-              )
-            : // ))
-              checkResponse &&
-              renderGraphData.map(
-                (item, index) => (
-                  console.log(renderGraphData, "this is the index"),
-                  (
-                    <SimpleGraphData
-                      key={index}
-                      dataType={graphName}
-                      xMinValue={minTime}
-                      xMaxValue={maxTime}
-                      yMinValue={minYValue}
-                      yMaxValue={maxYValue}
-                      resetChart={resetChart}
-                      index={index}
-                    />
-                  )
-                )
+              } */}
+          {waveType == "All"
+            ? checkResponse &&
+              allWaveSelected.map((wavevalue, index) => (
+                <WaveLengthGraphData
+                  dataType={dataType}
+                  wave={wavevalue}
+                  isNrm={isNrm}
+                  xMinValue={minTime}
+                  xMaxValue={maxTime}
+                  yMinValue={minYValue}
+                  yMaxValue={maxYValue}
+                  yValueLoop={sensor}
+                  key={index} // Add a unique key for each graph
+                />
+              ))
+            : checkResponse && (
+                <WaveLengthGraphData
+                  dataType={dataType}
+                  isNrm={isNrm}
+                  wave={waveType}
+                  xMinValue={minTime}
+                  xMaxValue={maxTime}
+                  yMinValue={minYValue}
+                  yMaxValue={maxYValue}
+                  yValueLoop={[waveType]}
+                />
               )}
         </div>
       </div>

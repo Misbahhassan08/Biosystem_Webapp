@@ -10,7 +10,7 @@ import XMLExport from "../../../XMLExport";
 function SensorGraphData(props) {
   const [finalData, setFinalData] = useState([]);
   const [sensorNum, setSensorNum] = useState("");
-  const [isDataValid, setIsDataValid] = useState(false);
+  const [rowData, setrowData] = useState([]);
   const [headers, setheaders] = useState([
     { label: "TimeStamp", key: "timestamp" },
     { label: props.graphs + "_Avg_Vio_450nm", key: "vio" },
@@ -31,7 +31,6 @@ function SensorGraphData(props) {
     red: "red data column header",
   };
 
-  const [rowData, setrowData] = useState([]);
   const isDashboard = false;
   let graphs;
 

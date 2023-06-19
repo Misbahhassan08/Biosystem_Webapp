@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import { ResponsiveLine } from "@nivo/line";
 import { Container, Row, Col, Button } from "react-bootstrap";
@@ -9,34 +8,32 @@ import { saveAs } from "file-saver";
 import XMLExport from "../../XMLExport";
 
 function SimpleGraphData(props) {
-  const [headers, setheaders] = useState([
-    { label: "TimeStamp", key: "timestamp" },
-    { label: "Vio", key: "vio" },
-    { label: "Blue", key: "blu" },
-    { label: "Green", key: "grn" },
-    { label: "Yellow", key: "yel" },
-    { label: "Orange", key: "org" },
-    { label: "Red", key: "red" },
-  ]);
-
-  const fieldsAsObjects = {
-    "timestamp":"Date column header",
-    "vio": "vio column header",
-    "blu": "blue column header",
-    "grn": "green column header",
-    "yel": "yelloow column header",
-    "org": "orange data column header", 
-    "red":"red data column header"
-  };
-
-
   const [finalData, setFinalData] = useState([]);
   const [sensorNum, setSensorNum] = useState("");
   const [rowData, setrowData] = useState([]);
+  const [headers, setheaders] = useState([
+    { label: "TimeStamp", key: "timestamp" },
+    { label: props.graphs + "_Avg_Vio_450nm", key: "vio" },
+    { label: props.graphs + "_Avg_Blu_500nm", key: "blu" },
+    { label: props.graphs + "_Avg_Grn_550nm", key: "grn" },
+    { label: props.graphs + "_Avg_Yel_570nm", key: "yel" },
+    { label: props.graphs + "_Avg_Org_600nm", key: "org" },
+    { label: props.graphs + "_Avg_Red_650nm", key: "red" },
+  ]);
+
+  const fieldsAsObjects = {
+    timestamp: "Date column header",
+    vio: "vio column header",
+    blu: "blue column header",
+    grn: "green column header",
+    yel: "yelloow column header",
+    org: "orange data column header",
+    red: "red data column header",
+  };
 
   const isDashboard = false;
   let dataType;
-  const graphId = "graph-container"+sensorNum
+  const graphId = "graph-container" + sensorNum;
 
   const VioPoint = [props.dataType + "_Avg_Vio_450nm"];
   const BluPoint = [props.dataType + "_Avg_Blu_500nm"];
@@ -63,7 +60,9 @@ function SimpleGraphData(props) {
   }
 
   function handleExportImage() {
-    const graphContainer = document.getElementById("graph-container"+sensorNum);
+    const graphContainer = document.getElementById(
+      "graph-container" + sensorNum
+    );
     domtoimage
       .toBlob(graphContainer)
       .then((blob) => {
@@ -116,11 +115,18 @@ function SimpleGraphData(props) {
       },
     ];
 
+    //-----------------get all of the first points of the y axis----------------------------
+    const firstYVioPoint = parsedData[props.index].Samples[0]?.[VioPoint];
+    const firstYBluPoint = parsedData[props.index].Samples[0]?.[BluPoint];
+    const firstYGrnPoint = parsedData[props.index].Samples[0]?.[GrnPoint];
+    const firstYYelPoint = parsedData[props.index].Samples[0]?.[YelPoint];
+    const firstYOrgPoint = parsedData[props.index].Samples[0]?.[OrgPoint];
+    const firstYRedPoint = parsedData[props.index].Samples[0]?.[RedPoint];
+
+    //-----------------apply a loop to save the data in an object----------------------------
     for (let i = 0; i < sampleLength.length; i++) {
       const time = parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1];
       const dataDateTime = dayjs(time, "HH:mm:ss");
-      // console.log(dataDateTime, "this is the time");
-      // debugger;
       if (dataDateTime >= props.xMinValue && dataDateTime <= props.xMaxValue) {
         let row = {
           timestamp: time.toString(),
@@ -131,13 +137,34 @@ function SimpleGraphData(props) {
           org: parsedData[props.index].Samples[i]?.[OrgPoint],
           red: parsedData[props.index].Samples[i]?.[RedPoint],
         };
+        let Yaxis;
+        if (props.isNrm) {
+          Yaxis = {
+            Vio:parsedData[props.index].Samples[i]?.[VioPoint] / firstYVioPoint -1,
+            Blu:parsedData[props.index].Samples[i]?.[BluPoint] / firstYBluPoint -1,
+            Grn:parsedData[props.index].Samples[i]?.[GrnPoint] / firstYGrnPoint -1,
+            Yel:parsedData[props.index].Samples[i]?.[YelPoint] / firstYYelPoint -1,
+            Org:parsedData[props.index].Samples[i]?.[OrgPoint] / firstYOrgPoint -1,
+            Red:parsedData[props.index].Samples[i]?.[RedPoint] / firstYRedPoint -1,
+          };
+        } else {
+          Yaxis = {
+            Vio: parsedData[props.index].Samples[i]?.[VioPoint],
+            Blu: parsedData[props.index].Samples[i]?.[BluPoint],
+            Grn: parsedData[props.index].Samples[i]?.[GrnPoint],
+            Yel: parsedData[props.index].Samples[i]?.[YelPoint],
+            Org: parsedData[props.index].Samples[i]?.[OrgPoint],
+            Red: parsedData[props.index].Samples[i]?.[RedPoint],
+          };
+        }
 
         const text = [
           {
             data: [
               {
                 x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
-                y: parsedData[props.index].Samples[i]?.[VioPoint],
+                // y: parsedData[props.index].Samples[i]?.[VioPoint],
+                y: Yaxis.Vio,
               },
             ],
           },
@@ -145,7 +172,8 @@ function SimpleGraphData(props) {
             data: [
               {
                 x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
-                y: parsedData[props.index].Samples[i]?.[BluPoint],
+                // y: parsedData[props.index].Samples[i]?.[BluPoint],
+                y: Yaxis.Blu,
               },
             ],
           },
@@ -153,7 +181,8 @@ function SimpleGraphData(props) {
             data: [
               {
                 x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
-                y: parsedData[props.index].Samples[i]?.[GrnPoint],
+                // y: parsedData[props.index].Samples[i]?.[GrnPoint],
+                y: Yaxis.Grn,
               },
             ],
           },
@@ -161,7 +190,8 @@ function SimpleGraphData(props) {
             data: [
               {
                 x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
-                y: parsedData[props.index].Samples[i]?.[YelPoint],
+                // y: parsedData[props.index].Samples[i]?.[YelPoint],
+                y: Yaxis.Yel,
               },
             ],
           },
@@ -169,7 +199,8 @@ function SimpleGraphData(props) {
             data: [
               {
                 x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
-                y: parsedData[props.index].Samples[i]?.[OrgPoint],
+                // y: parsedData[props.index].Samples[i]?.[OrgPoint],
+                y: Yaxis.Org,
               },
             ],
           },
@@ -177,11 +208,13 @@ function SimpleGraphData(props) {
             data: [
               {
                 x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
-                y: parsedData[props.index].Samples[i]?.[RedPoint],
+                // y: parsedData[props.index].Samples[i]?.[RedPoint],
+                y: Yaxis.Red,
               },
             ],
           },
         ];
+        // console.log(Yaxis, "this is value for normalized");
 
         setrowData((current) => [...current, row]);
         for (let i = 0; i <= 5; i++) {
@@ -211,19 +244,24 @@ function SimpleGraphData(props) {
   const csvReport = {
     data: rowData,
     headers: headers,
-    xsd_filename: dataType+'data_P'+sensorNum+'.xml',
+    xsd_filename: dataType + "data_P" + sensorNum + ".xml",
     filename: dataType + "data_P" + sensorNum + ".csv",
   };
+
+  const graphHeadingText = props.isNrm
+    ? `${dataType} data : Normalized P${sensorNum} Graph`
+    : `${dataType} data : P${sensorNum} Graph`;
+
   return (
-    <div  >
+    <div>
       <h3 style={{ marginTop: 90, textAlign: "center" }}>
-        {dataType} data : P{sensorNum} Graph
+        {graphHeadingText}
       </h3>
 
       <Button type="submit" className="mx-2 menu-btn menu-btn1">
         <CSVLink {...csvReport}>Export Data to CSV</CSVLink>
       </Button>
-      
+
       <Button
         type="submit"
         className="mx-2 menu-btn menu-btn2"
@@ -231,8 +269,12 @@ function SimpleGraphData(props) {
       >
         Export Image
       </Button>
-      <XMLExport data={rowData} fields={fieldsAsObjects} fileName={csvReport.xsd_filename} />
-      <div id={"graph-container"+sensorNum} style={{ height: "60vh" }}>
+      <XMLExport
+        data={rowData}
+        fields={fieldsAsObjects}
+        fileName={csvReport.xsd_filename}
+      />
+      <div id={"graph-container" + sensorNum} style={{ height: "60vh" }}>
         <ResponsiveLine
           // {...console.log(finalData, "this is final data")}
           data={finalData}
