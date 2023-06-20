@@ -5,6 +5,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { TextField } from "@mui/material";
 import { baseApiUrl } from "../../../../../../config";
 import dayjs from "dayjs";
 import {
@@ -49,16 +50,6 @@ function Groups(props) {
   const handleGroupNameChange = (event) => {
     const selectedGroupName = event.target.value;
     setGroupName(selectedGroupName);
-
-    // Find the corresponding group ID
-    const selectedGroup = groupData[0].find(
-      (group) => group.GroupName === selectedGroupName
-    );
-    if (selectedGroup) {
-      const selectedGroupId = selectedGroup.GroupID;
-      setGroupId(selectedGroupId);
-      getFavList(selectedGroupId, selectedGroupName);
-    }
   };
 
   const handleFavListChange = (event) => {
@@ -144,35 +135,36 @@ function Groups(props) {
         </FormControl>
       </Col>
 
-      <Col style={{ backgroundColor: "#2484ac" }}>
-        <FormControl
-          sx={{ m: 1, width: "95%" }}
-          size="small"
-          label="demo-select-small-label"
-          id="demo-select"
-        >
-          <InputLabel className="dataTypeInput" id="demo-select-small-label">
-            Group Name
-          </InputLabel>
-          <Select
-            className="dataTypeSelect"
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            label="DataType"
-            sx={{
-              width: "100%",
-            }}
-            value={groupName}
-            onChange={handleGroupNameChange}
-          >
-            {groupData[0] &&
-              groupData[0].map((item, index) => (
-                <MenuItem value={item.GroupName} key={index}>
-                  {item.GroupName}
-                </MenuItem>
-              ))}
-          </Select>
-        </FormControl>
+      <Col style={{ backgroundColor: "#2484ac", display: "flex", alignItems: "center"}}>
+        <TextField
+          type="text"
+          defaultValue="Group Name"
+          variant="outlined"
+          size = "small"
+          inputProps={{ readOnly: true }}
+          label="Group Name"
+          value={groupName}
+          onChange={handleGroupNameChange}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "white", // Border color
+              },
+              "&:hover fieldset": {
+                borderColor: "white", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "white", // Border color when focused
+              },
+            },
+            "& .MuiFormLabel-root": {
+              color: "white", // Label color
+            },
+            "& .MuiInputBase-input": {
+              color: "white", // Text color
+            },
+          }}
+        />
       </Col>
       <Col style={{ backgroundColor: "#2484ac" }}>
         <FormControl
