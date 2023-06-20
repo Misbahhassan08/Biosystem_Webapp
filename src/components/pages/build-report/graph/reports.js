@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import TextFields from "./modules/axis-text-fields";
 import DataTypeSelect from "./modules/dataType";
-import SimpleGraphData from "./modules/simpleGraphData";
-import NormalizedGraphData from "./modules/normalizedGraph/normalizedGraphs";
-import WaveLengthGraphData from "./modules/WavelengthData";
-import Groups from "./modules/groups";
+import SimpleGraphData from "./modules/graphs/simpleGraphData";
+import WaveLengthGraphData from "./modules/graphs/WavelengthData";
+import Groups from "./modules/groups/groups";
 import Sensors from "./modules/sensors";
-import CustomFavNameDialog from "./modules/customFav";
+import CustomFavNameDialog from "./modules/groups/customFav";
 import { baseApiUrl } from "../../../../config";
 import dayjs from "dayjs";
 import WaveTypeSelect from "./modules/waveType";
@@ -24,7 +23,6 @@ function BuildReportGraph() {
   const [checkResponse, setCheckResponse] = useState(false);
   const [renderGraphData, setRenderGraphData] = useState();
   const [graphName, setGraphName] = useState();
-  const [normalizedGraph, setNormalizedGraph] = useState(false);
   const [minTime, setMinTime] = useState();
   const [maxTime, setMaxTime] = useState();
   const [minYValue, setMinYValue] = useState();
@@ -82,6 +80,11 @@ function BuildReportGraph() {
     // console.log(value, "this is custom setting");
   }
 
+  function getNewGroupName(value) {
+    setCustomSettingName(value)
+    console.log(value, "new group name");
+  }
+
   function setFavSetting() {
     setsettingsButtonClicked(true);
     resetChart();
@@ -99,6 +102,15 @@ function BuildReportGraph() {
       setIsCutomSetting(true);
     }
   }
+
+  // function getFavList(value) {
+  //   setFavList(value);
+  //   if (value !== "custom") {
+  //     setIsCutomSetting(false);
+  //   } else {
+  //     setIsCutomSetting(true);
+  //   }
+  // }
 
   function requestData() {
     const requestJson = {
@@ -255,12 +267,7 @@ function BuildReportGraph() {
             <Groups
               getGroupId={getGroupId}
               getFavList={getFavList}
-              // getSensorsClicked={getSensorsClicked}
-              // getDataTypeClicked={getDataTypeClicked}
-              // getMinTime={getMinTime}
-              // getMaxTime={getMaxTime}
-              // getMinYValue={getMinYValue}
-              // getMaxYValue={getMaxYValue}
+              // getGroupName ={}
             />
           </Container>
           <Container style={{ backgroundColor: "#2484ac" }}>

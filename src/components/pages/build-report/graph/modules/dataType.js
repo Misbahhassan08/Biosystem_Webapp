@@ -30,7 +30,7 @@ function DataTypeSelect(props) {
       } else if (requiredDataType.Cal) {
         setDataType("Cal");
       } else if (requiredDataType.Nrm) {
-        setDataType("Nrm");
+        setisNrm(true)
       }
 
       props.settingsButtonClickedFalse();
