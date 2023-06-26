@@ -1847,3 +1847,8 @@ button[type="submit"].mobile1:hover {
 .sampleTableDataRows .form-control{
   background-color: transparent;
 }
+
+.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled{
+  -webkit-text-fill-color: rgba(255, 255, 255, 1) !important;
+  text-align: center;
+}

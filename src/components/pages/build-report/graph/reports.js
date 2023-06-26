@@ -33,6 +33,7 @@ function BuildReportGraph() {
   const [favList, setFavList] = useState();
   const [gfsid, setGfsid] = useState();
   const [settingsButtonClicked, setsettingsButtonClicked] = useState(false);
+  const [newCustomListAdded, setNewCustomListAdded] = useState(false);
 
   //-------------------variable to use when All waveType is selected-------------------------
   const allWaveSelected = ["Vio", "Blu", "Grn", "Yel", "Org", "Red"];
@@ -96,6 +97,15 @@ function BuildReportGraph() {
 
   function settingButtonFalse() {
     setsettingsButtonClicked(false);
+  }
+
+  function listAdded() {
+    setNewCustomListAdded(true);
+    resetChart();
+  }
+
+  function listAddedFalse() {
+    setNewCustomListAdded(false);
   }
 
   function getFavList(value) {
@@ -249,6 +259,8 @@ function BuildReportGraph() {
     //---------- save custom object -----------
 
     const result = await fetchPostReq(save_fav_setting, data);
+
+    listAdded();
     console.log(result, "this is the result from the API request");
   };
 
@@ -280,6 +292,8 @@ function BuildReportGraph() {
                   getGroupId={getGroupId}
                   getFavList={getFavList}
                   setFavSetting={setFavSetting}
+                  listAdded={newCustomListAdded}
+                  listAddedFalse={listAddedFalse}
                   // getGroupName ={}
                 />
               </div>
@@ -331,6 +345,8 @@ function BuildReportGraph() {
                       getSensors={getSensorsClicked}
                       settingsButtonClicked={settingsButtonClicked}
                       settingsButtonClickedFalse={settingButtonFalse}
+                      listAdded={newCustomListAdded}
+                      listAddedFalse={listAddedFalse}
                     />
                   </Col>
                   <Col className="py-3">
@@ -341,82 +357,15 @@ function BuildReportGraph() {
                       getMaxYValue={getMaxYValue}
                       settingsButtonClicked={settingsButtonClicked}
                       settingsButtonClickedFalse={settingButtonFalse}
+                      listAdded={newCustomListAdded}
+                      listAddedFalse={listAddedFalse}
                     />
                   </Col>
                 </Row>
               </div>
             </Row>
           </Container>
-          <Container style={{ backgroundColor: "#2484ac" }}>
-            {/* <Row>
-              <Col>
-              <Groups
-                getGroupId={getGroupId}
-                getFavList={getFavList}
-                setFavSetting={setFavSetting}
-                // getGroupName ={}
-              />
-              </Col>
-              <Col><Row className="border-bottom border-warning">
-                <Col className="p-3 mt-2 align-self-center ">
-                  <h4 className="color-yellow">Format Graph</h4>
-                </Col>
-                <Col className="p-3" style={{ borderLeft: "1px solid #ffc107" }}>
-                  <Row>
-                    <Col className="text-center pe-4">
-                      <Row className="text-warning">
-                        <span>X-axis</span>
-                      </Row>
-                      <Row className="text-white">
-                        <Col>
-                          <span>Min</span>
-                        </Col>
-                        <Col>
-                          <span>Max</span>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col className="text-center pe-4">
-                      <Row className="text-warning">
-                        <span>Y-axis</span>
-                      </Row>
-                      <Row className="text-white">
-                        <Col>
-                          <span>Min</span>
-                        </Col>
-                        <Col>
-                          <span>Max</span>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-              <Row>
-                <Col
-                  className="p-3 col-md-6"
-                  style={{ borderRight: "1px solid #ffc107" }}
-                >
-                  <Sensors
-                    getSensors={getSensorsClicked}
-                    settingsButtonClicked={settingsButtonClicked}
-                    settingsButtonClickedFalse={settingButtonFalse}
-                  />
-                </Col>
-                <Col className="py-3">
-                  <TextFields
-                    getMaxTime={getMaxTime}
-                    getMinTime={getMinTime}
-                    getMinYValue={getMinYValue}
-                    getMaxYValue={getMaxYValue}
-                    settingsButtonClicked={settingsButtonClicked}
-                    settingsButtonClickedFalse={settingButtonFalse}
-                  />
-                </Col>
-              </Row>
-              </Col>
-            </Row> */}
-          </Container>
+          <Container style={{ backgroundColor: "#2484ac" }}></Container>
           <Container className="mt-5" style={{ backgroundColor: "#2484ac" }}>
             <Row>
               <Col className="p-3 mt-2 col-md-6 align-self-center">
@@ -427,6 +376,8 @@ function BuildReportGraph() {
                   getDataType={getDataTypeClicked}
                   settingsButtonClicked={settingsButtonClicked}
                   settingsButtonClickedFalse={settingButtonFalse}
+                  listAdded={newCustomListAdded}
+                  listAddedFalse={listAddedFalse}
                 />
               </Col>
             </Row>
@@ -441,6 +392,8 @@ function BuildReportGraph() {
                   getWaveType={getWaveTypeClicked}
                   settingsButtonClicked={settingsButtonClicked}
                   settingsButtonClickedFalse={settingButtonFalse}
+                  listAdded={newCustomListAdded}
+                  listAddedFalse={listAddedFalse}
                 />
               </Col>
             </Row>

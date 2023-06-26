@@ -36,6 +36,14 @@ function WaveTypeSelect(props) {
     }
   }, [props.settingsButtonClicked]);
 
+  useEffect(() => {
+    if (props.listAdded) {
+      setWaveType("")
+    }
+    props.listAddedFalse()
+  }, [props.listAdded])
+  
+
   return (
     <div>
       <FormControl

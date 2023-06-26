@@ -38,6 +38,17 @@ function DataTypeSelect(props) {
     }
   }, [props.settingsButtonClicked]);
 
+  useEffect(() => {
+
+    if (props.listAdded) {
+      setDataType("");
+      setisNrm(false)
+    }
+
+    props.listAddedFalse()
+    
+  }, [props.listAdded]);
+
   return (
     <div>
       <FormControl

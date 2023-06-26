@@ -145,6 +145,26 @@ function Sensors(props) {
     }
   }, [props.settingsButtonClicked]);
 
+
+  useEffect(() => {
+
+    if (props.listAdded) {
+      for (let i = 0; i < 5; i++) {
+        const stateNameA = `setEditA${i}`;
+        eval(`${stateNameA}(false);`);
+
+        const stateNameB = `setEditB${i}`;
+        eval(`${stateNameB}(false);`);
+
+        const stateNameC = `setEditC${i}`;
+        eval(`${stateNameC}(false);`);
+
+      }  
+    }
+    props.listAddedFalse()
+    
+  }, [props.listAdded]);
+
   return (
     <>
       <Row>

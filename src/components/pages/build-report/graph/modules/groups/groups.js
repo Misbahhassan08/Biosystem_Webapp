@@ -47,13 +47,15 @@ function Groups(props) {
     const selectedGroupName = event.target.value;
     setGroupName(selectedGroupName);
 
-   // Find the corresponding group ID
-  const selectedGroup = groupData[0].find((group) => group.GroupName === selectedGroupName);
-  if (selectedGroup) {
-    const selectedGroupId = selectedGroup.GroupID;
-    setGroupId(selectedGroupId);
-    getFavList(selectedGroupId, selectedGroupName);
-  }
+    // Find the corresponding group ID
+    const selectedGroup = groupData[0].find(
+      (group) => group.GroupName === selectedGroupName
+    );
+    if (selectedGroup) {
+      const selectedGroupId = selectedGroup.GroupID;
+      setGroupId(selectedGroupId);
+      getFavList(selectedGroupId, selectedGroupName);
+    }
   };
 
   const handleFavListChange = (event) => {
@@ -67,7 +69,7 @@ function Groups(props) {
       setFavListSettingObj(v);
       localStorage.setItem("UserFavSettingObj", JSON.stringify(v));
       console.log(v, "setting object");
-      props.setFavSetting()
+      props.setFavSetting();
     }
     // console.log(selectedFavList, "this is fav list");
   };
@@ -89,9 +91,9 @@ function Groups(props) {
   const getGroupData = async () => {
     const response = await fetchGetReq(get_list_of_groups);
     setGroupData(response.result);
-    console.log("====================================");
-    console.log(response.result, "group data");
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log(response.result, "group data");
+    // console.log("====================================");
   };
 
   useEffect(() => {
@@ -106,6 +108,16 @@ function Groups(props) {
     props.getFavList(selectedFavList);
   }, [selectedFavList]);
 
+  useEffect(() => {
+    if (props.listAdded) {
+      getFavList(groupId, groupName)
+      console.log('====================================');
+      console.log(`get request for ${groupName} at id ${groupId}`);
+      console.log('====================================');
+    }
+    props.listAddedFalse()
+  }, [props.listAdded]);
+
   return (
     <Row className="gap-4 mb-5 align-self-center text-center">
       <Row style={{ backgroundColor: "#2484ac" }} className="">
@@ -115,27 +127,42 @@ function Groups(props) {
           label="demo-select-small-label"
           id="demo-select"
         >
-          <InputLabel className="dataTypeInput" id="demo-select-small-label">
-            Group ID
-          </InputLabel>
-          <Select
-            className="dataTypeSelect"
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            label="DataType"
-            sx={{
-              width: "100%",
-            }}
-            value={groupId}
-            onChange={handleGroupIDChange}
-          >
-            {groupData[0] &&
-              groupData[0].map((item, index) => (
-                <MenuItem value={item.GroupID} key={index}>
-                  {item.GroupID}
-                </MenuItem>
-              ))}
-          </Select>
+        <TextField
+          id="groupid"
+          label="Group ID"
+          value={groupId}
+          onChange={handleGroupIDChange}
+          size="small"
+          
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "white", // Border color
+              },
+              "&:hover fieldset": {
+                borderColor: "white", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "white", // Border color when focused
+              },
+              "&.Mui-disabled .MuiOutlinedInput-notchedOutline":{
+                borderColor: "white",
+              },
+            },
+            "& .MuiFormLabel-root": {
+              color: "white", // Label color
+            },
+            "& .MuiInputBase-input": {
+              color: "white", // Text color
+            },
+            
+          }}
+      
+          InputProps={{
+            disabled : true
+          }}
+          
+        />
         </FormControl>
       </Row>
 
@@ -174,7 +201,6 @@ function Groups(props) {
               ))}
           </Select>
         </FormControl>
-        
       </Row>
       <Row style={{ backgroundColor: "#2484ac" }}>
         <FormControl
@@ -201,7 +227,7 @@ function Groups(props) {
             {favList.map((item, index) => (
               // console.log(index, "index"),
               <MenuItem value={item.SettingsName} key={index}>
-                {" "}
+                
                 {item.SettingsName}
               </MenuItem>
             ))}

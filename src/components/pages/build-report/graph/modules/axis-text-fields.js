@@ -81,6 +81,19 @@ function TextFields(props) {
     }
   }, [props.settingsButtonClicked]);
 
+  useEffect(() => {
+
+    if (props.listAdded) {
+      setXMinValue("")
+      setXMaxValue("")
+
+      setYMinValue("")
+      setYMaxValue("")
+    }
+    
+    props.listAddedFalse()
+  }, [props.listAdded]);
+
   return (
     <>
       <Row className="Axis-Text-Field-Row">
