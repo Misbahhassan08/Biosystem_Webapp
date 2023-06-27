@@ -58,8 +58,6 @@ import SampleConcentrationDetails from "./components/pages/report-details/startD
 import EndResultDetails from "./components/pages/report-details/endResults/endResult";
 import CsvInfoPage from "./components/pages/build-report/graph/csvPage";
 
-import LoadCSV from "./components/pages/loadCsv";
-
 function App() {
   useEffect(() => {
     window.addEventListener("error", (e) => {
@@ -333,11 +331,6 @@ function App() {
                 path={`${process.env.PUBLIC_URL}/sample-report/end-results`}
                 // element={<EndResultDetails />}
                 element={<ProtectedRoute element={EndResultDetails} />}
-              />
-              <Route
-                path={`${process.env.PUBLIC_URL}/load-csv`}
-                // element={<EndResultDetails />}
-                element={<ProtectedRoute element={LoadCSV} />}
               />
 
               <Route path="*" element={<NoMatch />} />
