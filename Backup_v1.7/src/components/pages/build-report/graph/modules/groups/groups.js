@@ -27,21 +27,21 @@ function Groups(props) {
   const get_list_of_groups = baseApiUrl + "/api/get_list_of_group";
   const get_list_of_fav_setting = baseApiUrl + "/api/get_list_of_fav_settings";
 
-  // const handleGroupIDChange = (event) => {
-  //   const selectedGroupId = event.target.value;
-  //   setGroupId(selectedGroupId);
+  const handleGroupIDChange = (event) => {
+    const selectedGroupId = event.target.value;
+    setGroupId(selectedGroupId);
 
-  //   // Find the corresponding group name
+    // Find the corresponding group name
 
-  //   const selectedGroup = groupData[0].find(
-  //     (group) => group.GroupID === selectedGroupId
-  //   );
-  //   if (selectedGroup) {
-  //     const selectedGroupName = selectedGroup.GroupName;
-  //     setGroupName(selectedGroupName);
-  //     getFavList(selectedGroupId, selectedGroupName);
-  //   }
-  // };
+    const selectedGroup = groupData[0].find(
+      (group) => group.GroupID === selectedGroupId
+    );
+    if (selectedGroup) {
+      const selectedGroupName = selectedGroup.GroupName;
+      setGroupName(selectedGroupName);
+      getFavList(selectedGroupId, selectedGroupName);
+    }
+  };
 
   const handleGroupNameChange = (event) => {
     const selectedGroupName = event.target.value;
@@ -120,7 +120,7 @@ function Groups(props) {
 
   return (
     <Row className="gap-4 mb-5 align-self-center text-center">
-      {/* <Row style={{ backgroundColor: "#2484ac" }} className="">
+      <Row style={{ backgroundColor: "#2484ac" }} className="">
         <FormControl
           sx={{ m: 1, width: "95%" }}
           size="small"
@@ -164,7 +164,7 @@ function Groups(props) {
           
         />
         </FormControl>
-      </Row> */}
+      </Row>
 
       <Row
         style={{

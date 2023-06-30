@@ -45,13 +45,6 @@ const SidebarData = [
     cName: "nav-text",
   },
   {
-    //load csv
-    title: "Load CSV",
-    path: "/load-csv",
-    icon: Media.Images.sixthicon,
-    cName: "nav-text",
-  },
-  {
     title: "Build Report",
     path: "/build-report",
     icon: Media.Images.sixthicon,
