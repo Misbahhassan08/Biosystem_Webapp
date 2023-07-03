@@ -10,7 +10,7 @@ function ReaderStatus() {
 
   const statusUrl = rackStatusEndPoint;
 
-  const override: CSSProperties = {
+  const override = {
     display: "block",
     margin: "20% auto",
     borderColor: "red",

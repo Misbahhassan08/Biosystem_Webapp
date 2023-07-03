@@ -15,7 +15,9 @@ function LoadCSV() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const getDateTime = (value) => {
+    value = value + ".csv";
     setDateTime(value);
+    console.log(value, "this is date time");
   };
 
   const handleFileChange = (event) => {
@@ -26,31 +28,29 @@ function LoadCSV() {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile);
-      console.log(formData.get("file"), "this is form data");
+      formData.append("CsvfileDirectory", dateTime)
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
 
-      const reqObj = {
-        CsvfileDirectory: dateTime,
-        Data: formData,
-      };
+      //   console.log(reqObj, "this is data");
 
-    //   console.log(reqObj, "this is data");
+      //     const response = await fetchPostReq(post_csv_file, reqObj)
+      //     console.log(response.result, "this is response result");
 
-    //     const response = await fetchPostReq(post_csv_file, reqObj)
-    //     console.log(response.result, "this is response result");
-
-        fetch(post_csv_file, {
-          method: 'POST',
-          body: formData,
+      fetch(post_csv_file, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("File uploaded successfully!", data);
+          // Perform any additional actions after successful file upload
         })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('File uploaded successfully!', data);
-            // Perform any additional actions after successful file upload
-          })
-          .catch((error) => {
-            console.error('Error uploading file:', error);
-            // Handle error scenarios
-          });
+        .catch((error) => {
+          console.error("Error uploading file:", error);
+          // Handle error scenarios
+        });
     }
   };
 

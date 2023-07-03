@@ -92,7 +92,7 @@ export class Mqtt extends Component {
         try {
           if (message) {
             localStorage.setItem("mqttResponseDataNormalized", message);
-            this.checkData();
+            // this.checkData();
           }
         } catch (err) {
           console.error("Error getting response:", err);

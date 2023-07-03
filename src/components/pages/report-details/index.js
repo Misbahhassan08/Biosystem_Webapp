@@ -18,13 +18,13 @@ function SampleDetails() {
           {
             //Graph Card
           }
-          <Col className="px-4">
+          {/* <Col className="px-4">
             <Link to={process.env.PUBLIC_URL + "/sample-report/end-results"}>
               <Card.Title className="text-center justify-content-center mt-3 mb-5 text-dark text-uppercase">
                 END RESULTS
               </Card.Title>
             </Link>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>

@@ -31,7 +31,7 @@ function BuildReport() {
           {
             //Graph Card
           }
-          <Col className="px-4">
+          {/* <Col className="px-4">
             <Card className=" p-0 border-0 ">
               <Card.Body className="text-center p-0">
                 <Link to={process.env.PUBLIC_URL + "/build-report/csv-info"}>
@@ -48,7 +48,7 @@ function BuildReport() {
                 Data Graph
               </Card.Title>
             </Link>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>

@@ -13,7 +13,7 @@ export default function DateModal(props) {
   };
 
   function handleAccept(){
-    const dateTimeString = value.format('YYYY-MM-DD HH:mm');
+    const dateTimeString = value.format('YYYY-MM-DD_HH_mm');
     props.getDateTime(dateTimeString)
     
   }
