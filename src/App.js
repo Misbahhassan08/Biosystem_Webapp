@@ -57,6 +57,7 @@ import SampleDetails from "./components/pages/report-details";
 import SampleConcentrationDetails from "./components/pages/report-details/startDetails/sampleConcentrationDetails";
 import EndResultDetails from "./components/pages/report-details/endResults/endResult";
 import CsvInfoPage from "./components/pages/build-report/graph/csvPage";
+import AllGraphReport from "./components/pages/build-report/graph/modules/allGraphReport/allGraphReport";
 
 import LoadCSV from "./components/pages/loadCsv";
 
@@ -308,16 +309,24 @@ function App() {
               />
 
               <Route
-                path={`${process.env.PUBLIC_URL}/build-report/graph`}
+                path={`${process.env.PUBLIC_URL}/reports/graph`}
                 // element={<BuildReportGraph />}
                 element={<ProtectedRoute element={BuildReportGraph} />}
               />
 
               <Route
-                path={`${process.env.PUBLIC_URL}/build-report/csv-info`}
+                path={`${process.env.PUBLIC_URL}/reports/csv-info`}
                 // element={<EndResultDetails />}
                 element={<ProtectedRoute element={CsvInfoPage} />}
               />
+
+              <Route
+                path={`${process.env.PUBLIC_URL}/reports/all-graph-report`}
+                // element={<EndResultDetails />}
+                element={<ProtectedRoute element={AllGraphReport} />}
+              />
+
+
               <Route
                 path={`${process.env.PUBLIC_URL}/sample-details`}
                 // element={<SampleDetails />}
@@ -330,10 +339,11 @@ function App() {
                 element={<ProtectedRoute element={SampleConcentrationDetails} />}
               />
               <Route
-                path={`${process.env.PUBLIC_URL}/sample-report/end-results`}
+                path={`${process.env.PUBLIC_URL}/observation/end-results`}
                 // element={<EndResultDetails />}
                 element={<ProtectedRoute element={EndResultDetails} />}
               />
+
               <Route
                 path={`${process.env.PUBLIC_URL}/load-csv`}
                 // element={<EndResultDetails />}

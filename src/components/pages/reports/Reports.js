@@ -26,7 +26,8 @@ function Report(){
                 return ( 
                     
                     <Col className="px-4 col-lg-4" key={index}>
-                    <Link to={process.env.PUBLIC_URL + item.path}>
+                    {/* <Link to={process.env.PUBLIC_URL + item.path}> */}
+                    <Link to={process.env.PUBLIC_URL + '/reports/csv-info'}>
                             <Card className=" p-0 border-0 ">
                             <Card.Body className="text-center p-0">
                             <img src={item.icon} alt={item.title} className="img-fluid"/>
@@ -40,7 +41,7 @@ function Report(){
             })}
 
             </Row>
-            <Row className="report-row1">
+            {/* <Row className="report-row1">
             <Card.Title className="text-green border-top text-uppercase text-light-blue font-size-24 pt-5 mt-2 px-0 mb-4">What kind of reports can I run for you?</Card.Title>
             <ListGroup>
             <ListGroup.Item className="border-0 px-0 pb-0 "><IoIcons.IoIosCheckmarkCircle />Outbreak flow/process?</ListGroup.Item>
@@ -51,7 +52,7 @@ function Report(){
             <ListGroup.Item className="border-0 px-0 pb-0 "><IoIcons.IoIosCheckmarkCircle />Need to consider thresholds for "normal" readings</ListGroup.Item>
           </ListGroup>
 
-            </Row>
+            </Row> */}
             </Container>
             </div>
         </>

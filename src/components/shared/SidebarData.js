@@ -52,7 +52,7 @@ const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "Build Report",
+    title: "Build Grid",
     path: "/build-report",
     icon: Media.Images.sixthicon,
     cName: "nav-text",

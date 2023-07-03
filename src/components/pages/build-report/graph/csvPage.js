@@ -48,11 +48,10 @@ function CsvInfoPage() {
                 <div className="table-responsive">
                   <Table className="reports-tab">
                     <thead>
-                      <tr className="one">
-                        <th>Machine Id</th>
-                        <th>RPI Id</th>
-                        <th>CSV File Id</th>
-                        <th>Path</th>
+                    <tr className="one">
+                        <th>Sample/Accession Number</th>
+                        <th>Date</th>
+                        <th>Info/Details</th>
                         <th>Reports</th>
                       </tr>
                     </thead>
