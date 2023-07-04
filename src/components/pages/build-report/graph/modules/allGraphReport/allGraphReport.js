@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import SimpleGraphData from "./simpleGraphData";
-import BeatLoader from "react-spinners/BeatLoader";
+import Spinner from "../../../../../shared/spinner";
 import { fetchPostReq } from "../../../../../../services/restService";
 import { baseApiUrl } from "../../../../../../config";
 
@@ -13,12 +13,6 @@ function AllGraphReport() {
   const sensors = [0, 1, 2, 3, 4];
   const location = useLocation();
 
-  const override = {
-    display: "block",
-    margin: "20% auto",
-    borderColor: "red",
-    textAlign: "center",
-  };
 
   const data = {
     Data_Point: [0, 1, 2, 3, 4],
@@ -33,9 +27,6 @@ function AllGraphReport() {
       localStorage.removeItem("allGraphReport");
       const response = await fetchPostReq(get_graph_data, data);
       localStorage.setItem("allGraphReport", JSON.stringify(response.result));
-      console.log("====================================");
-      console.log(data);
-      console.log("====================================");
       if (localStorage.getItem("allGraphReport") == "Success") {
         setLoading(true);
       } else if (localStorage.getItem("allGraphReport")) {
@@ -55,14 +46,7 @@ function AllGraphReport() {
     <div className="layout-right-side justify-content-center">
       <div className="m-auto ">
         {loading ? (
-          <BeatLoader
-            color={"#39c2d3"}
-            loading={loading}
-            cssOverride={override}
-            size={20}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
+          <Spinner loading={loading} />
         ) : (
           <div>
             <Container>

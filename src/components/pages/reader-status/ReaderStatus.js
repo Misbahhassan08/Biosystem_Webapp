@@ -3,19 +3,12 @@ import { Link } from "react-router-dom";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
 import * as FaIcons from "react-icons/fa";
 import { rackStatusEndPoint } from "../../../config";
-import BeatLoader from "react-spinners/BeatLoader";
+import Spinner from "../../shared/spinner";
 
 function ReaderStatus() {
   const [status, setStatus] = useState();
 
   const statusUrl = rackStatusEndPoint;
-
-  const override = {
-    display: "block",
-    margin: "20% auto",
-    borderColor: "red",
-    textAlign: "center"
-  };
 
   useEffect(() => {
     document.title = "Reader Status";
@@ -110,14 +103,7 @@ function ReaderStatus() {
                 );
               })
             ) : (
-              <BeatLoader
-                color={"#39c2d3"}
-                loading={status}
-                cssOverride={override}
-                size={20}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
+              <Spinner loading={status}/>
             )}
           </Row>
         </Container>
