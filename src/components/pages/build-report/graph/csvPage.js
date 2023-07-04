@@ -3,26 +3,30 @@ import { Card, Container, Row, Col, Button, Table } from "react-bootstrap";
 import CSVRows from "./csvrows/csvRows";
 import { baseApiUrl } from "../../../../config";
 import { fetchGetReq, fetchPostReq } from "../../../../services/restService";
+import Spinner from "../../../shared/spinner";
 
 function CsvInfoPage() {
   const get_csv_list_endpoint = baseApiUrl + "/api/get_list_of_csv";
   const post_metaData_endpoint = baseApiUrl + "/api/get_meta_data";
+  const [isloading, setIsloading] = useState(true);
   const [csvRowsData, setCsvRowsData] = useState();
 
   // ------------------------------------------------------ POSTING DATA FROM HERE --------------------------------------
 
   useEffect(() => {
     //mqtt.requestData('biogas/client/request/database/csvtbl/data', JSON.stringify({data:"misbah"}))
-    document.title = "Build Report";
-    getCsvData()
-    
+    document.title = "Reports Csv List";
+    getCsvData();
   }, []);
 
-  const getCsvData = async () =>{
+  const getCsvData = async () => {
     const csvList = await fetchGetReq(get_csv_list_endpoint);
     console.log(csvList.result, "this is csv lsit");
     setCsvRowsData(csvList.result);
-  }
+    if (csvList.result) {
+      setIsloading(false);
+    }
+  };
 
   return (
     <>
@@ -42,30 +46,32 @@ function CsvInfoPage() {
             </Card>
           </Container>
 
-          <Container>
-            <Row>
-              <Col>
-                <div className="table-responsive">
-                  <Table className="reports-tab">
-                    <thead>
-                    <tr className="one">
-                        <th>Sample/Accession Number</th>
-                        <th>Date</th>
-                        <th>Info/Details</th>
-                        <th>Reports</th>
-                      </tr>
-                    </thead>
+          {isloading ? (
+            <Spinner loading={isloading} />
+          ) : (
+            <Container>
+              <Row>
+                <Col>
+                  <div className="table-responsive">
+                    <Table className="reports-tab">
+                      <thead>
+                        <tr className="one">
+                          <th>Sample/Accession Number</th>
+                          <th>Date</th>
+                          <th>Info/Details</th>
+                          <th>Reports</th>
+                        </tr>
+                      </thead>
 
-                    <tbody>
-                      {csvRowsData && (
-                        <CSVRows rowsData={csvRowsData}/>
-                      )}
-                    </tbody>
-                  </Table>
-                </div>
-              </Col>
-            </Row>
-          </Container>
+                      <tbody>
+                        {csvRowsData && <CSVRows rowsData={csvRowsData} />}
+                      </tbody>
+                    </Table>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          )}
         </div>
       </div>
     </>

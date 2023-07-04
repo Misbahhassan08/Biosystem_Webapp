@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import FormFields from "./components/formField";
 import Table from "./components/table";
@@ -6,30 +6,34 @@ import Table from "./components/table";
 function SampleConcentrationDetails() {
   const [fields, setFields] = useState();
   const [table, setTable] = useState();
-  const [getJson, setGetJson] = useState(false)
+  const [getJson, setGetJson] = useState(false);
 
   function getFieldsJSon(value) {
     setFields(value);
-    console.log(value, "this is json");
   }
   function getTableJSon(value) {
     setTable(value);
-    console.log(value, "this is json");
   }
 
   function getAllJson() {
     setGetJson(true);
   }
-  function setJsonFalse(){
-    setGetJson(false)
+  function setJsonFalse() {
+    setGetJson(false);
   }
 
   function displayJson() {
-   const finalJson = {
+    const finalJson = {
       fields,
-      table
-    }
+      table,
+    };
+
+    console.log(finalJson, "this is final json");
   }
+
+  useEffect(() => {
+    displayJson()
+  }, [table, fields]);
 
   return (
     <div className="layout-right-side cassette-load">
@@ -37,23 +41,31 @@ function SampleConcentrationDetails() {
         Enter Sample and concentration details
       </h2>
       <Container>
-        <FormFields getFields={getFieldsJSon} getJson={getJson} stopJson={setJsonFalse}/>
+        <FormFields
+          getFields={getFieldsJSon}
+          getJson={getJson}
+          stopJson={setJsonFalse}
+        />
         <Row>
-          <Table getTable={getTableJSon} getJson={getJson} stopJson={setJsonFalse}/>
+          <Table
+            getTable={getTableJSon}
+            getJson={getJson}
+            stopJson={setJsonFalse}
+          />
         </Row>
         <Row>
-        <Col className="text-center mt-4">
-          <Button
+          <Col className="text-center mt-4">
+            <Button
               type="submit"
               className="mx-2 menu-btn menu-btn2"
-              onClick={()=>{
+              onClick={() => {
                 getAllJson();
-                displayJson()
+                // displayJson()
               }}
             >
               Save
             </Button>
-        </Col>
+          </Col>
         </Row>
       </Container>
     </div>

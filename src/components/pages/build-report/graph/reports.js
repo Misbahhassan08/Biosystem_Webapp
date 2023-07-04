@@ -11,6 +11,7 @@ import { baseApiUrl } from "../../../../config";
 import dayjs from "dayjs";
 import WaveTypeSelect from "./modules/waveType";
 import { fetchPostReq } from "../../../../services/restService";
+import Spinner from "../../../shared/spinner";
 
 function BuildReportGraph() {
   const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
@@ -34,6 +35,7 @@ function BuildReportGraph() {
   const [gfsid, setGfsid] = useState();
   const [settingsButtonClicked, setsettingsButtonClicked] = useState(false);
   const [newCustomListAdded, setNewCustomListAdded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   //-------------------variable to use when All waveType is selected-------------------------
   const allWaveSelected = ["Vio", "Blu", "Grn", "Yel", "Org", "Red"];
@@ -129,10 +131,13 @@ function BuildReportGraph() {
 
   function requestData() {
     const requestJson = {
+      CSVfileID : 3,
       Data_Point: sensor[0],
       // Rack_Num: 1,
     };
     console.log(requestJson, "this is data request");
+
+    setIsLoading(true)
 
     requestDataApi(requestJson);
 
@@ -170,6 +175,7 @@ function BuildReportGraph() {
   function checkData() {
     if (localStorage.getItem("mqttResponseDataNormalized")) {
       setCheckResponse(true);
+      setIsLoading(false);
     } else {
       console.error("Error");
     }
@@ -475,33 +481,37 @@ function BuildReportGraph() {
                   yMaxValue={maxYValue}
                 />
               } */}
-          {waveType == "All"
-            ? checkResponse &&
-              allWaveSelected.map((wavevalue, index) => (
-                <WaveLengthGraphData
-                  dataType={dataType}
-                  wave={wavevalue}
-                  isNrm={isNrm}
-                  xMinValue={minTime}
-                  xMaxValue={maxTime}
-                  yMinValue={minYValue}
-                  yMaxValue={maxYValue}
-                  yValueLoop={sensor}
-                  key={index} // Add a unique key for each graph
-                />
-              ))
-            : checkResponse && (
-                <WaveLengthGraphData
-                  dataType={dataType}
-                  isNrm={isNrm}
-                  wave={waveType}
-                  xMinValue={minTime}
-                  xMaxValue={maxTime}
-                  yMinValue={minYValue}
-                  yMaxValue={maxYValue}
-                  yValueLoop={[waveType]}
-                />
-              )}
+          {isLoading ? (
+            <Spinner loading={isLoading} />
+          ) : waveType == "All" ? (
+            checkResponse &&
+            allWaveSelected.map((wavevalue, index) => (
+              <WaveLengthGraphData
+                dataType={dataType}
+                wave={wavevalue}
+                isNrm={isNrm}
+                xMinValue={minTime}
+                xMaxValue={maxTime}
+                yMinValue={minYValue}
+                yMaxValue={maxYValue}
+                yValueLoop={sensor}
+                key={index} // Add a unique key for each graph
+              />
+            ))
+          ) : (
+            checkResponse && (
+              <WaveLengthGraphData
+                dataType={dataType}
+                isNrm={isNrm}
+                wave={waveType}
+                xMinValue={minTime}
+                xMaxValue={maxTime}
+                yMinValue={minYValue}
+                yMaxValue={maxYValue}
+                yValueLoop={[waveType]}
+              />
+            )
+          )}
         </div>
       </div>
     </>

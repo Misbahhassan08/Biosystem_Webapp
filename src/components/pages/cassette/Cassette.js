@@ -92,7 +92,7 @@ function Cassette(){
 
                                
                                 </div>
-                                <div class="isolate">
+                                <div className="isolate">
                                 <Form.Label htmlFor="inputCassetteBarcode" className="mt-4 mb-4">Isolate #</Form.Label>
                                <div className="d-flex">
                               <Form.Select>

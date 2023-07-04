@@ -5,14 +5,16 @@ import { baseApiUrl } from "../../../config";
 import { fetchGetReq, fetchPostReq } from "../../../services/restService";
 import CSVRows from "./csvRows";
 import DateModal from "./dateModal";
+import Spinner from "../../shared/spinner";
 
 function LoadCSV() {
   const get_csv_list_endpoint = baseApiUrl + "/api/get_list_of_csv";
   const post_metaData_endpoint = baseApiUrl + "/api/get_meta_data";
-  const post_csv_file = baseApiUrl + "/api/load_csv_meta_data";
+  const post_csv_file = baseApiUrl + "/api/save_csv_meta_data";
   const [csvRowsData, setCsvRowsData] = useState();
   const [dateTime, setDateTime] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getDateTime = (value) => {
     value = value + ".csv";
@@ -28,7 +30,7 @@ function LoadCSV() {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile);
-      formData.append("CsvfileDirectory", dateTime)
+      formData.append("CsvfileDirectory", dateTime);
       for (var pair of formData.entries()) {
         console.log(pair[0] + ", " + pair[1]);
       }
@@ -87,6 +89,7 @@ function LoadCSV() {
     const csvList = await fetchGetReq(get_csv_list_endpoint);
     console.log(csvList.result, "this is csv lsit");
     setCsvRowsData(csvList.result);
+    setIsLoading(false);
   };
 
   return (
@@ -107,30 +110,37 @@ function LoadCSV() {
             </Card>
           </Container>
 
-          <Container>
-            <Row>
-              <Col>
-                <div className="table-responsive">
-                  <Table className="reports-tab">
-                    <thead>
-                      <tr className="one">
-                        <th>Sample/Accession Number</th>
-                        <th>Date</th>
-                        <th>Info/Details</th>
-                        <th>Reports</th>
-                      </tr>
-                    </thead>
+          {isLoading ? (
+            <Spinner laoding={isLoading} />
+          ) : (
+            <Container>
+              <Row>
+                <Col>
+                  <div className="table-responsive">
+                    <Table className="reports-tab">
+                      <thead>
+                        <tr className="one">
+                          <th>Sample/Accession Number</th>
+                          <th>Date</th>
+                          <th>Info/Details</th>
+                          <th>Reports</th>
+                        </tr>
+                      </thead>
 
-                    <tbody>
-                      {csvRowsData && (
-                        <CSVRows rowsData={csvRowsData} checkData={checkData} />
-                      )}
-                    </tbody>
-                  </Table>
-                </div>
-              </Col>
-            </Row>
-          </Container>
+                      <tbody>
+                        {csvRowsData && (
+                          <CSVRows
+                            rowsData={csvRowsData}
+                            checkData={checkData}
+                          />
+                        )}
+                      </tbody>
+                    </Table>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          )}
 
           <Container className="mt-5">
             <Row>
