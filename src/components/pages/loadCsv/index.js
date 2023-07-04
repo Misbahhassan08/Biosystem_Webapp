@@ -14,7 +14,8 @@ function LoadCSV() {
   const [csvRowsData, setCsvRowsData] = useState();
   const [dateTime, setDateTime] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isCsvListLoading, setisCsvListLoading] = useState(true);
+  const [isSavingFile, setIsSavingFile] = useState(false);
 
   const getDateTime = (value) => {
     value = value + ".csv";
@@ -39,7 +40,7 @@ function LoadCSV() {
 
       //     const response = await fetchPostReq(post_csv_file, reqObj)
       //     console.log(response.result, "this is response result");
-
+      setIsSavingFile(true);
       fetch(post_csv_file, {
         method: "POST",
         body: formData,
@@ -89,87 +90,94 @@ function LoadCSV() {
     const csvList = await fetchGetReq(get_csv_list_endpoint);
     console.log(csvList.result, "this is csv lsit");
     setCsvRowsData(csvList.result);
-    setIsLoading(false);
+    setisCsvListLoading(false);
   };
 
   return (
     <>
       <div className="layout-right-side justify-content-center">
-        <div>
-          <Container>
-            <Card className="text-center border-0 ">
-              <Card.Body>
-                {" "}
-                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
-                  Load CSV
-                </Card.Title>
-                <Card.Text className="mx-auto mb-4" style={{ width: "40rem" }}>
-                  Get The CSV Data
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Container>
-
-          {isLoading ? (
-            <Spinner laoding={isLoading} />
-          ) : (
+        {isSavingFile ? (
+          <Spinner loading={isSavingFile} />
+        ) : (
+          <div>
             <Container>
+              <Card className="text-center border-0 ">
+                <Card.Body>
+                  {" "}
+                  <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
+                    Load CSV
+                  </Card.Title>
+                  <Card.Text
+                    className="mx-auto mb-4"
+                    style={{ width: "40rem" }}
+                  >
+                    Get The CSV Data
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Container>
+
+            {isCsvListLoading ? (
+              <Spinner laoding={isCsvListLoading} />
+            ) : (
+              <Container>
+                <Row>
+                  <Col>
+                    <div className="table-responsive">
+                      <Table className="reports-tab">
+                        <thead>
+                          <tr className="one">
+                            <th>Sample/Accession Number</th>
+                            <th>Date</th>
+                            <th>Info/Details</th>
+                            <th>Reports</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {csvRowsData && (
+                            <CSVRows
+                              rowsData={csvRowsData}
+                              checkData={checkData}
+                            />
+                          )}
+                        </tbody>
+                      </Table>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            )}
+
+            <Container className="mt-5">
               <Row>
                 <Col>
-                  <div className="table-responsive">
-                    <Table className="reports-tab">
-                      <thead>
-                        <tr className="one">
-                          <th>Sample/Accession Number</th>
-                          <th>Date</th>
-                          <th>Info/Details</th>
-                          <th>Reports</th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-                        {csvRowsData && (
-                          <CSVRows
-                            rowsData={csvRowsData}
-                            checkData={checkData}
-                          />
-                        )}
-                      </tbody>
-                    </Table>
-                  </div>
+                  <DateModal getDateTime={getDateTime} />
+                </Col>
+                <Col>
+                  <TextField
+                    type="file"
+                    label="Select File"
+                    onChange={handleFileChange}
+                    accept=".csv"
+                    InputLabelProps={{ shrink: true }}
+                  />
+                </Col>
+                <Col className="text-center align-self-center">
+                  <Button
+                    type="submit"
+                    className="mx-2 menu-btn menu-btn1"
+                    onClick={() => {
+                      handleSaveCSV();
+                    }}
+                  >
+                    Save CSV
+                  </Button>
                 </Col>
               </Row>
             </Container>
-          )}
-
-          <Container className="mt-5">
-            <Row>
-              <Col>
-                <DateModal getDateTime={getDateTime} />
-              </Col>
-              <Col>
-                <TextField
-                  type="file"
-                  label="Select File"
-                  onChange={handleFileChange}
-                  accept=".csv"
-                  InputLabelProps={{ shrink: true }}
-                />
-              </Col>
-              <Col className="text-center align-self-center">
-                <Button
-                  type="submit"
-                  className="mx-2 menu-btn menu-btn1"
-                  onClick={() => {
-                    handleSaveCSV();
-                  }}
-                >
-                  Save CSV
-                </Button>
-              </Col>
-            </Row>
-          </Container>
-        </div>
+          </div>
+        )}
       </div>
     </>
   );

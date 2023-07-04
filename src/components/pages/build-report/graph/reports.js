@@ -131,55 +131,58 @@ function BuildReportGraph() {
 
   function requestData() {
     const requestJson = {
-      CSVfileID : 3,
+      CSVfileID: 3,
       Data_Point: sensor[0],
       // Rack_Num: 1,
     };
     console.log(requestJson, "this is data request");
 
-    setIsLoading(true)
+    getFilteredData(requestJson.Data_Point);
+    setIsLoading(true);
 
-    requestDataApi(requestJson);
 
     setRenderGraphData(sensor[0]);
-
     setGraphName(dataType);
     // console.log(minTime, "this is min value");
     resetChart();
+    checkData()
   }
 
-  function requestDataApi(reqObj) {
-    fetch(get_graph_data, {
-      method: "POST",
-      body: JSON.stringify(reqObj),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        let newdata = data["result"];
-        console.log(newdata, "new data");
-        localStorage.setItem(
-          "mqttResponseDataNormalized",
-          JSON.stringify(newdata)
-        );
-        checkData();
-        // setRowsData(newdata);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+  function getFilteredData(reqObj) {
+    const allGraphReport = JSON.parse(localStorage.getItem("allGraphReport"));
+
+    // Check if the data exists and is an array
+    if (!Array.isArray(allGraphReport)) {
+      console.log("Invalid data in localStorage");
+      return [];
+    }
+
+    // Filter the data based on the given sensors
+    const filteredData = allGraphReport.filter((item) =>
+      reqObj.includes(item.Data_Point)
+    );
+    localStorage.setItem(
+      "mqttResponseDataNormalized",
+      JSON.stringify(filteredData)
+    );
+
   }
 
   function checkData() {
     if (localStorage.getItem("mqttResponseDataNormalized")) {
       setCheckResponse(true);
       setIsLoading(false);
+      console.log('====================================');
+      console.log(checkResponse, "condition is true");
+      console.log('====================================');
     } else {
       console.error("Error");
     }
   }
+
+  useEffect(() => {
+    console.log(checkResponse, "check Response is changed");
+  }, [checkResponse]);
 
   function resetChart() {
     setCheckResponse(false);
