@@ -4,6 +4,7 @@ import { Button, Container, Row, Col, Card } from "react-bootstrap";
 import * as FaIcons from "react-icons/fa";
 import { rackStatusEndPoint } from "../../../config";
 import Spinner from "../../shared/spinner";
+import { fetchGetReq } from "../../../services/restService";
 
 function ReaderStatus() {
   const [status, setStatus] = useState();
@@ -13,7 +14,7 @@ function ReaderStatus() {
   useEffect(() => {
     document.title = "Reader Status";
 
-    getStatus()
+    getStatus();
 
     const interval = setInterval(() => {
       getStatus();
@@ -23,10 +24,9 @@ function ReaderStatus() {
 
   const getStatus = async () => {
     try {
-      const response = await fetch(statusUrl);
-      const json = await response.json();
-      setStatus(json);
-      console.log(json);
+      const response = await fetchGetReq(statusUrl);
+      setStatus(response);
+      console.log(response);
     } catch (error) {
       console.log("error", error);
     }
@@ -103,7 +103,7 @@ function ReaderStatus() {
                 );
               })
             ) : (
-              <Spinner loading={status}/>
+              <Spinner loading={status} />
             )}
           </Row>
         </Container>

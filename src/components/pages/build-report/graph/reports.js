@@ -14,7 +14,7 @@ import { fetchPostReq } from "../../../../services/restService";
 import Spinner from "../../../shared/spinner";
 
 function BuildReportGraph() {
-  const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
+  // const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
   const save_fav_setting = baseApiUrl + "/api/save_fav_setting";
 
   const [sensor, setSensor] = useState([]);
