@@ -16,7 +16,6 @@ function AllGraphReport() {
 
   const data = {
     Data_Point: [0, 1, 2, 3, 4],
-    Data_Req: "Raw",
     CsvfileID: location.state?.csvfileId
   };
 
@@ -26,6 +25,7 @@ function AllGraphReport() {
 
       localStorage.removeItem("allGraphReport");
       const response = await fetchPostReq(get_graph_data, data);
+      console.log(data, "req datas");
       localStorage.setItem("allGraphReport", JSON.stringify(response.result));
       if (localStorage.getItem("allGraphReport") == "Success") {
         setLoading(true);

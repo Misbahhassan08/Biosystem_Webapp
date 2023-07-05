@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import { rackStatusEndPoint } from "../../../config";
 import BeatLoader from "react-spinners/BeatLoader";
+import { fetchGetReq } from "../../../services/restService";
 
 function RackError() {
   const [status, setStatus] = useState();
@@ -33,10 +34,9 @@ function RackError() {
 
   const getStatus = async () => {
     try {
-      const response = await fetch(statusUrl);
-      const json = await response.json();
-      setStatus(json);
-      console.log(json);
+      const response = await fetchGetReq(statusUrl);
+      setStatus(response);
+      console.log(response);
     } catch (error) {
       console.log("error", error);
     }

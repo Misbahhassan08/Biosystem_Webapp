@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col, Button, Table } from "react-bootstrap";
 import { TextField } from "@mui/material";
 import { baseApiUrl } from "../../../config";
-import { fetchGetReq, fetchPostReq } from "../../../services/restService";
+import {
+  fetchGetReq,
+  fetchPostReq,
+  fetchFormData,
+} from "../../../services/restService";
 import CSVRows from "./csvRows";
 import DateModal from "./dateModal";
 import Spinner from "../../shared/spinner";
@@ -36,24 +40,27 @@ function LoadCSV() {
         console.log(pair[0] + ", " + pair[1]);
       }
 
-      //   console.log(reqObj, "this is data");
+      //POST REQUEST FOR SAVING CSV FILE
 
-      //     const response = await fetchPostReq(post_csv_file, reqObj)
-      //     console.log(response.result, "this is response result");
-      setIsSavingFile(true);
-      fetch(post_csv_file, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
+      try {
+        const data = await fetchFormData(post_csv_file, formData);
+        if (data) {
+          setIsSavingFile(false); // Stop spinner
           console.log("File uploaded successfully!", data);
-          // Perform any additional actions after successful file upload
-        })
-        .catch((error) => {
-          console.error("Error uploading file:", error);
-          // Handle error scenarios
-        });
+        }
+         else {
+          setIsSavingFile(false);
+          throw new Error("Request failed with status: " + data);
+        }
+      } catch (error) {
+        // console.error("Error uploading file:", error);
+        // setIsSavingFile(false);
+      } finally {
+        //send get request for list of the saved CSV after Saving
+        setisCsvListLoading(true);
+        getCsvData();
+        setIsSavingFile(false);
+      }
     }
   };
 
@@ -169,6 +176,7 @@ function LoadCSV() {
                     className="mx-2 menu-btn menu-btn1"
                     onClick={() => {
                       handleSaveCSV();
+                      setIsSavingFile(true);
                     }}
                   >
                     Save CSV
