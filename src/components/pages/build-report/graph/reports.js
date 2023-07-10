@@ -55,7 +55,7 @@ function BuildReportGraph() {
   function getDataTypeClicked(dataType, isNrm) {
     setDataType(dataType);
     setIsNrm(isNrm);
-    // console.log(dataType, "is data type with normalized", isNrm);
+    console.log(dataType, "is data type with normalized", isNrm);
     resetChart();
   }
 
@@ -153,7 +153,7 @@ function BuildReportGraph() {
 
     // Check if the data exists and is an array
     if (!Array.isArray(allGraphReport)) {
-      console.log("Invalid data in localStorage");
+      console.error("Invalid data in localStorage");
       return [];
     }
 

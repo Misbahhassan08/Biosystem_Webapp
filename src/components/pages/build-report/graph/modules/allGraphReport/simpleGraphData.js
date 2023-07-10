@@ -27,8 +27,13 @@ function SimpleGraphData(props) {
     dataType = "Calibrated";
   } else if (props.dataType == "Raw") {
     dataType = "Raw";
-  } else if (props.dataType == "Nrm") {
-    dataType = "Normalized";
+  }
+
+  function parseTimestamp(timestamp) {
+    const [date, time] = timestamp.split(" ");
+    const [year, month, day] = date.split("-");
+    const [hours, minutes, seconds] = time.split(":");
+    return new Date(year, month - 1, day, hours, minutes, seconds);
   }
 
   function showGraphData() {
@@ -82,12 +87,18 @@ function SimpleGraphData(props) {
       let Yaxis;
       if (props.isNrm) {
         Yaxis = {
-          Vio:parsedData[props.index].Samples[i]?.[VioPoint] / firstYVioPoint -1,
-          Blu:parsedData[props.index].Samples[i]?.[BluPoint] / firstYBluPoint -1,
-          Grn:parsedData[props.index].Samples[i]?.[GrnPoint] / firstYGrnPoint -1,
-          Yel:parsedData[props.index].Samples[i]?.[YelPoint] / firstYYelPoint -1,
-          Org:parsedData[props.index].Samples[i]?.[OrgPoint] / firstYOrgPoint -1,
-          Red:parsedData[props.index].Samples[i]?.[RedPoint] / firstYRedPoint -1,
+          Vio:
+            parsedData[props.index].Samples[i]?.[VioPoint] / firstYVioPoint - 1,
+          Blu:
+            parsedData[props.index].Samples[i]?.[BluPoint] / firstYBluPoint - 1,
+          Grn:
+            parsedData[props.index].Samples[i]?.[GrnPoint] / firstYGrnPoint - 1,
+          Yel:
+            parsedData[props.index].Samples[i]?.[YelPoint] / firstYYelPoint - 1,
+          Org:
+            parsedData[props.index].Samples[i]?.[OrgPoint] / firstYOrgPoint - 1,
+          Red:
+            parsedData[props.index].Samples[i]?.[RedPoint] / firstYRedPoint - 1,
         };
       } else {
         Yaxis = {
@@ -99,11 +110,15 @@ function SimpleGraphData(props) {
           Red: parsedData[props.index].Samples[i]?.[RedPoint],
         };
       }
+
+      const timestamp = parsedData[props.index].Samples[i].Time_Stamp;
+      const dateObj = parseTimestamp(timestamp);
+
       const text = [
         {
           data: [
             {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
+              x: dateObj,
               y: Yaxis.Vio,
             },
           ],
@@ -111,7 +126,7 @@ function SimpleGraphData(props) {
         {
           data: [
             {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
+              x: dateObj,
               y: Yaxis.Blu,
             },
           ],
@@ -119,7 +134,7 @@ function SimpleGraphData(props) {
         {
           data: [
             {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
+              x: dateObj,
               y: Yaxis.Grn,
             },
           ],
@@ -127,7 +142,7 @@ function SimpleGraphData(props) {
         {
           data: [
             {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
+              x: dateObj,
               y: Yaxis.Yel,
             },
           ],
@@ -135,7 +150,7 @@ function SimpleGraphData(props) {
         {
           data: [
             {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
+              x: dateObj,
               y: Yaxis.Org,
             },
           ],
@@ -143,7 +158,7 @@ function SimpleGraphData(props) {
         {
           data: [
             {
-              x: parsedData[props.index].Samples[i].Time_Stamp,
+              x: dateObj,
               y: Yaxis.Red,
             },
           ],
@@ -167,12 +182,13 @@ function SimpleGraphData(props) {
   }, []);
 
   return (
-    <div style={{ height: "30vh", width: "100%" }}>
+    <div style={{ height: "200px", width: "100%" }}>
       {/* <h3 style={{ marginTop: 90, textAlign: "center" }}>
         {dataType} data : P{sensorNum} Graph
       </h3> */}
-      {/* <ResponsiveLine
+      <ResponsiveLine
         data={finalData}
+        margin={{ top: 10, right: 10, bottom: 50, left: 40 }}
         theme={{
           axis: {
             domain: {
@@ -180,54 +196,36 @@ function SimpleGraphData(props) {
                 stroke: "grey",
               },
             },
-            legend: {
-              text: {
-                fill: "grey",
-              },
-            },
-            ticks: {
-              line: {
-                stroke: "grey",
-                strokeWidth: 1,
-              },
-              text: {
-                fill: "grey",
-              },
-            },
-          },
-          legends: {
-            text: {
-              fill: "grey",
-            },
-          },
-          tooltip: {
-            container: {
-              color: "grey",
-            },
           },
         }}
-        colors={({ id }) => colorsNivo[id]}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        // xScale={{ type: "point" }}
-        // yScale={{
-        //   type: "linear",
-        //   min: "auto",
-        //   max: "auto",
-        //   stacked: false,
-        //   reverse: false,
-        // }}
+        xScale={{
+          type: "time",
+          format: "%H:%M:%S",
+          precision: "second",
+          useUTC: false,
+          min: "auto",
+          max: "auto",
+        }}
+        xFormat="time:%H:%M:%S"
+        yScale={{
+          type: "linear",
+          min: "auto",
+          max: "auto",
+          stacked: false,
+          reverse: false,
+        }}
         yFormat=" >-.2f"
         curve="catmullRom"
-        // axisTop={null}
-        // axisRight={null}
         axisBottom={{
           orient: "bottom",
           tickSize: 7,
           tickPadding: 5,
-          tickRotation: 40,
-          legend: "Time", // added
+          tickRotation: 0,
+          legend: undefined, // added
           legendOffset: 46,
           legendPosition: "middle",
+          format: "%H:%M",
+          tickValues: "every 3 hours",
         }}
         axisLeft={{
           orient: "left",
@@ -235,28 +233,17 @@ function SimpleGraphData(props) {
           tickSize: 7,
           tickPadding: 5,
           tickRotation: 0,
-          legend: isDashboard ? undefined : "Value", // added
+          legend: undefined, // added
           legendOffset: -40,
           legendPosition: "middle",
         }}
         enableGridX={false}
         enableGridY={false}
-        pointSize={2}
-        pointColor={{ theme: "background" }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: "serieColor" }}
-        pointLabelYOffset={-12}
-      /> */}
-
-      <ResponsiveLine
-        data={finalData}
-        margin={{ top: 10, right: 10, bottom: 50, left: 10 }}
-        axisBottom={null}
-        axisLeft={null}
-        enableGridX={false}
-        enableGridY={false}
-        pointSize={4}
+        pointSize={3}
         colors={({ id }) => colorsNivo[id]}
+        pointBorderWidth={2}
+        pointColor={{ theme: "background" }}
+        pointBorderColor={{ from: "serieColor" }}
         legends={[
           {
             anchor: "bottom",

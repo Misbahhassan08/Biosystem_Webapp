@@ -20,9 +20,10 @@ function LoadCSV() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isCsvListLoading, setisCsvListLoading] = useState(true);
   const [isSavingFile, setIsSavingFile] = useState(false);
+  const [csvSampleNum, setCsvSampleNum] = useState();
 
   const getDateTime = (value) => {
-    value = value + ".csv";
+    // value = value  + ".csv";
     setDateTime(value);
     console.log(value, "this is date time");
   };
@@ -35,7 +36,8 @@ function LoadCSV() {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile);
-      formData.append("CsvfileDirectory", dateTime);
+      formData.append("dateTime", dateTime);
+      formData.append("csvSampleNum", csvSampleNum);
       for (var pair of formData.entries()) {
         console.log(pair[0] + ", " + pair[1]);
       }
@@ -47,8 +49,7 @@ function LoadCSV() {
         if (data) {
           setIsSavingFile(false); // Stop spinner
           console.log("File uploaded successfully!", data);
-        }
-         else {
+        } else {
           setIsSavingFile(false);
           throw new Error("Request failed with status: " + data);
         }
@@ -72,26 +73,26 @@ function LoadCSV() {
     getCsvData();
   }, []);
 
-  async function checkData() {
-    const reqCsv = {
-      CSV_File_Id: 3,
-      filedire: "./2023/05/31/csvFileAll.csv",
-      userId: Math.random().toString(36).slice(2),
-    };
+  // async function checkData() {
+  //   const reqCsv = {
+  //     CSV_File_Id: 3,
+  //     filedire: "./2023/05/31/csvFileAll.csv",
+  //     userId: Math.random().toString(36).slice(2),
+  //   };
 
-    const tableData = await fetchPostReq(post_metaData_endpoint, reqCsv);
-    console.log("====================================");
-    console.log(tableData.result, "this is table data");
-    console.log("====================================");
+  //   const tableData = await fetchPostReq(post_metaData_endpoint, reqCsv);
+  //   console.log("====================================");
+  //   console.log(tableData.result, "this is table data");
+  //   console.log("====================================");
 
-    for (let i = 0; i < tableData.result.length; i++) {
-      if (tableData.result[i][2] === 0) {
-        console.log(tableData.result[i][2]);
-      } else {
-        console.log("no data");
-      }
-    }
-  }
+  //   for (let i = 0; i < tableData.result.length; i++) {
+  //     if (tableData.result[i][2] === 0) {
+  //       console.log(tableData.result[i][2]);
+  //     } else {
+  //       console.log("no data");
+  //     }
+  //   }
+  // }
 
   const getCsvData = async () => {
     const csvList = await fetchGetReq(get_csv_list_endpoint);
@@ -145,7 +146,7 @@ function LoadCSV() {
                           {csvRowsData && (
                             <CSVRows
                               rowsData={csvRowsData}
-                              checkData={checkData}
+                              // checkData={checkData}
                             />
                           )}
                         </tbody>
@@ -158,6 +159,16 @@ function LoadCSV() {
 
             <Container className="mt-5">
               <Row>
+                <Col>
+                  <TextField
+                    type="text"
+                    label="Sample/Accession Number"
+                    value={csvSampleNum}
+                    onChange={(e) => {
+                      setCsvSampleNum(e.target.value);
+                    }}
+                  />
+                </Col>
                 <Col>
                   <DateModal getDateTime={getDateTime} />
                 </Col>
