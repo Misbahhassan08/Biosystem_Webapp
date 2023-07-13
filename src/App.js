@@ -297,13 +297,13 @@ function App() {
               />
 
               <Route
-                path={`${process.env.PUBLIC_URL}/build-report`}
+                path={`${process.env.PUBLIC_URL}/show-csv`}
                 // element={<BuildReport />}
                 element={<ProtectedRoute element={BuildReport} />}
               />
 
               <Route
-                path={`${process.env.PUBLIC_URL}/build-report/grid`}
+                path={`${process.env.PUBLIC_URL}/show-csv/grid`}
                 // element={<BuildReportGrid />}
                 element={<ProtectedRoute element={BuildReportGrid} />}
               />

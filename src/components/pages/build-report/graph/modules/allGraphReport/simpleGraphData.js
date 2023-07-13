@@ -30,9 +30,9 @@ function SimpleGraphData(props) {
   }
 
   function parseTimestamp(timestamp) {
-    const [date, time] = timestamp.split(" ");
+    const [date, time] = timestamp.split("_");
     const [year, month, day] = date.split("-");
-    const [hours, minutes, seconds] = time.split(":");
+    const [hours, minutes, seconds] = time.split("-");
     return new Date(year, month - 1, day, hours, minutes, seconds);
   }
 

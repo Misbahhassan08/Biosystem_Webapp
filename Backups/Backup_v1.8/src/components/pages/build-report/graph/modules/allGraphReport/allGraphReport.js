@@ -135,6 +135,7 @@ function AllGraphReport() {
                     />
                   </Col>
                 ))}
+                
               </Row>
             </Container>
             <Container>

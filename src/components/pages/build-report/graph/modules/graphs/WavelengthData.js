@@ -83,9 +83,10 @@ function WaveLengthGraphData(props) {
 
       for (let j = 0; j < samples.length; j++) {
         // const dataDateTime = dayjs(parsedData[i].Samples[j].Time_Stamp);
-        const timeString = parsedData[i].Samples[j].Time_Stamp.split(" ")[1];
+        const timeString = parsedData[i].Samples[j].Time_Stamp.split("_")[1];
+        const replacedTime = timeString.replace(/-/g, ':')
 
-        const dataDateTime = dayjs(timeString, "HH:mm:ss");
+        const dataDateTime = dayjs(replacedTime, "HH:mm:ss");
 
         // console.log(props.xMinValue[i], "these are the min Value");
         // console.log(props.xMaxValue[i], "these are the max Value");
@@ -97,7 +98,8 @@ function WaveLengthGraphData(props) {
         ) {
           const firstValue = samples[0][props.dataType + "_Avg_" + wave];
 
-          const time = samples[j].Time_Stamp.split(" ")[1];
+          // const time = samples[j].Time_Stamp.split("_")[1];
+          
           // const time = timeString.substring(0, 5);
           let value;
           if (props.isNrm) {
@@ -110,11 +112,11 @@ function WaveLengthGraphData(props) {
           }
           // console.log(value, "this is first value for", wave, "at", j);
           let row = {
-            timestamp: time.toString(),
+            timestamp: replacedTime.toString(),
             vio: value,
           };
           const dataPoint = {
-            x: time,
+            x: replacedTime,
             y: value,
           };
 
