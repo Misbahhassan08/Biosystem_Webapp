@@ -52,8 +52,8 @@ const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "Build Grid",
-    path: "/build-report",
+    title: "Show CSV",
+    path: "/show-csv",
     icon: Media.Images.sixthicon,
     cName: "nav-text",
   },

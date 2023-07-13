@@ -21,12 +21,12 @@ function CSVRows(props) {
     return (
       <tr key={index} className="TableDataRows">
       <td>
-          <input type="text" value={"1"} readOnly className="form-control" />
+          <input type="text" value={data.sample_num} readOnly className="form-control" />
         </td>
         <td>
           <input
             type="text"
-            value={data.RPIID}
+            value={data.date_time}
             readOnly
             className="form-control"
           />

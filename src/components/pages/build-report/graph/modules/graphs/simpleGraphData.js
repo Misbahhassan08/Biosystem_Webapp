@@ -125,8 +125,11 @@ function SimpleGraphData(props) {
 
     //-----------------apply a loop to save the data in an object----------------------------
     for (let i = 0; i < sampleLength.length; i++) {
-      const time = parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1];
-      const dataDateTime = dayjs(time, "HH:mm:ss");
+      const time = parsedData[props.index].Samples[i].Time_Stamp.split("_")[1];
+      const replacedTime = time.replace(/-/g, ":");
+      console.log(replacedTime, 'this is time replaced');
+      const dataDateTime = dayjs(replacedTime, "HH:mm:ss");
+      console.log(dataDateTime, "this is datadatetime");
       if (dataDateTime >= props.xMinValue && dataDateTime <= props.xMaxValue) {
         let row = {
           timestamp: time.toString(),
@@ -162,7 +165,7 @@ function SimpleGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
+                x: parsedData[props.index].Samples[i].Time_Stamp.split("_")[1],
                 // y: parsedData[props.index].Samples[i]?.[VioPoint],
                 y: Yaxis.Vio,
               },
@@ -171,7 +174,7 @@ function SimpleGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
+                x: parsedData[props.index].Samples[i].Time_Stamp.split("_")[1],
                 // y: parsedData[props.index].Samples[i]?.[BluPoint],
                 y: Yaxis.Blu,
               },
@@ -180,7 +183,7 @@ function SimpleGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
+                x: parsedData[props.index].Samples[i].Time_Stamp.split("_")[1],
                 // y: parsedData[props.index].Samples[i]?.[GrnPoint],
                 y: Yaxis.Grn,
               },
@@ -189,7 +192,7 @@ function SimpleGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
+                x: parsedData[props.index].Samples[i].Time_Stamp.split("_")[1],
                 // y: parsedData[props.index].Samples[i]?.[YelPoint],
                 y: Yaxis.Yel,
               },
@@ -198,7 +201,7 @@ function SimpleGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
+                x: parsedData[props.index].Samples[i].Time_Stamp.split("_")[1],
                 // y: parsedData[props.index].Samples[i]?.[OrgPoint],
                 y: Yaxis.Org,
               },
@@ -207,7 +210,7 @@ function SimpleGraphData(props) {
           {
             data: [
               {
-                x: parsedData[props.index].Samples[i].Time_Stamp.split(" ")[1],
+                x: parsedData[props.index].Samples[i].Time_Stamp.split("_")[1],
                 // y: parsedData[props.index].Samples[i]?.[RedPoint],
                 y: Yaxis.Red,
               },
