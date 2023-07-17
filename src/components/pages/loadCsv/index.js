@@ -21,6 +21,7 @@ function LoadCSV() {
   const [isCsvListLoading, setisCsvListLoading] = useState(true);
   const [isSavingFile, setIsSavingFile] = useState(false);
   const [csvSampleNum, setCsvSampleNum] = useState();
+  const [isNewRowAdded, setIsNewRowAdded] = useState(true)
 
   const getDateTime = (value) => {
     // value = value  + ".csv";
@@ -61,6 +62,7 @@ function LoadCSV() {
         setisCsvListLoading(true);
         getCsvData();
         setIsSavingFile(false);
+        setIsNewRowAdded(true)
       }
     }
   };
@@ -138,7 +140,7 @@ function LoadCSV() {
                             <th>Sample/Accession Number</th>
                             <th>Date</th>
                             <th>Info/Details</th>
-                            <th>Reports</th>
+                            <th>Pre-Notes</th>
                           </tr>
                         </thead>
 
@@ -146,6 +148,7 @@ function LoadCSV() {
                           {csvRowsData && (
                             <CSVRows
                               rowsData={csvRowsData}
+                              newRowAdded = {isNewRowAdded}
                               // checkData={checkData}
                             />
                           )}

@@ -13,13 +13,13 @@ function AllGraphReport() {
   const sensors = [0, 1, 2, 3, 4];
   const location = useLocation();
 
+  const CsvfileID = location.state?.csvfileId
 
   const data = {
     Data_Point: [0, 1, 2, 3, 4],
-    CsvfileID: location.state?.csvfileId
+    CsvfileID
   };
 
-  // const location = useLocation();
   const fetchData = async () => {
     try {
 
@@ -143,6 +143,7 @@ function AllGraphReport() {
                 <Col className="text-end">
                   <Link
                     to={process.env.PUBLIC_URL + "/observation/end-results"}
+                    state={{csvfileId : CsvfileID}}
                   >
                     <Button type="submit" className="mx-2 menu-btn menu-btn1">
                       Enter End results and observations
