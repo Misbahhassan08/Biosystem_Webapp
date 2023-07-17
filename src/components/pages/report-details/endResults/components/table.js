@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from "react";
-import {Row, Col, Button} from 'react-bootstrap';
+import { Row, Col, Button } from "react-bootstrap";
 
-function Table() {
-  const [jsonData, setJsonData] = useState([])
-    
+function Table(props) {
+  const [jsonData, setJsonData] = useState([]);
+
+  // let pointA, pointA_pre, pointB, pointB_pre, pointC, pointC_pre;
+
+  const  pointA = props.setTableData.table[0].A;
+  const  pointA_pre = props.setTableData.table[1]["A-pre"];
+  const  pointB = props.setTableData.table[2].B;
+  const  pointB_pre = props.setTableData.table[3]["B-pre"];
+  const  pointC = props.setTableData.table[4].C;
+  const  pointC_pre = props.setTableData.table[5]["C-pre"];
+
+  console.log('====================================');
+  console.log(props.setTableData);
+  console.log('====================================');
   useEffect(() => {
-    
-  }, []);
+    const data = getTableData();
+    if (props.getJson) {
+      props.getTable(data);
+    }
+    props.stopJson();
+  }, [props.getJson]);
 
-  function getJson() {
-    const data = 
-      [
-        localStorage.getItem("GFSID"),
-        {
+  function getTableData() {
+    const data = [
+      // localStorage.getItem("GFSID"),
+      {
         A: [
           document.getElementById("A0").value,
           document.getElementById("A1").value,
@@ -137,27 +152,16 @@ function Table() {
           document.getElementById("C-post-8").value,
           document.getElementById("C-post-9").value,
         ],
-      }
-    ]
-    console.log(data,"table data");
-
-    // fetch(, {
-    //   method: "POST",
-    //   body: JSON.stringify(data),
-    //   cors: "no-cors",
-    //   headers: {
-    //     "Content-type": "application/json; charset=UTF-8",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     let newdata = data["result"];
-    //     console.log(newdata);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
+      },
+    ];
+    return data;
   }
+
+  // useEffect(() => {
+    
+  //   debugger
+  // }, [props.setTableData]);
+
   return (
     <div
       className="table-responsive"
@@ -191,10 +195,23 @@ function Table() {
             <td>
               <b className="bold-text">A</b>
             </td>
-            <td>
-              <input id="A0" type="text" className="form-control" />
+            {pointA.map((item, index) => {
+              return (
+                <td key={index}>
+                  <input
+                    id={"A" + index}
+                    value={item}
+                    type="text"
+                    className="form-control"
+                  />
+                </td>
+              );
+            })}
+            {/* <td>
+              <input id="A0" type="text"  className="form-control" />
             </td>
-            <td>
+            
+              <td>
               <input id="A1" type="text" className="form-control" />
             </td>
             <td>
@@ -220,7 +237,7 @@ function Table() {
             </td>
             <td>
               <input id="A9" type="text" className="form-control" />
-            </td>
+            </td>   */}
           </tr>
           {/* row 2 */}
           <tr className="color_yel sampleTableDataRows">
@@ -263,7 +280,19 @@ function Table() {
             <td>
               <b className="bold-text">A –post Notes</b>
             </td>
-            <td>
+            {pointA_pre.map((item, index) => {
+              return (
+                <td key={index}>
+                  <input
+                    id={"A-post-" + index}
+                    value={item}
+                    type="text"
+                    className="form-control"
+                  />
+                </td>
+              );
+            })}
+            {/* <td>
               <input id="A-post-0" type="text" className="form-control" />
             </td>
             <td>
@@ -292,14 +321,26 @@ function Table() {
             </td>
             <td>
               <input id="A-post-9" type="text" className="form-control" />
-            </td>
+            </td> */}
           </tr>
           {/* row 4 */}
           <tr className="color_blue sampleTableDataRows">
             <td>
               <b className="bold-text">B</b>
             </td>
-            <td>
+            {pointB.map((item, index) => {
+              return (
+                <td key={index}>
+                  <input
+                    id={"B" + index}
+                    value={item}
+                    type="text"
+                    className="form-control"
+                  />
+                </td>
+              );
+            })}
+            {/* <td>
               <input id="B0" type="text" className="form-control" />
             </td>
             <td>
@@ -328,7 +369,7 @@ function Table() {
             </td>
             <td>
               <input id="B9" type="text" className="form-control" />
-            </td>
+            </td> */}
           </tr>
           {/* row 5 */}
           <tr className="color_blue sampleTableDataRows">
@@ -371,7 +412,21 @@ function Table() {
             <td>
               <b className="bold-text">B –post Notes</b>
             </td>
-            <td>
+
+            {pointB_pre.map((item, index) => {
+              return (
+                <td key={index}>
+                  <input
+                    id={"B-post-" + index}
+                    value={item}
+                    type="text"
+                    className="form-control"
+                  />
+                </td>
+              );
+            })}
+
+            {/* <td>
               <input id="B-post-0" type="text" className="form-control" />
             </td>
             <td>
@@ -400,14 +455,26 @@ function Table() {
             </td>
             <td>
               <input id="B-post-9" type="text" className="form-control" />
-            </td>
+            </td> */}
           </tr>
           {/* row 7 */}
           <tr className="color_yel sampleTableDataRows">
             <td>
               <b className="bold-text">C</b>
             </td>
-            <td>
+            {pointC.map((item, index) => {
+              return (
+                <td key={index}>
+                  <input
+                    id={"C" + index}
+                    value={item}
+                    type="text"
+                    className="form-control"
+                  />
+                </td>
+              );
+            })}
+            {/* <td>
               <input id="C0" type="text" className="form-control" />
             </td>
             <td>
@@ -436,7 +503,7 @@ function Table() {
             </td>
             <td>
               <input id="C9" type="text" className="form-control" />
-            </td>
+            </td> */}
           </tr>
           {/* row 8 */}
           <tr className="color_yel sampleTableDataRows">
@@ -479,7 +546,19 @@ function Table() {
             <td>
               <b className="bold-text">C –post Notes</b>
             </td>
-            <td>
+            {pointC_pre.map((item, index) => {
+              return (
+                <td key={index}>
+                  <input
+                    id={"C-post-" + index}
+                    value={item}
+                    type="text"
+                    className="form-control"
+                  />
+                </td>
+              );
+            })}
+            {/* <td>
               <input id="C-post-0" type="text" className="form-control" />
             </td>
             <td>
@@ -508,21 +587,10 @@ function Table() {
             </td>
             <td>
               <input id="C-post-9" type="text" className="form-control" />
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </table>
-      <Row>
-        <Col className="text-center mt-4">
-          <Button
-              type="submit"
-              className="mx-2 menu-btn menu-btn2"
-              onClick={getJson}
-            >
-              Save
-            </Button>
-        </Col>
-        </Row>
     </div>
   );
 }

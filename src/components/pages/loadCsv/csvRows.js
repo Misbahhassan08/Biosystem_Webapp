@@ -2,13 +2,19 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function CSVRows(props) {
-
   // console.log(props.rowsData, "this is csv Rows Data");
   return props.rowsData.map((data, index) => {
+    const isNewRow = index === props.rowsData.length - 1;
+
     return (
       <tr key={index} className="TableDataRows">
         <td>
-          <input type="text" value={data.sample_num} readOnly className="form-control" />
+          <input
+            type="text"
+            value={data.sample_num}
+            readOnly
+            className="form-control"
+          />
         </td>
         <td>
           <input
@@ -27,18 +33,20 @@ function CSVRows(props) {
             className="form-control"
           />
         </td>
-        <td>
-        {/* <Link to={process.env.PUBLIC_URL + "/build-report/graph"}> */}
-            <Button
-              type="submit"
-              className="mx-2 menu-btn menu-btn1"
-              onClick={() => {
-                // props.checkData()
-              }}
-            >
-              Get CSV
-            </Button>
-          {/* </Link> */}
+        <td style={{ width: "21%" }}>
+          {isNewRow && props.newRowAdded && (
+            <Link  to={process.env.PUBLIC_URL + "/sample-report/concentration-details"} state={{csvfileId: data.CsvfileID}}>
+              <Button
+                type="submit"
+                className="mx-2 menu-btn menu-btn1"
+                onClick={() => {
+                  // props.checkData()
+                }}
+              >
+                Pre-Notes
+              </Button>
+            </Link>
+          )}
         </td>
       </tr>
     );

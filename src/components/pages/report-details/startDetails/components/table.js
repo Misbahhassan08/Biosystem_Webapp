@@ -4,7 +4,7 @@ import { Row, Col, Button } from "react-bootstrap";
 function Table(props) {
     function getTableData() {
       const data = [
-        localStorage.getItem("GFSID"),
+        // localStorage.getItem("GFSID"),
         {
           A: [
             document.getElementById("A0").value,
@@ -98,7 +98,9 @@ function Table(props) {
     
   useEffect(() => {
     const data = getTableData()
-    props.getTable(data);
+    if (props.getJson) {
+      props.getTable(data);
+    }
     props.stopJson()
 
   }, [props.getJson]);

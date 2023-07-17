@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import {useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FormFields from "./components/formField";
 import Table from "./components/table";
+import { fetchPostReq } from "../../../../services/restService";
+import { baseApiUrl } from "../../../../config";
 
 function SampleConcentrationDetails() {
+  const pre_notes_add = baseApiUrl + "/api/post_pre_notes";
   const [fields, setFields] = useState();
   const [table, setTable] = useState();
   const [getJson, setGetJson] = useState(false);
+
+  const location = useLocation();
+
+  const CsvfileID = location.state?.csvfileId;
 
   function getFieldsJSon(value) {
     setFields(value);
   }
   function getTableJSon(value) {
     setTable(value);
+
+    // run the fucntion after the data is collected
+    // saveJson();
   }
 
   function getAllJson() {
@@ -22,18 +34,32 @@ function SampleConcentrationDetails() {
     setGetJson(false);
   }
 
-  function displayJson() {
+ async  function saveJson() {
     const finalJson = {
+      CsvfileID,
       fields,
       table,
     };
 
-    console.log(finalJson, "this is final json");
+    try {
+      const response = await fetchPostReq(pre_notes_add, finalJson);
+      console.log(response);
+      if (response.result) {  
+        // Change the URL to load-csv
+        window.location.href = "/load-csv";
+      }
+    } catch (error) {
+      // Handle the error
+      console.error("Error:", error);
+    }
+  
   }
 
   useEffect(() => {
-    displayJson()
-  }, [table, fields]);
+    if (fields || table) {
+      saveJson();
+    }
+  }, [ fields, table]);
 
   return (
     <div className="layout-right-side cassette-load">
@@ -55,16 +81,17 @@ function SampleConcentrationDetails() {
         </Row>
         <Row>
           <Col className="text-center mt-4">
+            {/* <Link to={process.env.PUBLIC_URL + "/load-csv"}> */}
             <Button
               type="submit"
               className="mx-2 menu-btn menu-btn2"
               onClick={() => {
                 getAllJson();
-                // displayJson()
               }}
             >
               Save
             </Button>
+            {/* </Link> */}
           </Col>
         </Row>
       </Container>
