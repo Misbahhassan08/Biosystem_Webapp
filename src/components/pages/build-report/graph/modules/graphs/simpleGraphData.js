@@ -55,8 +55,6 @@ function SimpleGraphData(props) {
     dataType = "Calibrated";
   } else if (props.dataType === "Raw") {
     dataType = "Raw";
-  } else if (props.dataType === "Nrm") {
-    dataType = "Normalized";
   }
 
   function handleExportImage() {
@@ -127,10 +125,16 @@ function SimpleGraphData(props) {
     for (let i = 0; i < sampleLength.length; i++) {
       const time = parsedData[props.index].Samples[i].Time_Stamp.split("_")[1];
       const replacedTime = time.replace(/-/g, ":");
-      console.log(replacedTime, 'this is time replaced');
+      // console.log(replacedTime, 'this is time replaced');
       const dataDateTime = dayjs(replacedTime, "HH:mm:ss");
-      console.log(dataDateTime, "this is datadatetime");
+      // console.log(dataDateTime, "this is datadatetime");
+     
+
       if (dataDateTime >= props.xMinValue && dataDateTime <= props.xMaxValue) {
+        // if (dataDateTime.hour() === 0 && dataDateTime.minute() === 0 && dataDateTime.second() === 0) {
+        //   dataDateTime.subtract(1, 'day');
+        //   console.log(dataDateTime, "this is data date time");
+        // }
         let row = {
           timestamp: time.toString(),
           vio: parsedData[props.index].Samples[i]?.[VioPoint],
@@ -256,7 +260,7 @@ function SimpleGraphData(props) {
     : `${dataType} data : P${sensorNum} Graph`;
 
   return (
-    <div>
+     <div>
       <h3 style={{ marginTop: 90, textAlign: "center" }}>
         {graphHeadingText}
       </h3>
@@ -277,7 +281,7 @@ function SimpleGraphData(props) {
         fields={fieldsAsObjects}
         fileName={csvReport.xsd_filename}
       />
-      <div id={"graph-container" + sensorNum} style={{ height: "60vh" }}>
+      <div id={"graph-container" + sensorNum} style={{ height: "60vh"}}>
         <ResponsiveLine
           // {...console.log(finalData, "this is final data")}
           data={finalData}

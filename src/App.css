@@ -1852,3 +1852,16 @@ button[type="submit"].mobile1:hover {
   -webkit-text-fill-color: rgba(255, 255, 255, 1) !important;
   text-align: center;
 }
+
+.graph-grid{
+  display: grid;
+  grid-auto-flow: column;
+    grid-auto-columns: minmax(900px,1fr);
+    overflow-x: auto;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, 900px);
+}
+
+.complete_table{
+  --bs-table-bg: transparent
+}

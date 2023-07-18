@@ -140,12 +140,11 @@ function BuildReportGraph() {
     getFilteredData(requestJson.Data_Point);
     setIsLoading(true);
 
-
     setRenderGraphData(sensor[0]);
     setGraphName(dataType);
     // console.log(minTime, "this is min value");
     resetChart();
-    checkData()
+    checkData();
   }
 
   function getFilteredData(reqObj) {
@@ -165,16 +164,15 @@ function BuildReportGraph() {
       "mqttResponseDataNormalized",
       JSON.stringify(filteredData)
     );
-
   }
 
   function checkData() {
     if (localStorage.getItem("mqttResponseDataNormalized")) {
       setCheckResponse(true);
       setIsLoading(false);
-      console.log('====================================');
+      console.log("====================================");
       console.log(checkResponse, "condition is true");
-      console.log('====================================');
+      console.log("====================================");
     } else {
       console.error("Error");
     }
@@ -453,68 +451,68 @@ function BuildReportGraph() {
             </Row>
           </Container>
 
-          {checkResponse &&
-            renderGraphData.map(
-              (item, index) => (
-                console.log(renderGraphData, "this is the index"),
-                (
-                  <SimpleGraphData
-                    key={index}
-                    dataType={graphName}
+          <Row
+            className="graph-grid"
+            // style={{overflowX: 'auto', display: 'flex', flexWrap: "nowrap"}}
+          >
+            {checkResponse &&
+              renderGraphData.map(
+                (item, index) => (
+                  console.log(renderGraphData, "this is the index"),
+                  (
+                    <Col md={11}>
+                      <SimpleGraphData
+                        key={index}
+                        dataType={graphName}
+                        isNrm={isNrm}
+                        xMinValue={minTime}
+                        xMaxValue={maxTime}
+                        yMinValue={minYValue}
+                        yMaxValue={maxYValue}
+                        resetChart={resetChart}
+                        index={index}
+                      />
+                    </Col>
+                  )
+                )
+              )}
+
+            {isLoading ? (
+              <Spinner loading={isLoading} />
+            ) : waveType == "All" ? (
+              checkResponse &&
+              allWaveSelected.map((wavevalue, index) => (
+                <Col md={11}>
+                  <WaveLengthGraphData
+                    dataType={dataType}
+                    wave={wavevalue}
                     isNrm={isNrm}
                     xMinValue={minTime}
                     xMaxValue={maxTime}
                     yMinValue={minYValue}
                     yMaxValue={maxYValue}
-                    resetChart={resetChart}
-                    index={index}
+                    yValueLoop={sensor}
+                    key={index}
                   />
-                )
+                </Col>
+              ))
+            ) : (
+              checkResponse && (
+                <Col md={11}>
+                  <WaveLengthGraphData
+                    dataType={dataType}
+                    isNrm={isNrm}
+                    wave={waveType}
+                    xMinValue={minTime}
+                    xMaxValue={maxTime}
+                    yMinValue={minYValue}
+                    yMaxValue={maxYValue}
+                    yValueLoop={[waveType]}
+                  />
+                </Col>
               )
             )}
-          {/* {
-                checkResponse &&
-                <WaveLengthGraphData
-                  dataType={dataType}
-                  isNrm={isNrm}
-                  wave={waveType}
-                  xMinValue={minTime}
-                  xMaxValue={maxTime}
-                  yMinValue={minYValue}
-                  yMaxValue={maxYValue}
-                />
-              } */}
-          {isLoading ? (
-            <Spinner loading={isLoading} />
-          ) : waveType == "All" ? (
-            checkResponse &&
-            allWaveSelected.map((wavevalue, index) => (
-              <WaveLengthGraphData
-                dataType={dataType}
-                wave={wavevalue}
-                isNrm={isNrm}
-                xMinValue={minTime}
-                xMaxValue={maxTime}
-                yMinValue={minYValue}
-                yMaxValue={maxYValue}
-                yValueLoop={sensor}
-                key={index} // Add a unique key for each graph
-              />
-            ))
-          ) : (
-            checkResponse && (
-              <WaveLengthGraphData
-                dataType={dataType}
-                isNrm={isNrm}
-                wave={waveType}
-                xMinValue={minTime}
-                xMaxValue={maxTime}
-                yMinValue={minYValue}
-                yMaxValue={maxYValue}
-                yValueLoop={[waveType]}
-              />
-            )
-          )}
+          </Row>
         </div>
       </div>
     </>

@@ -17,7 +17,7 @@ function RackCompleted() {
     document.title = "Rack Status Completed";
   }, []);
 
-  const [setShow] = useState(false);
+  const [show,setShow] = useState(false);
 
   const handleShow = () => setShow(true);
 
@@ -61,7 +61,7 @@ function RackCompleted() {
                           </ul>
                           <h2 className="mb-3">Complete</h2>
                           <div className="table-responsive">
-                            <Table striped bordered hover>
+                            <Table striped bordered hover className="complete_table">
                               <thead>
                                 <tr>
                                   <th className="text-light">#</th>
@@ -77,6 +77,7 @@ function RackCompleted() {
                                   <td className="text-light">1</td>
                                   <td>
                                     <Form.Control type="text" placeholder="" />
+                                    
                                   </td>
                                   <td>
                                     <Form.Control type="text" placeholder="" />
