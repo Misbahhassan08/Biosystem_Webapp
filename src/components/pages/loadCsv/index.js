@@ -21,7 +21,7 @@ function LoadCSV() {
   const [isCsvListLoading, setisCsvListLoading] = useState(true);
   const [isSavingFile, setIsSavingFile] = useState(false);
   const [csvSampleNum, setCsvSampleNum] = useState();
-  const [isNewRowAdded, setIsNewRowAdded] = useState(true)
+  const [isNewRowAdded, setIsNewRowAdded] = useState(false)
 
   const getDateTime = (value) => {
     // value = value  + ".csv";

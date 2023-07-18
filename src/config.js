@@ -1,4 +1,4 @@
 // export const baseApiUrl = "http://18.188.152.100"
 export const baseApiUrl = ""
-// export const baseApiUrl = " https://2564-182-185-130-113.ngrok-free.app"
+// export const baseApiUrl = "https://8d5b-182-185-130-113.ngrok-free.app"
 export const rackStatusEndPoint = baseApiUrl + "/api/rack-status"
