@@ -44,13 +44,7 @@ const SidebarData = [
     icon: Media.Images.sixthicon,
     cName: "nav-text",
   },
-  {
-    //load csv
-    title: "Load CSV",
-    path: "/load-csv",
-    icon: Media.Images.sixthicon,
-    cName: "nav-text",
-  },
+
   {
     title: "Show CSV",
     path: "/show-csv",

@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 
 import NoMatch from "./components/pages/NoMatch";
@@ -59,8 +64,6 @@ import EndResultDetails from "./components/pages/report-details/endResults/endRe
 import CsvInfoPage from "./components/pages/build-report/graph/csvPage";
 import AllGraphReport from "./components/pages/build-report/graph/modules/allGraphReport/allGraphReport";
 
-import LoadCSV from "./components/pages/loadCsv";
-
 function App() {
   useEffect(() => {
     window.addEventListener("error", (e) => {
@@ -83,9 +86,9 @@ function App() {
       }
     });
   }, []);
-  
+
   const ProtectedRoute = ({ element: Component, ...props }) => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === 'true';
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     return isLoggedIn ? (
       <Component {...props} />
     ) : (
@@ -114,7 +117,6 @@ function App() {
               <Route
                 exact
                 path={`${process.env.PUBLIC_URL}/rack1/completed`}
-                // element={<RackCompleted />}
                 element={<ProtectedRoute element={RackCompleted} />}
               />
               <Route
@@ -127,229 +129,181 @@ function App() {
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/cassette/manually`}
-                // element={<CassetteManually />}
                 element={<ProtectedRoute element={CassetteManually} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/cassette/batch-entry`}
-                // element={<CassetteResult />}
                 element={<ProtectedRoute element={CassetteResult} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/cassette/load-cassette`}
-                // element={<Load />}
                 element={<ProtectedRoute element={Load} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/maintenance`}
-                // element={<MaintenanceLogin />}
                 element={<ProtectedRoute element={MaintenanceLogin} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/maintenance/view`}
-                // element={<Maintenance />}
                 element={<ProtectedRoute element={Maintenance} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/isolatereports-status`}
-                // element={<IsolateReportsStatus />}
                 element={<ProtectedRoute element={ReviewReport} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/maintenance/alert`}
-                // element={<Alert />}
                 element={<ProtectedRoute element={Alert} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/maintenance/systemstats`}
-                // element={<Systemstats />}
                 element={<ProtectedRoute element={Systemstats} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/maintenance/systemstatsone`}
-                // element={<Systemstatsone />}
                 element={<ProtectedRoute element={Systemstatsone} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/maintenance/qc`}
-                // element={<Qc />}
                 element={<ProtectedRoute element={Qc} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports`}
-                // element={<Reports />}
                 element={<ProtectedRoute element={Reports} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/login`}
-                // element={<ReportsLogin />}
                 element={<ProtectedRoute element={ReportsLogin} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/isolate-reports`}
-                // element={<IsolateReports />}
                 element={<ProtectedRoute element={IsolateReports} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/isolate-reports1`}
-                // element={<IsolateReports1 />}
                 element={<ProtectedRoute element={IsolateReports1} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/isloate-reportsnew`}
-                // element={<IsolatereportsNew />}
                 element={<ProtectedRoute element={IsolatereportsNew} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/generate-reports`}
-                // element={<Generatereports />}
                 element={<ProtectedRoute element={Generatereports} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/unverified-reports`}
-                // element={<Unverifiedreports />}
                 element={<ProtectedRoute element={Unverifiedreports} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/view-report`}
-                // element={<Viewreport />}
                 element={<ProtectedRoute element={Viewreport} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/report1`}
-                // element={<ReportOne />}
                 element={<ProtectedRoute element={ReportOne} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/report1-two`}
-                // element={<ReportOneTwo />}
                 element={<ProtectedRoute element={ReportOneTwo} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/reportsattribute`}
-                // element={<ReportsAttribute />}
                 element={<ProtectedRoute element={ReportsAttribute} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/reportsattributetwo`}
-                // element={<ReportsAttributeTwo />}
                 element={<ProtectedRoute element={ReportsAttributeTwo} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/sample-report`}
-                // element={<ReportsSample />}
                 element={<ProtectedRoute element={ReportsSample} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/support`}
-                // element={<ReportsSupport />}
                 element={<ProtectedRoute element={ReportsSupport} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/qc-reports`}
-                // element={<Qcreports />}
                 element={<ProtectedRoute element={Qcreports} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/qc-status`}
-                // element={<Qcstatus />}
                 element={<ProtectedRoute element={Qcstatus} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/order`}
-                // element={<Order />}
                 element={<ProtectedRoute element={Order} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/order/:productSlug`}
-                // element={<ProductDetail />}
                 element={<ProtectedRoute element={ProductDetail} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/system-setup/system-setupnew`}
-                // element={<Systmsetup />}
                 element={<ProtectedRoute element={Systmsetup} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/system-setup`}
-                // element={<SystemSetup />}
                 element={<ProtectedRoute element={SystemSetup} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/system-setup/ip`}
-                // element={<SystemSetupIp />}
                 element={<ProtectedRoute element={SystemSetupIp} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/system-setup/business-info`}
-                // element={<SystemSetupBInfo />}
                 element={<ProtectedRoute element={SystemSetupBInfo} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/system-setup/personal-info`}
-                // element={<SystemSetupPInfo />}
                 element={<ProtectedRoute element={SystemSetupPInfo} />}
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/support`}
-                // element={<Support />}
                 element={<ProtectedRoute element={Support} />}
               />
 
               <Route
                 path={`${process.env.PUBLIC_URL}/show-csv`}
-                // element={<BuildReport />}
                 element={<ProtectedRoute element={BuildReport} />}
               />
 
               <Route
                 path={`${process.env.PUBLIC_URL}/show-csv/grid`}
-                // element={<BuildReportGrid />}
                 element={<ProtectedRoute element={BuildReportGrid} />}
               />
 
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/graph`}
-                // element={<BuildReportGraph />}
                 element={<ProtectedRoute element={BuildReportGraph} />}
               />
 
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/csv-info`}
-                // element={<EndResultDetails />}
                 element={<ProtectedRoute element={CsvInfoPage} />}
               />
 
               <Route
                 path={`${process.env.PUBLIC_URL}/reports/all-graph-report`}
-                // element={<EndResultDetails />}
                 element={<ProtectedRoute element={AllGraphReport} />}
               />
 
-
               <Route
                 path={`${process.env.PUBLIC_URL}/sample-details`}
-                // element={<SampleDetails />}
                 element={<ProtectedRoute element={SampleDetails} />}
               />
 
               <Route
                 path={`${process.env.PUBLIC_URL}/sample-report/concentration-details`}
-                // element={<SampleConcentrationDetails />}
-                element={<ProtectedRoute element={SampleConcentrationDetails} />}
+                element={
+                  <ProtectedRoute element={SampleConcentrationDetails} />
+                }
               />
               <Route
                 path={`${process.env.PUBLIC_URL}/observation/end-results`}
-                // element={<EndResultDetails />}
                 element={<ProtectedRoute element={EndResultDetails} />}
               />
-
-              <Route
-                path={`${process.env.PUBLIC_URL}/load-csv`}
-                // element={<EndResultDetails />}
-                element={<ProtectedRoute element={LoadCSV} />}
-              />
-
               <Route path="*" element={<NoMatch />} />
             </Route>
             <Route path={`${process.env.PUBLIC_URL}/`} element={<Login />} />

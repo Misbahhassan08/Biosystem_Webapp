@@ -49,7 +49,7 @@ function CSVRows(props) {
                 // allGraphReport()
               }}
             >
-              Report
+              View CSV
             </Button>
           </Link>
         </td>

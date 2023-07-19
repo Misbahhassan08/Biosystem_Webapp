@@ -1853,14 +1853,11 @@ button[type="submit"].mobile1:hover {
   text-align: center;
 }
 
-.graph-grid{
-  display: grid;
-  grid-auto-flow: column;
-    grid-auto-columns: minmax(900px,1fr);
-    overflow-x: auto;
-    grid-gap: 10px;
-    grid-template-columns: repeat(auto-fit, 900px);
-}
+/* .graph-grid{
+  display: flex;
+  overflow-x: scroll;
+  flex-wrap: nowrap;
+} */
 
 .complete_table{
   --bs-table-bg: transparent

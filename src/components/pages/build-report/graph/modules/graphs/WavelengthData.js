@@ -270,7 +270,7 @@ function WaveLengthGraphData(props) {
               translateY: 0,
               itemsSpacing: 0,
               itemDirection: "left-to-right",
-              itemWidth: 80,
+              itemWidth: 60,
               itemHeight: 20,
               itemOpacity: 0.75,
               symbolSize: 12,
