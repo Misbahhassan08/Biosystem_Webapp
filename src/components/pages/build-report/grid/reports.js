@@ -5,6 +5,7 @@ import CSVRows from "./modules/csvRows";
 import { baseApiUrl } from "../../../../config";
 import { fetchGetReq, fetchPostReq } from "../../../../services/restService";
 import Spinner from "../../../shared/spinner";
+import { useLocation } from "react-router-dom";
 
 function BuildReportGrid() {
   const get_csv_list_endpoint = baseApiUrl + "/api/get_list_of_csv";
@@ -14,11 +15,15 @@ function BuildReportGrid() {
   const [isCsvListLoading, setIsCsvListLoading] = useState(true);
   const [isTableLoading, setIsTableLoading] = useState();
 
+  const location = useLocation()
+  const csvfile = location?.state.csvfileId
+  console.log(csvfile, "this is csvfile");
+
   // ------------------------------------------------------ POSTING DATA FROM HERE --------------------------------------
   async function checkData(csvFileID) {
     setIsTableLoading(true);
     const reqCsv = {
-      CsvfileID: csvFileID,
+      CsvfileID: csvfile,
       filedire: ".2023",
       userId: Math.random().toString(36).slice(2),
     };
@@ -29,10 +34,10 @@ function BuildReportGrid() {
   }
 
   useEffect(() => {
-    //mqtt.requestData('biogas/client/request/database/csvtbl/data', JSON.stringify({data:"misbah"}))
     document.title = "Build Report";
     setIsCsvListLoading(true);
-    getCsvData();
+    // getCsvData();
+    checkData()
   }, []);
 
   const getCsvData = async () => {
@@ -44,7 +49,7 @@ function BuildReportGrid() {
 
   return (
     <>
-      <div className="layout-right-side justify-content-center">
+      <div className="layout-right-side justify-content-center" style={{width: "71%"}}>
         <div>
           <Container>
             <Card className="text-center border-0 ">
@@ -61,7 +66,7 @@ function BuildReportGrid() {
           </Container>
 
           <Container>
-            {isCsvListLoading ? (
+            {/* {isCsvListLoading ? (
               <Spinner loading={isCsvListLoading} />
             ) : (
               <Row>
@@ -90,7 +95,7 @@ function BuildReportGrid() {
                   </div>
                 </Col>
               </Row>
-            )}
+            )} */}
             <Card className="text-center border-1 ">
               <Card.Body>
                 <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">

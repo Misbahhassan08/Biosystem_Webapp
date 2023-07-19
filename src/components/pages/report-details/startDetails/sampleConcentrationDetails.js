@@ -46,7 +46,7 @@ function SampleConcentrationDetails(props) {
       console.log(response);
       if (response.result) {  
         // Change the URL to load-csv
-        window.location.href = "/load-csv";
+        props.closeModal()
       }
     } catch (error) {
       // Handle the error

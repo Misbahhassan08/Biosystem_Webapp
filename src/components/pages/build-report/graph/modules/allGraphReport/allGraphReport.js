@@ -191,7 +191,7 @@ function AllGraphReport() {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <SampleConcentrationDetails csvfileId={CsvfileID} />
+          <SampleConcentrationDetails closeModal={()=>{setshowPreModal(false)}} csvfileId={CsvfileID} />
         </Modal.Body>
       </Modal>
     </div>

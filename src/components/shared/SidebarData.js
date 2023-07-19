@@ -45,12 +45,12 @@ const SidebarData = [
     cName: "nav-text",
   },
 
-  {
-    title: "Show CSV",
-    path: "/show-csv",
-    icon: Media.Images.sixthicon,
-    cName: "nav-text",
-  },
+  // {
+  //   title: "Show CSV",
+  //   path: "/show-csv",
+  //   icon: Media.Images.sixthicon,
+  //   cName: "nav-text",
+  // },
   {
     title: "Sample Details",
     path: "/sample-details",

@@ -55,15 +55,16 @@ function CSVRows(props) {
           />
         </td>
         <td>
+              <Link  to={process.env.PUBLIC_URL + "/show-csv/grid"} state={{csvfileId: data.CsvfileID}}>
               <a
-                type="submit"
-                className="btn text-light "
-                onClick={() => {
-                  // props.showModal(data.CsvfileID)
-                }}
+                className="btn text-light"
               >
-                <u>View</u>
+                <u>
+                View
+
+                </u>
               </a>
+            </Link>
         </td>
       </tr>
     );
