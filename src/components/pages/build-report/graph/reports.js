@@ -277,7 +277,7 @@ function BuildReportGraph() {
 
   return (
     <>
-      <div className="layout-right-side justify-content-center">
+      <div style={{padding: '50px', width: '71%'}}>
         <div>
           <Container>
             <Card className="text-center border-0 ">
@@ -452,15 +452,15 @@ function BuildReportGraph() {
           </Container>
 
           <Row
-            className="graph-grid"
-            // style={{overflowX: 'auto', display: 'flex', flexWrap: "nowrap"}}
+            // className="graph-grid"
+            style={{overflowX: 'auto', display: 'flex', flexWrap: "nowrap"}}
           >
             {checkResponse &&
               renderGraphData.map(
                 (item, index) => (
                   console.log(renderGraphData, "this is the index"),
                   (
-                    <Col md={11}>
+                    <Col md={12}>
                       <SimpleGraphData
                         key={index}
                         dataType={graphName}
@@ -482,7 +482,7 @@ function BuildReportGraph() {
             ) : waveType == "All" ? (
               checkResponse &&
               allWaveSelected.map((wavevalue, index) => (
-                <Col md={11}>
+                <Col md={12}>
                   <WaveLengthGraphData
                     dataType={dataType}
                     wave={wavevalue}
@@ -498,7 +498,7 @@ function BuildReportGraph() {
               ))
             ) : (
               checkResponse && (
-                <Col md={11}>
+                <Col md={12}>
                   <WaveLengthGraphData
                     dataType={dataType}
                     isNrm={isNrm}

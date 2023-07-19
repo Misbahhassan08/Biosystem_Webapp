@@ -7,7 +7,7 @@ import Table from "./components/table";
 import { fetchPostReq } from "../../../../services/restService";
 import { baseApiUrl } from "../../../../config";
 
-function SampleConcentrationDetails() {
+function SampleConcentrationDetails(props) {
   const pre_notes_add = baseApiUrl + "/api/post_pre_notes";
   const [fields, setFields] = useState();
   const [table, setTable] = useState();
@@ -15,7 +15,7 @@ function SampleConcentrationDetails() {
 
   const location = useLocation();
 
-  const CsvfileID = location.state?.csvfileId;
+  const CsvfileID = props.csvfileId;
 
   function getFieldsJSon(value) {
     setFields(value);

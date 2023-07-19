@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import FormFields from "./components/formField";
 import Table from "./components/table";
-import { useLocation } from "react-router-dom";
 import { baseApiUrl } from "../../../../config";
 import { fetchPostReq } from "../../../../services/restService";
 import Spinner from "../../../shared/spinner";
 
-function EndResultDetails() {
+function EndResultDetails(props) {
   const get_pre_notes = baseApiUrl + "/api/get_pre_notes";
   const [fields, setFields] = useState();
   const [table, setTable] = useState("");
@@ -15,82 +14,7 @@ function EndResultDetails() {
   const [preNotes, setPreNotes] = useState();
   const [isLoading, setisLoading] = useState(true);
 
-  const location = useLocation();
-  const CsvfileID = location.state?.csvfileId;
-
-  const requestData = {
-    fields: {
-      sampleStrain: "sdnjkn",
-      medium: "kjn",
-      initialOd: "jk",
-      sampleText: "njk",
-      freeText: "nkj",
-    },
-    table: [
-      {
-        A: ["n", "j", "nj", "kjn", "kjnkj", "n", "jkn", "jknkj", "nkjn", "kjn"],
-      },
-      {
-        "A-pre": [
-          "kjn",
-          "kjnkj",
-          "nkj",
-          "nkj",
-          "nkj",
-          "nkj",
-          "kj",
-          "nkjn",
-          "kjn",
-          "kjn",
-        ],
-      },
-      {
-        B: [
-          "kjn",
-          "kjn",
-          "kjnk",
-          "jnkj",
-          "n",
-          "kjnk",
-          "jnkj",
-          "nkj",
-          "nkj",
-          "kj",
-        ],
-      },
-      {
-        "B-pre": [
-          "kj",
-          "kjn",
-          "kjn",
-          "kjn",
-          "kjn",
-          "kjn",
-          "kj",
-          "n",
-          "jk",
-          "nkj",
-        ],
-      },
-      {
-        C: ["n", "kjn", "jk", "n", "jkn", "", "jkn", "jk", "njk", "n"],
-      },
-      {
-        "C-pre": [
-          "kjn",
-          "kj",
-          "njk",
-          "n",
-          "kjn",
-          "jk",
-          "njkn",
-          "jkn",
-          "kj",
-          "njk",
-        ],
-      },
-    ],
-  };
+  const CsvfileID = props.csvfileId;
 
   function getFieldsJSon(value) {
     setFields(value);
@@ -114,7 +38,6 @@ function EndResultDetails() {
     };
 
     console.log(finalJson, "this is final json");
-    // console.log(CsvfileID, "csv file id");
   }
 
   useEffect(() => {

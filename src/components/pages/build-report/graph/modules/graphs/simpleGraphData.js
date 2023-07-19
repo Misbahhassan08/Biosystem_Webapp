@@ -281,7 +281,7 @@ function SimpleGraphData(props) {
         fields={fieldsAsObjects}
         fileName={csvReport.xsd_filename}
       />
-      <div id={"graph-container" + sensorNum} style={{ height: "60vh"}}>
+      <div id={"graph-container" + sensorNum} style={{ height: "60vh", width: '100%'}}>
         <ResponsiveLine
           // {...console.log(finalData, "this is final data")}
           data={finalData}
@@ -368,7 +368,7 @@ function SimpleGraphData(props) {
               translateY: 0,
               itemsSpacing: 0,
               itemDirection: "left-to-right",
-              itemWidth: 80,
+              itemWidth: 60,
               itemHeight: 20,
               itemOpacity: 0.75,
               symbolSize: 12,

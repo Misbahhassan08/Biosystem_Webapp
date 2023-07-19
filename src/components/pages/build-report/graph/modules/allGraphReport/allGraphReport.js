@@ -5,24 +5,29 @@ import SimpleGraphData from "./simpleGraphData";
 import Spinner from "../../../../../shared/spinner";
 import { fetchPostReq } from "../../../../../../services/restService";
 import { baseApiUrl } from "../../../../../../config";
+import  Modal  from "react-bootstrap/Modal";
+import EndResultDetails from "../../../../report-details/endResults/endResult";
+import SampleConcentrationDetails from "../../../../report-details/startDetails/sampleConcentrationDetails";
 
-const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
 
 function AllGraphReport() {
+  const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
   const [loading, setLoading] = useState(true);
+  const [showPostModal, setshowPostModal] = useState(false);
+  const [showPreModal, setshowPreModal] = useState(false);
+
   const sensors = [0, 1, 2, 3, 4];
   const location = useLocation();
 
-  const CsvfileID = location.state?.csvfileId
+  const CsvfileID = location.state?.csvfileId;
 
   const data = {
     Data_Point: [0, 1, 2, 3, 4],
-    CsvfileID
+    CsvfileID,
   };
 
   const fetchData = async () => {
     try {
-
       localStorage.removeItem("allGraphReport");
       const response = await fetchPostReq(get_graph_data, data);
       console.log(data, "req datas");
@@ -39,8 +44,14 @@ function AllGraphReport() {
   };
   useEffect(() => {
     fetchData();
-    
   }, []);
+
+  const handleshowPostModal = () => {
+    setshowPostModal(true);
+  };
+  const handleshowPreModal = () => {
+    setshowPreModal(true);
+  };
 
   return (
     <div className="layout-right-side justify-content-center">
@@ -60,6 +71,28 @@ function AllGraphReport() {
                       Change Attributes
                     </Button>
                   </Link>
+                </Col>
+              </Row>
+            </Container>
+            <Container>
+              <Row className="my-4 ">
+                <Col className="text-start">
+                <Button
+                    type="submit"
+                    className="mx-2 menu-btn menu-btn2"
+                    onClick={() => handleshowPreModal()}
+                  >
+                    Pre-Notes
+                  </Button>
+                </Col>
+                <Col className="text-end">
+                  <Button
+                    type="submit"
+                    className="mx-2 menu-btn menu-btn2"
+                    onClick={() => handleshowPostModal()}
+                  >
+                    Post-Notes
+                  </Button>
                 </Col>
               </Row>
             </Container>
@@ -135,26 +168,32 @@ function AllGraphReport() {
                     />
                   </Col>
                 ))}
-                
               </Row>
             </Container>
-            <Container>
-              <Row className="mt-4">
-                <Col className="text-end">
-                  <Link
-                    to={process.env.PUBLIC_URL + "/observation/end-results"}
-                    state={{csvfileId : CsvfileID}}
-                  >
-                    <Button type="submit" className="mx-2 menu-btn menu-btn1">
-                      Enter End results and observations
-                    </Button>
-                  </Link>
-                </Col>
-              </Row>
-            </Container>
+            
           </div>
         )}
       </div>
+      <Modal
+        show={showPostModal}
+        fullscreen={true}
+        onHide={() => setshowPostModal(false)}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <EndResultDetails csvfileId={CsvfileID} />
+        </Modal.Body>
+      </Modal>
+      <Modal
+        show={showPreModal}
+        fullscreen={true}
+        onHide={() => setshowPreModal(false)}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <SampleConcentrationDetails csvfileId={CsvfileID} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

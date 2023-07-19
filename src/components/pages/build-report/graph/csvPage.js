@@ -37,7 +37,7 @@ function CsvInfoPage() {
               <Card.Body>
                 {" "}
                 <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
-                  Graph Report
+                View CSV FILE
                 </Card.Title>
                 <Card.Text className="mx-auto mb-4" style={{ width: "40rem" }}>
                   Get Multiple Sensor Data With Normalized Data
@@ -54,12 +54,18 @@ function CsvInfoPage() {
                 <Col>
                   <div className="table-responsive">
                     <Table className="reports-tab">
+                    <colgroup>
+                      <col width= "25%" />
+                      <col width= "25%" />
+                      <col width= "25%" />
+                      <col width= "25%" />
+                    </colgroup>
                       <thead>
                         <tr className="one">
                           <th>Sample/Accession Number</th>
                           <th>Date</th>
                           <th>Info/Details</th>
-                          <th>Reports</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
 
