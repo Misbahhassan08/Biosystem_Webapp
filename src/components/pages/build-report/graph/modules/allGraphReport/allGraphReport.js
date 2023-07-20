@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import SimpleGraphData from "./simpleGraphData";
 import Spinner from "../../../../../shared/spinner";
 import { fetchPostReq } from "../../../../../../services/restService";
 import { baseApiUrl } from "../../../../../../config";
-import  Modal  from "react-bootstrap/Modal";
-import EndResultDetails from "../../../../report-details/endResults/endResult";
-import SampleConcentrationDetails from "../../../../report-details/startDetails/sampleConcentrationDetails";
-
+import Modal from "react-bootstrap/Modal";
+import EndResultDetails from "../../../../observations/endResults/endResult";
+import SampleConcentrationDetails from "../../../../observations/startDetails/sampleConcentrationDetails";
 
 function AllGraphReport() {
   const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
+  const [responseData, setResponseData] = useState('');
   const [loading, setLoading] = useState(true);
   const [showPostModal, setshowPostModal] = useState(false);
   const [showPreModal, setshowPreModal] = useState(false);
@@ -26,12 +26,28 @@ function AllGraphReport() {
     CsvfileID,
   };
 
+  useMemo(() => {
+    const data = JSON.stringify(responseData.result);
+    localStorage.setItem("allGraphReport", data);
+  }, [responseData]);
+
+  const memoizedGraphs = useMemo(
+    () =>
+      sensors.map((item, index) => (
+        <Col key={index} xs={6} md={4} style={{ marginBottom: "40px" }}>
+          <SimpleGraphData key={index} dataType="Raw" isNrm={false} index={index} />
+        </Col>
+      )),
+    [responseData]
+  );
+  
+
   const fetchData = async () => {
     try {
       localStorage.removeItem("allGraphReport");
       const response = await fetchPostReq(get_graph_data, data);
       console.log(data, "req datas");
-      localStorage.setItem("allGraphReport", JSON.stringify(response.result));
+      setResponseData(response);
       if (localStorage.getItem("allGraphReport") == "Success") {
         setLoading(true);
       } else if (localStorage.getItem("allGraphReport")) {
@@ -77,7 +93,7 @@ function AllGraphReport() {
             <Container>
               <Row className="my-4 ">
                 <Col className="text-start">
-                <Button
+                  <Button
                     type="submit"
                     className="mx-2 menu-btn menu-btn2"
                     onClick={() => handleshowPreModal()}
@@ -117,7 +133,7 @@ function AllGraphReport() {
               </Row>
               <Row style={{ flexWrap: "wrap", marginTop: "30px" }}>
                 <h3>Normalized Raw Graph</h3>
-                {sensors.map((item, index) => (
+                {/* {sensors.map((item, index) => (
                   <Col
                     key={index}
                     xs={6}
@@ -131,7 +147,8 @@ function AllGraphReport() {
                       index={index}
                     />
                   </Col>
-                ))}
+                ))} */}
+                {memoizedGraphs}
               </Row>
               <Row style={{ flexWrap: "wrap", marginTop: "30px" }}>
                 <h3>Simple Cal Graph</h3>
@@ -170,7 +187,6 @@ function AllGraphReport() {
                 ))}
               </Row>
             </Container>
-            
           </div>
         )}
       </div>
@@ -191,7 +207,12 @@ function AllGraphReport() {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <SampleConcentrationDetails closeModal={()=>{setshowPreModal(false)}} csvfileId={CsvfileID} />
+          <SampleConcentrationDetails
+            closeModal={() => {
+              setshowPreModal(false);
+            }}
+            csvfileId={CsvfileID}
+          />
         </Modal.Body>
       </Modal>
     </div>

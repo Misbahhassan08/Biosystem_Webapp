@@ -55,12 +55,12 @@ import Systemstatsone from "./components/pages/maintenance/systemstatsone";
 //import Test101 from "./components/pages/test101/test101";
 
 import BuildReport from "./components/pages/build-report";
-import BuildReportGraph from "./components/pages/build-report/graph/reports";
+import BuildReportGraph from './components/pages/build-report/graph/modules/reports'
 import BuildReportGrid from "./components/pages/build-report/grid/reports";
 
-import SampleDetails from "./components/pages/report-details";
-import SampleConcentrationDetails from "./components/pages/report-details/startDetails/sampleConcentrationDetails";
-import EndResultDetails from "./components/pages/report-details/endResults/endResult";
+import SampleDetails from "./components/pages/observations";
+import SampleConcentrationDetails from "./components/pages/observations/startDetails/sampleConcentrationDetails";
+import EndResultDetails from "./components/pages/observations/endResults/endResult";
 import CsvInfoPage from "./components/pages/build-report/graph/csvPage";
 import AllGraphReport from "./components/pages/build-report/graph/modules/allGraphReport/allGraphReport";
 
