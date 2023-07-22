@@ -11,7 +11,7 @@ function Table(props) {
     C_pre: ["", "", "", "", "", "", "", "", "", ""],
   };
 
-  if(props.setTableData){
+  if(props.setTableData.table){
     initialData = {
       A: props.setTableData?.table?.A ,
       A_pre: props.setTableData?.table.A_pre ,
@@ -24,6 +24,7 @@ function Table(props) {
 
   const [tableData, setTableData] = useState(initialData);
 
+  // debugger
   function handleInputChange(event, key, index) {
     const { value } = event.target;
     setTableData((prevState) => ({

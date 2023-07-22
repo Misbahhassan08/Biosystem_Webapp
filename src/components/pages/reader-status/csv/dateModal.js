@@ -29,7 +29,7 @@ export default function DateModal(props) {
           color: "#000",
           width: "100%"
         }}
-        label= 'Select Date  Time'
+        label= 'Accession Date  Time'
         value={value}
         onChange={handleValueChange}
         onAccept={handleAccept}

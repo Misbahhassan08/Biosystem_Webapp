@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { ResponsiveLine } from "@nivo/line";
 
 const SimpleGraphData = (props)=> {
@@ -269,4 +269,4 @@ const SimpleGraphData = (props)=> {
   );
 }
 
-export default React.memo(SimpleGraphData);
+export default memo(SimpleGraphData);

@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Form, } from "react-bootstrap";
 
 function FormFields(props) {
-  let pro = props.setFieldsData.result
-  let sample_Strain, Medium, initial_Od, sample_Text, free_Text = ''
+  let [sample_Strain, Medium, initial_Od, sample_Text, free_Text] = ['', '', '', '', ''];
 
-  if(props.setFieldsData){
+  if (props.setFieldsData.result) {
+    console.log(1);
+  }
+  
+  if(props.setFieldsData.fields){
     sample_Strain = props.setFieldsData.fields.sampleStrain
     Medium = props.setFieldsData.fields.medium
     initial_Od = props.setFieldsData.fields.initialOd 
@@ -17,7 +20,7 @@ function FormFields(props) {
   const [initialOd, setInitialOd] = useState(initial_Od);
   const [sampleText, setSampleText] = useState(sample_Text);
   const [freeText, setFreeText] = useState(free_Text);
-
+  
   const fieldJSON = {
     sampleStrain: sampleStrain,
     medium: medium,
@@ -25,6 +28,7 @@ function FormFields(props) {
     sampleText: sampleText,
     freeText: freeText,
   };
+  // debugger
 
   useEffect(() => {
     if (props.getJson) {

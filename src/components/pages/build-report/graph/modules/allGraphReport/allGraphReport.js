@@ -11,10 +11,10 @@ import SampleConcentrationDetails from "../../../../observations/startDetails/sa
 
 function AllGraphReport() {
   const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
-  const [responseData, setResponseData] = useState('');
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [showPostModal, setshowPostModal] = useState(false);
-  const [showPreModal, setshowPreModal] = useState(false);
+  const [showPreModal, setshowPreModal] = useState(true);
 
   const sensors = [0, 1, 2, 3, 4];
   const location = useLocation();
@@ -26,28 +26,27 @@ function AllGraphReport() {
     CsvfileID,
   };
 
-  useMemo(() => {
-    const data = JSON.stringify(responseData.result);
-    localStorage.setItem("allGraphReport", data);
-  }, [responseData]);
+  // useMemo(() => {
+  //   const data = JSON.stringify(responseData.result);
+  //   localStorage.setItem("allGraphReport", data);
+  // }, [responseData]);
 
-  const memoizedGraphs = useMemo(
-    () =>
-      sensors.map((item, index) => (
-        <Col key={index} xs={6} md={4} style={{ marginBottom: "40px" }}>
-          <SimpleGraphData key={index} dataType="Raw" isNrm={false} index={index} />
-        </Col>
-      )),
-    [responseData]
-  );
-  
+  // const memoizedGraphs = useMemo(
+  //   () =>
+  //     sensors.map((item, index) => (
+  //       <Col key={index} xs={6} md={4} style={{ marginBottom: "40px" }}>
+  //         <SimpleGraphData key={index} dataType="Raw" isNrm={false} index={index} />
+  //       </Col>
+  //     )),
+  //   [responseData]
+  // );
 
   const fetchData = async () => {
     try {
       localStorage.removeItem("allGraphReport");
       const response = await fetchPostReq(get_graph_data, data);
       console.log(data, "req datas");
-      setResponseData(response);
+      localStorage.setItem("allGraphReport", JSON.stringify(response.result));
       if (localStorage.getItem("allGraphReport") == "Success") {
         setLoading(true);
       } else if (localStorage.getItem("allGraphReport")) {
@@ -62,12 +61,12 @@ function AllGraphReport() {
     fetchData();
   }, []);
 
-  const handleshowPostModal = () => {
-    setshowPostModal(true);
-  };
-  const handleshowPreModal = () => {
-    setshowPreModal(true);
-  };
+  // const handleshowPostModal = () => {
+  //   setshowPostModal(true);
+  // };
+  // const handleshowPreModal = () => {
+  //   setshowPreModal(true);
+  // };
 
   return (
     <div className="layout-right-side justify-content-center">
@@ -92,22 +91,22 @@ function AllGraphReport() {
             </Container>
             <Container>
               <Row className="my-4 ">
-                <Col className="text-start">
+                {/* <Col className="text-start">
                   <Button
                     type="submit"
                     className="mx-2 menu-btn menu-btn2"
-                    onClick={() => handleshowPreModal()}
+                    // onClick={() => handleshowPreModal()}
                   >
                     Pre-Notes
                   </Button>
-                </Col>
+                </Col> */}
                 <Col className="text-end">
                   <Button
                     type="submit"
                     className="mx-2 menu-btn menu-btn2"
-                    onClick={() => handleshowPostModal()}
+                    onClick={() => setShowModal(true)}
                   >
-                    Post-Notes
+                    Open Notes
                   </Button>
                 </Col>
               </Row>
@@ -133,7 +132,7 @@ function AllGraphReport() {
               </Row>
               <Row style={{ flexWrap: "wrap", marginTop: "30px" }}>
                 <h3>Normalized Raw Graph</h3>
-                {/* {sensors.map((item, index) => (
+                {sensors.map((item, index) => (
                   <Col
                     key={index}
                     xs={6}
@@ -147,8 +146,8 @@ function AllGraphReport() {
                       index={index}
                     />
                   </Col>
-                ))} */}
-                {memoizedGraphs}
+                ))}
+                {/* {memoizedGraphs} */}
               </Row>
               <Row style={{ flexWrap: "wrap", marginTop: "30px" }}>
                 <h3>Simple Cal Graph</h3>
@@ -190,7 +189,63 @@ function AllGraphReport() {
           </div>
         )}
       </div>
+
       <Modal
+        show={showModal}
+        size="lg"
+        onHide={() => setShowModal(false)}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body >
+          <Container>
+            <Row className="text-center">
+              <Col>
+                <Button
+                  type="submit"
+                  className="mx-2 menu-btn menu-btn2"
+                  onClick={() => {
+                    setshowPreModal(!showPreModal);
+                    setshowPostModal(!showPostModal)
+                  }}
+                > Show
+                  {showPreModal ? " Post " : " Pre "}
+                  Notes
+                </Button>
+              </Col>
+            </Row>
+          </Container>
+          <div className="notes-modal-box">
+            {!showPreModal && !showPostModal &&
+              <div  style={{width: '100%', }} >
+                <h4 className="text-center align-self-center" style={{marginTop: '37vh', marginBottom: '37vh'}}>Nothing to Show Here!</h4>
+              </div>
+            }
+            <div
+              style={{
+                display: showPreModal ? "block" : "none",
+                width: showPostModal ? "inherit" : "100%",
+              }}
+            >
+              <SampleConcentrationDetails
+                closeModal={() => {
+                  setShowModal(false);
+                }}
+                csvfileId={CsvfileID}
+              />
+            </div>
+            <div
+              style={{
+                display: showPostModal ? "block" : "none",
+                width: showPreModal ? "inherit" : "100%",
+              }}
+            >
+              <EndResultDetails csvfileId={CsvfileID} />
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      {/* <Modal
         show={showPostModal}
         fullscreen={true}
         onHide={() => setshowPostModal(false)}
@@ -199,8 +254,9 @@ function AllGraphReport() {
         <Modal.Body>
           <EndResultDetails csvfileId={CsvfileID} />
         </Modal.Body>
-      </Modal>
-      <Modal
+      </Modal> */}
+
+      {/* <Modal
         show={showPreModal}
         fullscreen={true}
         onHide={() => setshowPreModal(false)}
@@ -214,7 +270,7 @@ function AllGraphReport() {
             csvfileId={CsvfileID}
           />
         </Modal.Body>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

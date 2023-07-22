@@ -2,16 +2,34 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 
 function Table(props) {
+  let initialData = {
+    A: ["", "", "", "", "", "", "", "", "", ""],
+    A_OD: ["", "", "", "", "", "", "", "", "", ""],
+    A_post: ["", "", "", "", "", "", "", "", "", ""],
+    B: ["", "", "", "", "", "", "", "", "", ""],
+    B_OD: ["", "", "", "", "", "", "", "", "", ""],
+    B_post: ["", "", "", "", "", "", "", "", "", ""],
+    C: ["", "", "", "", "", "", "", "", "", ""],
+    C_OD: ["", "", "", "", "", "", "", "", "", ""],
+    C_post: ["", "", "", "", "", "", "", "", "", ""],
+  };
+
+  if(props.setTableData.table){
+    initialData = {
+      A: props.setTableData?.table?.A ,
+      A_post: props.setTableData?.table.A_pre ,
+      B: props.setTableData?.table?.B ,
+      B_post: props.setTableData?.table.B_pre ,
+      C: props.setTableData?.table?.C ,
+      C_post: props.setTableData?.table.C_pre ,
+    };
+  }
+
+  const [tableData, setTableData] = useState(initialData);
+
   const [jsonData, setJsonData] = useState([]);
 
   // let pointA, pointA_pre, pointB, pointB_pre, pointC, pointC_pre;
-
-  const  pointA = props.setTableData.table.A;
-  const  pointA_pre = props.setTableData.table["A_pre"];
-  const  pointB = props.setTableData.table.B;
-  const  pointB_pre = props.setTableData.table["B_pre"];
-  const  pointC = props.setTableData.table.C;
-  const  pointC_pre = props.setTableData.table["C_pre"];
 
   console.log('====================================');
   console.log(props.setTableData);
@@ -23,6 +41,14 @@ function Table(props) {
     }
     props.stopJson();
   }, [props.getJson]);
+
+  function handleInputChange(event, key, index) {
+    const { value } = event.target;
+    setTableData((prevState) => ({
+      ...prevState,
+      [key]: prevState[key].map((item, i) => (i === index ? value : item)),
+    }));
+  }
 
   function getTableData() {
     const data = [
@@ -157,11 +183,6 @@ function Table(props) {
     return data;
   }
 
-  // useEffect(() => {
-    
-  //   debugger
-  // }, [props.setTableData]);
-
   return (
     <div
       className="table-responsive"
@@ -195,7 +216,7 @@ function Table(props) {
             <td>
               <b className="bold-text">A</b>
             </td>
-            {pointA.map((item, index) => {
+            {tableData.A.map((item, index) => {
               return (
                 <td key={index}>
                   <input
@@ -203,41 +224,11 @@ function Table(props) {
                     value={item}
                     type="text"
                     className="form-control"
+                    onChange={(e) => handleInputChange(e, "A", index)}
                   />
                 </td>
               );
             })}
-            {/* <td>
-              <input id="A0" type="text"  className="form-control" />
-            </td>
-            
-              <td>
-              <input id="A1" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A2" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A3" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A4" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A5" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A6" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A7" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A8" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A9" type="text" className="form-control" />
-            </td>   */}
           </tr>
           {/* row 2 */}
           <tr className="color_yel sampleTableDataRows">
@@ -280,7 +271,7 @@ function Table(props) {
             <td>
               <b className="bold-text">A –post Notes</b>
             </td>
-            {pointA_pre.map((item, index) => {
+            {tableData.A_post.map((item, index) => {
               return (
                 <td key={index}>
                   <input
@@ -288,47 +279,18 @@ function Table(props) {
                     value={item}
                     type="text"
                     className="form-control"
+                    onChange={(e) => handleInputChange(e, "A_post", index)}
                   />
                 </td>
               );
             })}
-            {/* <td>
-              <input id="A-post-0" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-1" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-2" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-3" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-4" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-5" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-6" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-7" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-8" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="A-post-9" type="text" className="form-control" />
-            </td> */}
           </tr>
           {/* row 4 */}
           <tr className="color_blue sampleTableDataRows">
             <td>
               <b className="bold-text">B</b>
             </td>
-            {pointB.map((item, index) => {
+            {tableData.B.map((item, index) => {
               return (
                 <td key={index}>
                   <input
@@ -336,40 +298,11 @@ function Table(props) {
                     value={item}
                     type="text"
                     className="form-control"
+                    onChange={(e) => handleInputChange(e, "B", index)}
                   />
                 </td>
               );
             })}
-            {/* <td>
-              <input id="B0" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B1" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B2" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B3" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B4" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B5" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B6" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B7" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B8" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B9" type="text" className="form-control" />
-            </td> */}
           </tr>
           {/* row 5 */}
           <tr className="color_blue sampleTableDataRows">
@@ -413,7 +346,7 @@ function Table(props) {
               <b className="bold-text">B –post Notes</b>
             </td>
 
-            {pointB_pre.map((item, index) => {
+            {tableData.B_post.map((item, index) => {
               return (
                 <td key={index}>
                   <input
@@ -421,48 +354,18 @@ function Table(props) {
                     value={item}
                     type="text"
                     className="form-control"
+                    onChange={(e) => handleInputChange(e, "B_post", index)}
                   />
                 </td>
               );
             })}
-
-            {/* <td>
-              <input id="B-post-0" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-1" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-2" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-3" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-4" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-5" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-6" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-7" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-8" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="B-post-9" type="text" className="form-control" />
-            </td> */}
           </tr>
           {/* row 7 */}
           <tr className="color_yel sampleTableDataRows">
             <td>
               <b className="bold-text">C</b>
             </td>
-            {pointC.map((item, index) => {
+            {tableData.C.map((item, index) => {
               return (
                 <td key={index}>
                   <input
@@ -470,40 +373,11 @@ function Table(props) {
                     value={item}
                     type="text"
                     className="form-control"
+                    onChange={(e) => handleInputChange(e, "C", index)}
                   />
                 </td>
               );
             })}
-            {/* <td>
-              <input id="C0" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C1" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C2" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C3" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C4" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C5" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C6" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C7" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C8" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C9" type="text" className="form-control" />
-            </td> */}
           </tr>
           {/* row 8 */}
           <tr className="color_yel sampleTableDataRows">
@@ -546,7 +420,7 @@ function Table(props) {
             <td>
               <b className="bold-text">C –post Notes</b>
             </td>
-            {pointC_pre.map((item, index) => {
+            {tableData.C_post.map((item, index) => {
               return (
                 <td key={index}>
                   <input
@@ -554,40 +428,11 @@ function Table(props) {
                     value={item}
                     type="text"
                     className="form-control"
+                    onChange={(e) => handleInputChange(e, "C_post", index)}
                   />
                 </td>
               );
             })}
-            {/* <td>
-              <input id="C-post-0" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-1" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-2" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-3" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-4" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-5" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-6" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-7" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-8" type="text" className="form-control" />
-            </td>
-            <td>
-              <input id="C-post-9" type="text" className="form-control" />
-            </td> */}
           </tr>
         </tbody>
       </table>

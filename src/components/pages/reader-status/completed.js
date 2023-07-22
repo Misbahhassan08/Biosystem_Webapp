@@ -139,7 +139,7 @@ function RackCompleted() {
                                     </Button>
                                   </li>
                                 </ul>
-                                <h2 className="mb-3">Complete</h2>
+                                <h2 className="mb-3">Complete Test</h2>
                                 <div className="table-responsive">
                                   <Table
                                     striped
@@ -188,42 +188,50 @@ function RackCompleted() {
               </Container>
             )}
             <Container className="mt-5">
-              <Row>
-                <Col>
-                  <TextField
-                    type="text"
-                    label="Sample/Accession Number"
-                    value={csvSampleNum}
-                    onChange={(e) => {
-                      setCsvSampleNum(e.target.value);
-                    }}
-                  />
-                </Col>
-                <Col>
-                  <DateModal getDateTime={getDateTime} />
-                </Col>
-                <Col>
-                  <TextField
-                    type="file"
-                    label="Select File"
-                    onChange={handleFileChange}
-                    accept=".csv"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                </Col>
-                <Col className="text-center align-self-center">
-                  <Button
-                    type="submit"
-                    className="mx-2 menu-btn menu-btn1"
-                    onClick={() => {
-                      handleSaveCSV();
-                      setIsSavingFile(true);
-                    }}
-                  >
-                    Import CSV
-                  </Button>
-                </Col>
-              </Row>
+              <Card>
+                <Card.Body>
+                  <Card.Text>
+                    <h4>Import CSV File</h4>
+                  </Card.Text>
+                  <Row>
+                    <Col>
+                      <TextField
+                        type="text"
+                        label="Sample/Accession Number"
+                        value={csvSampleNum}
+                        sx={{width: '100%'}}
+                        onChange={(e) => {
+                          setCsvSampleNum(e.target.value);
+                        }}
+                      />
+                    </Col>
+                    <Col>
+                      <DateModal getDateTime={getDateTime} />
+                    </Col>
+                    <Col>
+                      <TextField
+                        type="file"
+                        label="Select File"
+                        onChange={handleFileChange}
+                        accept=".csv"
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    </Col>
+                    <Col className="text-center align-self-center">
+                      <Button
+                        type="submit"
+                        className="mx-2 menu-btn menu-btn1"
+                        onClick={() => {
+                          handleSaveCSV();
+                          setIsSavingFile(true);
+                        }}
+                      >
+                        Import CSV
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
             </Container>
           </>
         )}

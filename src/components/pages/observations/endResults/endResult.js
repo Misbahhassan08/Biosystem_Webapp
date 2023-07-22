@@ -63,7 +63,7 @@ function EndResultDetails(props) {
   }, []);
 
   return (
-    <div className="layout-right-side cassette-load">
+    <div className="layout-right-side notes-tables cassette-load">
       {isLoading ? (
         <Spinner loading={isLoading} />
       ) : (
@@ -77,7 +77,7 @@ function EndResultDetails(props) {
               getJson={getJson}
               stopJson={setJsonFalse}
             />
-            <Row>
+            <Row className="mt-4">
               <Table
                 getTable={getTableJSon}
                 getJson={getJson}

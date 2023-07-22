@@ -83,7 +83,7 @@ function SampleConcentrationDetails(props) {
   }, []);
 
   return (
-    <div className="layout-right-side cassette-load">
+    <div className="layout-right-side notes-tables cassette-load">
       {isLoading ? (
         <Spinner loading={isLoading} />
       ) : (

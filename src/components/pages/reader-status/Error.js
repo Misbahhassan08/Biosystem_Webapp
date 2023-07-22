@@ -14,6 +14,7 @@ import {
 import { rackStatusEndPoint } from "../../../config";
 import BeatLoader from "react-spinners/BeatLoader";
 import { fetchGetReq } from "../../../services/restService";
+import { Link } from "react-router-dom";
 
 function RackError() {
   const [status, setStatus] = useState();
@@ -51,9 +52,24 @@ function RackError() {
     <>
       <div className="layout-right-side error">
         <Container>
-          <h2 className="main-title text-center mb-5 text-light-blue">
-            Rack Status/Rack1/Error
-          </h2>
+          <Row>
+            <Col md={10}>
+              <h2 className="main-title text-center mb-5 text-light-blue">
+                Rack Status/Rack1/Error
+              </h2>
+            </Col>
+            <Col md={2}>
+              <Link to={`${process.env.PUBLIC_URL}/readerstatus`}>
+              <Button
+                type="submit"
+                className="mx-2 menu-btn menu-btn1"
+                onClick={() => {}}
+              >
+                Go Back
+              </Button>
+              </Link>
+            </Col>
+          </Row>
 
           <Row className="home-card mx-auto">
             {status &&
