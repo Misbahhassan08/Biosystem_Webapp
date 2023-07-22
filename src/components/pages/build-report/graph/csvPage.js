@@ -4,6 +4,7 @@ import CSVRows from "./csvrows/csvRows";
 import { baseApiUrl } from "../../../../config";
 import { fetchGetReq, fetchPostReq } from "../../../../services/restService";
 import Spinner from "../../../shared/spinner";
+import { Link } from "react-router-dom";
 
 function CsvInfoPage() {
   const get_csv_list_endpoint = baseApiUrl + "/api/get_list_of_csv";
@@ -36,12 +37,30 @@ function CsvInfoPage() {
             <Card className="text-center border-0 ">
               <Card.Body>
                 {" "}
-                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
-                View CSV FILE
-                </Card.Title>
-                <Card.Text className="mx-auto mb-4" style={{ width: "40rem" }}>
-                  Get Multiple Sensor Data With Normalized Data
-                </Card.Text>
+                <Row>
+                  <Col md={9}>
+                    <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
+                      View CSV FILE
+                    </Card.Title>
+                    <Card.Text
+                      className="mx-auto mb-4"
+                      style={{ width: "40rem" }}
+                    >
+                      Get Multiple Sensor Data With Normalized Data
+                    </Card.Text>
+                  </Col>
+                  <Col md={3}>
+                    <Link to={`${process.env.PUBLIC_URL}/reports`}>
+                      <Button
+                        type="submit"
+                        className="mx-2 menu-btn menu-btn1"
+                        onClick={() => {}}
+                      >
+                        Go Back
+                      </Button>
+                    </Link>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Container>
@@ -54,12 +73,12 @@ function CsvInfoPage() {
                 <Col>
                   <div className="table-responsive">
                     <Table className="reports-tab">
-                    <colgroup>
-                      <col width= "25%" />
-                      <col width= "25%" />
-                      <col width= "25%" />
-                      <col width= "25%" />
-                    </colgroup>
+                      <colgroup>
+                        <col width="25%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                      </colgroup>
                       <thead>
                         <tr className="one">
                           <th>Sample/Accession Number</th>

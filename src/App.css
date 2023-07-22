@@ -1862,3 +1862,24 @@ button[type="submit"].mobile1:hover {
 .complete_table{
   --bs-table-bg: transparent
 }
+
+.modal-fullscreen-xxl-down{
+  max-width: 80%;
+}
+
+.notes-modal-box{
+  display: flex;
+  width: 100%;
+}
+
+@media (min-width: 1920px){
+  .notes-tables{
+  display: block !important;
+}
+}
+
+@media (max-width: 1000px) {
+  .notes-modal-box{
+    display: block;
+  }
+}

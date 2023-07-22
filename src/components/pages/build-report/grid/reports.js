@@ -17,6 +17,7 @@ function BuildReportGrid() {
 
   const location = useLocation()
   const csvfile = location?.state.csvfileId
+  const fileName = location?.state.fileName
   console.log(csvfile, "this is csvfile");
 
   // ------------------------------------------------------ POSTING DATA FROM HERE --------------------------------------
@@ -56,10 +57,10 @@ function BuildReportGrid() {
               <Card.Body>
                 {" "}
                 <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
-                  Graph Report
+                  CSV FILE INFORMATION
                 </Card.Title>
                 <Card.Text className="mx-auto mb-4" style={{ width: "40rem" }}>
-                  Get Multiple Sensor Data With Normalized Data
+                Get Multiple Sensor Data With Normalized Data
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -98,9 +99,12 @@ function BuildReportGrid() {
             )} */}
             <Card className="text-center border-1 ">
               <Card.Body>
-                <Card.Title className="text-green text-center justify-content-center text-uppercase font-38">
-                  Grid Implementation
+                <Card.Title className="text-green text-center justify-content-center text-uppercase font-35 ">
+                Selected CSV's Acquired Data Table
                 </Card.Title>
+                <Card.Text className="mx-auto mb-4" style={{ width: "40rem" }}>
+                {fileName}
+                </Card.Text>
               </Card.Body>
               {isTableLoading ? (
                 <Spinner loading={isTableLoading} />

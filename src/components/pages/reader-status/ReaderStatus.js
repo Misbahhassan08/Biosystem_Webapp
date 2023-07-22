@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
 import * as FaIcons from "react-icons/fa";
 import { rackStatusEndPoint } from "../../../config";
@@ -8,19 +8,35 @@ import { fetchGetReq } from "../../../services/restService";
 
 function ReaderStatus() {
   const [status, setStatus] = useState();
+  const [clickedCard, setClickedCard] = useState();
+
+  const navigate = useNavigate()
 
   const statusUrl = rackStatusEndPoint;
 
   useEffect(() => {
     document.title = "Reader Status";
-
-    getStatus();
-
-    const interval = setInterval(() => {
+ 
+    const interval = setInterval(() => { 
       getStatus();
+      getClickedCard()
     }, 10000);
     return () => clearInterval(interval);
   }, []);
+  
+  const handleCardClick = (index,link) => {
+    localStorage.setItem("StatusClickedCard", index.rackNum)
+    console.log(index.rackNum, "this is the index of the card clicked");
+    navigate(`${process.env.PUBLIC_URL}${link}`);
+  };
+
+  const getClickedCard = () =>{
+    const storedClickedCard = localStorage.getItem("StatusClickedCard");
+      if (storedClickedCard) {
+        setClickedCard(Number(storedClickedCard));
+        console.log(clickedCard, "this is clicked card");
+      }
+  }
 
   const getStatus = async () => {
     try {
@@ -45,7 +61,7 @@ function ReaderStatus() {
               status.map((index) => {
                 return (
                   <Col className="col-md-6 mb-5">
-                    <Card>
+                    <Card >
                       <Card.Body>
                         <Card.Title></Card.Title>
                         <Card.Text>
@@ -53,7 +69,7 @@ function ReaderStatus() {
                             Rack {index.rackNum}
                           </h2>
 
-                          <ul className="list-item">
+                          <ul className="list-item" style={{boxShadow: index.rackNum === clickedCard ? '#fcb01b 0px 0px 13px' : 'none' }}>
                             <div className="d-flex justify-content-center mb-3">
                               <div className="status-info text-light">
                                 <FaIcons.FaThermometerHalf className="color-yellow" />
@@ -70,29 +86,29 @@ function ReaderStatus() {
                             </li>
                             <li>
                               <label>Running</label>
-                              <Link to={`${process.env.PUBLIC_URL}/cassette`}>
-                                <Button variant="dark2">{index.running}</Button>
-                              </Link>
+                              {/* <Link to={`${process.env.PUBLIC_URL}/cassette`}> */}
+                                <Button variant="dark2" onClick={()=>handleCardClick(index, '/cassette')}>{index.running}</Button>
+                              {/* </Link> */}
                             </li>
                             <li>
                               <label>Complete</label>
-                              <Link
+                              {/* <Link
                                 to={`${process.env.PUBLIC_URL}/rack1/completed`}
-                              >
-                                <Button variant="dark3">
+                              > */}
+                                <Button variant="dark3" onClick={()=>handleCardClick(index, '/rack1/completed')}>
                                   {index.complete}
                                 </Button>
-                              </Link>
+                              {/* </Link> */}
                             </li>
                             <li>
                               <label>Bay Errors</label>
-                              <Link
+                              {/* <Link
                                 to={`${process.env.PUBLIC_URL}/rack1/error`}
-                              >
-                                <Button variant="dark4">
+                              > */}
+                                <Button variant="dark4" onClick={()=>handleCardClick(index, '/rack1/error')}>
                                   {index.bayError}
                                 </Button>
-                              </Link>
+                              {/* </Link> */}
                             </li>
                             <li className="error">Status: {index.status}</li>
                           </ul>
