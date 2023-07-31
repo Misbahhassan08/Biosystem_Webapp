@@ -84,7 +84,7 @@ function Groups(props) {
     ];
 
     const response = await fetchPostReq(get_list_of_fav_setting, data);
-    console.log(data, "post request send");
+    // console.log(response.result, "fav list");
     setFavList(response.result);
   };
 

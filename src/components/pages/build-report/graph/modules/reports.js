@@ -450,17 +450,17 @@ function BuildReportGraph() {
               </Col>
             </Row>
           </Container>
-
+{/* 
           <Row
             // className="graph-grid"
             style={{overflowX: 'auto', display: 'flex', flexWrap: "nowrap"}}
-          >
+          > */}
             {checkResponse &&
               renderGraphData.map(
                 (item, index) => (
                   console.log(renderGraphData, "this is the index"),
                   (
-                    <Col md={12}>
+                    // <Col md={12}>
                       <SimpleGraphData
                         key={index}
                         dataType={graphName}
@@ -472,7 +472,7 @@ function BuildReportGraph() {
                         resetChart={resetChart}
                         index={index}
                       />
-                    </Col>
+                    // </Col>
                   )
                 )
               )}
@@ -482,7 +482,7 @@ function BuildReportGraph() {
             ) : waveType == "All" ? (
               checkResponse &&
               allWaveSelected.map((wavevalue, index) => (
-                <Col md={12}>
+                // <Col md={12}>
                   <WaveLengthGraphData
                     dataType={dataType}
                     wave={wavevalue}
@@ -494,11 +494,11 @@ function BuildReportGraph() {
                     yValueLoop={sensor}
                     key={index}
                   />
-                </Col>
+                // </Col>
               ))
             ) : (
               checkResponse && (
-                <Col md={12}>
+                // <Col md={12}>
                   <WaveLengthGraphData
                     dataType={dataType}
                     isNrm={isNrm}
@@ -509,10 +509,10 @@ function BuildReportGraph() {
                     yMaxValue={maxYValue}
                     yValueLoop={[waveType]}
                   />
-                </Col>
+                // </Col>
               )
             )}
-          </Row>
+          {/* </Row> */}
         </div>
       </div>
     </>

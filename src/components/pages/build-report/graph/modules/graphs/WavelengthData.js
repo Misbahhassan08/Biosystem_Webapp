@@ -14,7 +14,6 @@ function WaveLengthGraphData(props) {
     { label: "Color", key: "vio" },
   ]);
   const [rowData, setrowData] = useState([]);
-  const isDashboard = false;
   let wave;
 
   console.log(props.wave, "this is the props wave");
@@ -75,6 +74,33 @@ function WaveLengthGraphData(props) {
     let filteredData = [];
     for (let i = 0; i < parsedData.length; i++) {
       const samples = parsedData[i].Samples;
+      const firstDate = dayjs(samples[0].Time_Stamp.split("_")[0]);
+      // console.log(
+      //   "🚀 ~ file: WavelengthData.js:86 ~ showGraphData ~ firstDate:",
+      //   firstDate
+      // );
+      const lastDate = dayjs(
+        samples[samples.length - 1].Time_Stamp.split("_")[0]
+      );
+      // console.log(
+      //   "🚀 ~ file: WavelengthData.js:88 ~ showGraphData ~ lastDate:",
+      //   lastDate
+      // );
+
+      // Compare the dates
+      const areDatesEqual = firstDate.isSame(lastDate, "day");
+      // console.log(
+      //   "🚀 ~ file: WavelengthData.js:85 ~ showGraphData ~ areDatesEqual:",
+      //   areDatesEqual
+      // );
+
+      const timeToCompare = dayjs("23:00:00", { format: "HH:mm:ss" });
+      const currentDay = dayjs().startOf("day");
+
+      const isBeforeStartOfDay = timeToCompare.isBefore(currentDay);
+
+      console.log(isBeforeStartOfDay, "start of day");
+
       const graphData = {
         // id: props.dataType + "_Avg_" + wave + "_P" + samples[i].Sample_Num,
         id: props.dataType + "_P" + samples[i].Sample_Num,
@@ -82,25 +108,31 @@ function WaveLengthGraphData(props) {
       };
 
       for (let j = 0; j < samples.length; j++) {
-        // const dataDateTime = dayjs(parsedData[i].Samples[j].Time_Stamp);
+        const dateString = parsedData[i].Samples[j].Time_Stamp.split("_")[0];
         const timeString = parsedData[i].Samples[j].Time_Stamp.split("_")[1];
-        const replacedTime = timeString.replace(/-/g, ':')
+        // console.log("🚀 ~ file: WavelengthData.js:87 ~ showGraphData ~ dateString:", dateString, timeString)
+        const replacedTime = timeString.replace(/-/g, ":");
 
-        const dataDateTime = dayjs(replacedTime, "HH:mm:ss");
+        const finalDate = dateString + " " + replacedTime;
 
-        // console.log(props.xMinValue[i], "these are the min Value");
-        // console.log(props.xMaxValue[i], "these are the max Value");
-        // console.log(dataDateTime, "this is data datetime");
+        const d = dayjs(finalDate);
 
+        const dateTime1 = "2023-03-07_18-28-33";
+        const dateTime2 = "2023-03-08_18-28-33";
+
+        // Parse the date part from the date-time strings using dayjs
+        const date1 = dayjs(dateTime1.split("_")[0]);
+        const date2 = dayjs(dateTime2.split("_")[0]);
+
+        let dataDateTime = dayjs(replacedTime, "HH:mm:ss");
         if (
           dataDateTime >= props.xMinValue &&
           dataDateTime <= props.xMaxValue
         ) {
+          // const d= dayjs('23:59:00', 'HH:mm:ss')
+          // console.log(d.subtract(1, 'day'), "this is data date time");
           const firstValue = samples[0][props.dataType + "_Avg_" + wave];
 
-          // const time = samples[j].Time_Stamp.split("_")[1];
-          
-          // const time = timeString.substring(0, 5);
           let value;
           if (props.isNrm) {
             value =
@@ -108,7 +140,7 @@ function WaveLengthGraphData(props) {
             // console.log(value, "this is value");
           } else {
             value = samples[j][props.dataType + "_Avg_" + wave];
-            console.log(value, "this is value");
+            // console.log(value, "this is value");
           }
           // console.log(value, "this is first value for", wave, "at", j);
           let row = {
@@ -125,7 +157,7 @@ function WaveLengthGraphData(props) {
         }
       }
       _result.push(graphData);
-      console.log(_result[i].data, "this is result data at", i);
+      console.log(_result, "this is result data at", i);
 
       props.yValueLoop.map((item, index) => {
         for (let k = 0; k < _result[i].data.length; k++) {
@@ -219,6 +251,8 @@ function WaveLengthGraphData(props) {
             useUTC: false,
             min: "auto",
             max: "auto",
+            axis: "x",
+            order: "temporal",
           }}
           xFormat="time:%H:%M:%S"
           yScale={{
@@ -237,7 +271,7 @@ function WaveLengthGraphData(props) {
             tickSize: 7,
             tickPadding: 5,
             tickRotation: 40,
-            legend:"Time", // added
+            legend: "Time", // added
             legendOffset: 46,
             legendPosition: "middle",
             format: "%H:%M",
@@ -249,7 +283,7 @@ function WaveLengthGraphData(props) {
             tickSize: 7,
             tickPadding: 5,
             tickRotation: 0,
-            legend:"Value", // added
+            legend: "Value", // added
             legendOffset: -40,
             legendPosition: "middle",
           }}

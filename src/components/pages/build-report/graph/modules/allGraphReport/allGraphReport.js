@@ -200,6 +200,9 @@ function AllGraphReport() {
           <Container>
             <Row className="text-center">
               <Col>
+                  <h4>Current Notes: {showPostModal? 'Post Notes' : 'Pre Notes'} </h4>
+              </Col>
+              <Col>
                 <Button
                   type="submit"
                   className="mx-2 menu-btn menu-btn2"
@@ -244,33 +247,6 @@ function AllGraphReport() {
           </div>
         </Modal.Body>
       </Modal>
-
-      {/* <Modal
-        show={showPostModal}
-        fullscreen={true}
-        onHide={() => setshowPostModal(false)}
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <EndResultDetails csvfileId={CsvfileID} />
-        </Modal.Body>
-      </Modal> */}
-
-      {/* <Modal
-        show={showPreModal}
-        fullscreen={true}
-        onHide={() => setshowPreModal(false)}
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <SampleConcentrationDetails
-            closeModal={() => {
-              setshowPreModal(false);
-            }}
-            csvfileId={CsvfileID}
-          />
-        </Modal.Body>
-      </Modal> */}
     </div>
   );
 }
