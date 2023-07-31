@@ -40,8 +40,10 @@ function Header() {
                                 <Link to={`${process.env.PUBLIC_URL}/`} className="text-dark semibold-corbel"><FaIcons.FaPowerOff className="mail-icon" />Shut down</Link>
                             </Button>
                             
-                            <Button type="submit" className=" menu-btn menu-btn2">
-                                <Link to={`${process.env.PUBLIC_URL}/`} className="text-light semibold-corbel"><FaIcons.FaSignOutAlt className="mail-icon" />Log off</Link>
+                            <Button type="submit" className=" menu-btn menu-btn2" onClick={()=>{localStorage.removeItem('isLoggedIn')}}>
+                                <Link to={`${process.env.PUBLIC_URL}/`} className="text-light semibold-corbel"> 
+                                 <FaIcons.FaSignOutAlt className="mail-icon" />Log off
+                                 </Link>
                             </Button>
                             </>
                             ) : (<></>)

@@ -51,8 +51,12 @@ function EndResultDetails(props) {
       CsvfileID,
     };
     const response = await fetchPostReq(get_pre_notes, data);
-    const parsedData = JSON.parse(response.result);
-    setPreNotes(JSON.parse(response.result));
+    let parsedData = '';
+    if (response.result) {
+      parsedData = JSON.parse(response.result);
+    }
+    // debugger
+    setPreNotes(parsedData);
     console.log(parsedData, "this is response");
     setisLoading(false)
   };

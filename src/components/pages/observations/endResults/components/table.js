@@ -31,9 +31,9 @@ function Table(props) {
 
   // let pointA, pointA_pre, pointB, pointB_pre, pointC, pointC_pre;
 
-  console.log('====================================');
-  console.log(props.setTableData);
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(initialData);
+  // console.log('====================================');
   useEffect(() => {
     const data = getTableData();
     if (props.getJson) {

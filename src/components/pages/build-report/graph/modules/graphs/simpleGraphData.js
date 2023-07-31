@@ -128,13 +128,10 @@ function SimpleGraphData(props) {
       // console.log(replacedTime, 'this is time replaced');
       const dataDateTime = dayjs(replacedTime, "HH:mm:ss");
       // console.log(dataDateTime, "this is datadatetime");
-     
+      
 
       if (dataDateTime >= props.xMinValue && dataDateTime <= props.xMaxValue) {
-        // if (dataDateTime.hour() === 0 && dataDateTime.minute() === 0 && dataDateTime.second() === 0) {
-        //   dataDateTime.subtract(1, 'day');
-        //   console.log(dataDateTime, "this is data date time");
-        // }
+        
         let row = {
           timestamp: time.toString(),
           vio: parsedData[props.index].Samples[i]?.[VioPoint],
@@ -232,7 +229,6 @@ function SimpleGraphData(props) {
               item.data[i]?.y >= props.yMinValue &&
               item.data[i]?.y <= props.yMaxValue
           );
-          // console.log(filteredData, "this is filtered data");
         }
 
         // console.log("====================================");
@@ -248,6 +244,7 @@ function SimpleGraphData(props) {
   useEffect(() => {
     showGraphData();
   }, []);
+
   const csvReport = {
     data: rowData,
     headers: headers,
@@ -368,7 +365,7 @@ function SimpleGraphData(props) {
               translateY: 0,
               itemsSpacing: 0,
               itemDirection: "left-to-right",
-              itemWidth: 60,
+              itemWidth: 80,
               itemHeight: 20,
               itemOpacity: 0.75,
               symbolSize: 12,
