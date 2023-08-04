@@ -61,6 +61,7 @@ import SampleConcentrationDetails from "./components/pages/observations/startDet
 import EndResultDetails from "./components/pages/observations/endResults/endResult";
 import CsvInfoPage from "./components/pages/build-report/graph/csvPage";
 import AllGraphReport from "./components/pages/build-report/graph/modules/allGraphReport/allGraphReport";
+import UserConfigTable from "./components/pages/user-config";
 
 function App() {
   useEffect(() => {
@@ -86,13 +87,13 @@ function App() {
   }, []);
 
   const ProtectedRoute = ({ element: Component, ...props }) => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const isLoggedIn = localStorage.getItem("_session_token");
     return isLoggedIn ? (
-      <Component {...props} />
+        <Component {...props} />
     ) : (
-      <Navigate to={process.env.PUBLIC_URL + "/"} />
+        <Navigate to={"/"} />
     );
-  };
+};
 
   return (
     <>
@@ -301,6 +302,10 @@ function App() {
               <Route
                 path={`${process.env.PUBLIC_URL}/observation/end-results`}
                 element={<ProtectedRoute element={EndResultDetails} />}
+              />
+              <Route
+                path={`${process.env.PUBLIC_URL}/user-config`}
+                element={<ProtectedRoute element={UserConfigTable} />}
               />
               <Route path="*" element={<NoMatch />} />
             </Route>

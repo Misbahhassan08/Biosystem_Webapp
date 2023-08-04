@@ -1,50 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Container, Row, Form, Button } from "react-bootstrap";
-import { fetchGetReq } from "../../services/restService";
+import { Navigate } from "react-router-dom";
 import { baseApiUrl } from "../../config";
 import Spinner from "../shared/spinner";
+import { fetchPostReq } from "../../services/restService";
 
 function Login() {
+  const user_login = baseApiUrl + "/api/login"
   const apiUrl = baseApiUrl + "/api/check_login";
 
   const [validated, setValidated] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     document.title = "Acenxion | Lab Login";
+    if (!localStorage.getItem('_session_token')){
+    setLoggedIn(false)
+  }
   }, []);
 
   let navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      //   setValidated(true);
-      return;
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const req_Data={
+        _username : userName,
+        _password : password,
+        _session_token: localStorage.getItem("_session_token")
     }
-
-    setIsLoading(true)
-
-    const response = await fetchGetReq(apiUrl);
-
-    if (response.uname === userName && response.pass === password) {
-      localStorage.setItem("isLoggedIn", true);
-      navigate(process.env.PUBLIC_URL + "/readerstatus");
-    } else {
-      localStorage.setItem("isLoggedIn", false);
-      console.warn("Invalid username or password");
+   console.log(userName, password)
+    try {
+        const response = await fetchPostReq(user_login, req_Data);
+        setIsLoading(true)
+        if (response.message === "User Already Logged In" || response.message === "Login successful"){
+            setLoggedIn(true)
+            console.log("alreay logged in");
+        }
+        if (response.token){
+        localStorage.setItem('_session_token', response.token)
+            setLoggedIn(true)
+            setIsLoading(false)
+        }
+        console.log(response, "req datas") ;
+    } catch (error) {
+        console.log(error);
+        setIsLoading(false)
     }
-
-    setIsLoading(false)
-  };
+ }
 
   return (
     <>
+    {loggedIn && <Navigate to={process.env.PUBLIC_URL + "/readerstatus"} />}
       <div className="layout-right-side">
         {isLoading ? (
           <Spinner loading={isLoading} />
@@ -59,8 +68,6 @@ function Login() {
 
                   <Form
                     noValidate
-                    validated={validated}
-                    onSubmit={handleSubmit}
                   >
                     <Form.Control
                       type="text"
@@ -97,6 +104,7 @@ function Login() {
                         type="submit"
                         variant="warning"
                         className="mt-2 d-flex justify-content-center  mx-2"
+                        onClick={handleSubmit}
                       >
                         Ok
                       </Button>

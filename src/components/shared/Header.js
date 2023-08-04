@@ -6,18 +6,43 @@ import { Button, Container, Navbar,  Offcanvas } from 'react-bootstrap';
 import Media from '../../assets/index';
 import SidebarData from "./SidebarData"
 import * as FaIcons from 'react-icons/fa';
+import { fetchPostReq } from "../../services/restService";
+import { Navigate } from "react-router-dom";
+import { baseApiUrl } from "../../config";
 
 function Header() {
+    const user_logout = baseApiUrl + "/api/logout"
     const [show, setShow] = useState(false);
+    const [loggedOut, setLoggedOut] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    async function userLogout() {
+        const data ={
+            _session_token: localStorage.getItem('_session_token')
+        }
+        try {
+            const response = await fetchPostReq(user_logout, data);
+            if (response === 'logout successful'){
+                localStorage.removeItem('_session_token');
+                setLoggedOut(true);
+            }
+                if(response === 'Session token missing'){
+                setLoggedOut(true)
+            }
+            console.log(response, "req datas");
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const location=useLocation();
     const isUserloggedOut = location.pathname==="/acenxion" || location.pathname==="/acenxion/";
 
     return (
         <>
+         {loggedOut && <Navigate to={"/"} />}
             <Announcement></Announcement>
 
             <Navbar variant="dark" bg="white" className="border-bottom" expand="lg">
@@ -40,7 +65,7 @@ function Header() {
                                 <Link to={`${process.env.PUBLIC_URL}/`} className="text-dark semibold-corbel"><FaIcons.FaPowerOff className="mail-icon" />Shut down</Link>
                             </Button>
                             
-                            <Button type="submit" className=" menu-btn menu-btn2" onClick={()=>{localStorage.removeItem('isLoggedIn')}}>
+                            <Button type="submit" className=" menu-btn menu-btn2" onClick={()=>{userLogout()}}>
                                 <Link to={`${process.env.PUBLIC_URL}/`} className="text-light semibold-corbel"> 
                                  <FaIcons.FaSignOutAlt className="mail-icon" />Log off
                                  </Link>
