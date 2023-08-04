@@ -49,6 +49,12 @@ const SidebarData = [
     icon: Media.Images.sixthicon,
     cName: "nav-text",
   },
+  {
+    title: "User Config",
+    path: "/user-config",
+    icon: Media.Images.sixthicon,
+    cName: "nav-text",
+  },
 ];
 
 export default SidebarData;
