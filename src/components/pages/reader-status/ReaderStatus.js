@@ -17,9 +17,9 @@ function ReaderStatus() {
   useEffect(() => {
     document.title = "Reader Status";
  
-    const interval = setInterval(() => { 
       getStatus();
-      getClickedCard()
+    const interval = setInterval(() => {
+      getStatus()
     }, 10000);
     return () => clearInterval(interval);
   }, []);
@@ -46,6 +46,8 @@ function ReaderStatus() {
     } catch (error) {
       console.log("error", error);
     }
+
+    getClickedCard()
   };
 
   return (

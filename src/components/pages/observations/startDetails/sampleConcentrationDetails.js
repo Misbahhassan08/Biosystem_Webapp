@@ -70,7 +70,7 @@ function SampleConcentrationDetails(props) {
       CsvfileID,
     };
     let response = await fetchPostReq(get_pre_notes, data);
-    if (response.result) {
+    if (response.result || response) {
       response = JSON.parse(response.result);
     }
     setPreNotes(response);
