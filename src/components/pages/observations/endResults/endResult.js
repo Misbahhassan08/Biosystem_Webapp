@@ -7,7 +7,7 @@ import { fetchPostReq } from "../../../../services/restService";
 import Spinner from "../../../shared/spinner";
 
 function EndResultDetails(props) {
-  const get_pre_notes = baseApiUrl + "/api/get_pre_notes";
+  const get_post_notes = baseApiUrl + "/api/get_pre_notes";
   const [fields, setFields] = useState();
   const [table, setTable] = useState("");
   const [getJson, setGetJson] = useState(false);
@@ -46,11 +46,11 @@ function EndResultDetails(props) {
     }
   }, [fields, table]);
 
-  const getPreNotes = async () => {
+  const getPostNotes = async () => {
     const data = {
       CsvfileID,
     };
-    const response = await fetchPostReq(get_pre_notes, data);
+    const response = await fetchPostReq(get_post_notes, data);
     let parsedData = '';
     if (response.result) {
       parsedData = JSON.parse(response.result);
@@ -62,7 +62,7 @@ function EndResultDetails(props) {
   };
 
   useEffect(() => {
-    getPreNotes();
+    getPostNotes();
     console.log(CsvfileID, "this is csv file id");
   }, []);
 

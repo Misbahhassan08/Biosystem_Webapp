@@ -33,8 +33,8 @@ function Login() {
     }
    console.log(userName, password)
     try {
-        const response = await fetchPostReq(user_login, req_Data);
         setIsLoading(true)
+        const response = await fetchPostReq(user_login, req_Data);
         if (response.message === "User Already Logged In" || response.message === "Login successful"){
             setLoggedIn(true)
             console.log("alreay logged in");
@@ -59,7 +59,7 @@ function Login() {
           <Spinner loading={isLoading} />
         ) : (
           <Container>
-            <Row className="justify-content-md-center align-items-center manually-card">
+              <Row className="justify-content-md-center align-items-center manually-card">
               <Card style={{ width: "40rem" }}>
                 <Card.Body>
                   <Card.Title className="mt-2 text-light-blue main-title mb-4 text-uppercase justify-content-center login-title">
