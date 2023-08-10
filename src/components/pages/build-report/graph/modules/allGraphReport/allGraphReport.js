@@ -8,10 +8,11 @@ import { baseApiUrl } from "../../../../../../config";
 import Modal from "react-bootstrap/Modal";
 import EndResultDetails from "../../../../observations/endResults/endResult";
 import SampleConcentrationDetails from "../../../../observations/startDetails/sampleConcentrationDetails";
+import {RefreshButton} from "../../../../../shared/RefreshButton";
 
 function AllGraphReport() {
   const get_graph_data = baseApiUrl + "/api/get_graph_meta_data";
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showPostModal, setshowPostModal] = useState(false);
   const [showPreModal, setshowPreModal] = useState(true);
@@ -42,6 +43,7 @@ function AllGraphReport() {
   // );
 
   const fetchData = async () => {
+    setLoading(true)
     try {
       localStorage.removeItem("allGraphReport");
       const response = await fetchPostReq(get_graph_data, data);
@@ -70,6 +72,7 @@ function AllGraphReport() {
 
   return (
     <div className="layout-right-side justify-content-center">
+      <RefreshButton onClick={()=> fetchData()} />
       <div className="m-auto ">
         {loading ? (
           <Spinner loading={loading} />

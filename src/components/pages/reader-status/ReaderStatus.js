@@ -5,6 +5,7 @@ import * as FaIcons from "react-icons/fa";
 import { rackStatusEndPoint } from "../../../config";
 import Spinner from "../../shared/spinner";
 import { fetchGetReq } from "../../../services/restService";
+import {RefreshButton} from "../../shared/RefreshButton";
 
 function ReaderStatus() {
   const [status, setStatus] = useState();
@@ -53,6 +54,7 @@ function ReaderStatus() {
   return (
     <>
       <div className="layout-right-side rack-status">
+        <RefreshButton onClick={()=> getStatus()} />
         <Container>
           <h2 className="main-title text-center mb-5 text-light-blue">
             RACK STATUS / HOME SCREEN

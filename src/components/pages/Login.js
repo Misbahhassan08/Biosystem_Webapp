@@ -36,15 +36,21 @@ function Login() {
         setIsLoading(true)
         const response = await fetchPostReq(user_login, req_Data);
         if (response.message === "User Already Logged In" || response.message === "Login successful"){
-            setLoggedIn(true)
-            console.log("alreay logged in");
-        }
-        if (response.token){
-        localStorage.setItem('_session_token', response.token)
-            setLoggedIn(true)
+
+            if (response.token){
+                localStorage.setItem('_session_token', response.token)
+                setIsLoading(false)
+            }else{
+                console.error('Error: No session Token Received')
+                setIsLoading(false)
+            }
+                navigate('/readerstatus', { replace: true });
+            console.log(response.message);
+        } else if(response.message === 'Invalid credentials'){
+            navigate('/', { replace: true });
             setIsLoading(false)
         }
-        console.log(response, "req datas") ;
+        console.log(response, "req data") ;
     } catch (error) {
         console.log(error);
         setIsLoading(false)
@@ -53,7 +59,6 @@ function Login() {
 
   return (
     <>
-    {loggedIn && <Navigate to={process.env.PUBLIC_URL + "/readerstatus"} />}
       <div className="layout-right-side">
         {isLoading ? (
           <Spinner loading={isLoading} />

@@ -17,6 +17,7 @@ import CSVRows from "./csv/csvRows";
 import DateModal from "./csv/dateModal";
 import { TextField } from "@mui/material";
 import Spinner from "../../shared/spinner";
+import {RefreshButton} from "../../shared/RefreshButton";
 
 function RackCompleted() {
   const get_csv_list_endpoint = baseApiUrl + "/api/get_list_of_csv";
@@ -96,6 +97,7 @@ function RackCompleted() {
 
   return (
     <>
+      <RefreshButton onClick={()=> getCsvData()} />
       <div className="layout-right-side">
         {isSavingFile ? (
           <Spinner loading={isSavingFile} />

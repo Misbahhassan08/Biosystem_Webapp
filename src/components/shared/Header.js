@@ -9,40 +9,50 @@ import * as FaIcons from 'react-icons/fa';
 import { fetchPostReq } from "../../services/restService";
 import { Navigate } from "react-router-dom";
 import { baseApiUrl } from "../../config";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
     const user_logout = baseApiUrl + "/api/logout"
     const [show, setShow] = useState(false);
     const [loggedOut, setLoggedOut] = useState(false);
 
+    const navigate = useNavigate()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     async function userLogout() {
-        const data ={
-            _session_token: localStorage.getItem('_session_token')
-        }
+        const data = {
+          _session_token: localStorage.getItem("_session_token"),
+        };
         try {
-            const response = await fetchPostReq(user_logout, data);
-            if (response === 'logout successful'){
-                localStorage.removeItem('_session_token');
-                setLoggedOut(true);
-            }
-                if(response === 'Session token missing'){
-                setLoggedOut(true)
-            }
-            console.log(response, "req datas");
+          const response = await fetchPostReq(user_logout, data);
+          if (response === "logout successful") {
+            console.log(response);
+      
+            // Remove the session token
+            localStorage.removeItem("_session_token");
+      
+            // Log the removed session token
+            console.log("Removed session token:", data._session_token);
+      
+            // Navigate to the home page
+            navigate("/", { replace: true });
+          } else if (response === "Session token missing") {
+            console.log(response);
+            navigate("/", { replace: true });
+          } else {
+            console.error("Logout failed:", response);
+          }
         } catch (error) {
-            console.log(error);
+          console.error("Error during logout:", error);
         }
-    }
+      }
 
     const location=useLocation();
     const isUserloggedOut = location.pathname==="/acenxion" || location.pathname==="/acenxion/";
 
     return (
         <>
-         {loggedOut && <Navigate to={"/"} />}
             <Announcement></Announcement>
 
             <Navbar variant="dark" bg="white" className="border-bottom" expand="lg">

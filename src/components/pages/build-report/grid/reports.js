@@ -6,6 +6,7 @@ import { baseApiUrl } from "../../../../config";
 import { fetchGetReq, fetchPostReq } from "../../../../services/restService";
 import Spinner from "../../../shared/spinner";
 import { useLocation } from "react-router-dom";
+import {RefreshButton} from "../../../shared/RefreshButton";
 
 function BuildReportGrid() {
   const get_csv_list_endpoint = baseApiUrl + "/api/get_list_of_csv";
@@ -36,12 +37,13 @@ function BuildReportGrid() {
 
   useEffect(() => {
     document.title = "Build Report";
-    setIsCsvListLoading(true);
+
     // getCsvData();
     checkData()
   }, []);
 
   const getCsvData = async () => {
+    setIsCsvListLoading(true);
     const csvList = await fetchGetReq(get_csv_list_endpoint);
     console.log(csvList.result, "this is csv lsit");
     setCsvRowsData(csvList.result);
@@ -50,6 +52,7 @@ function BuildReportGrid() {
 
   return (
     <>
+      <RefreshButton onClick={()=> checkData()} />
       <div className="layout-right-side justify-content-center" style={{width: "71%"}}>
         <div>
           <Container>
