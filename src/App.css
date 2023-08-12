@@ -1883,3 +1883,11 @@ button[type="submit"].mobile1:hover {
     display: block;
   }
 }
+
+.floating-btn{
+  background-color: #00598469;
+}
+
+.floating-btn:hover{
+  background-color: #005884;
+}

@@ -73,7 +73,7 @@ function WaveLengthGraphData(props) {
             const samples = parsedData[i].Samples;
 
             const graphData = {
-                id: props.dataType + "_P" + samples[i].Sample_Num,
+                    id: props.dataType + "_P" + samples[i].Sample_Num,
                 data: [],
             };
 

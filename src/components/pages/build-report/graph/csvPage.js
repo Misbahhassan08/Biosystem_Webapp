@@ -5,11 +5,12 @@ import { baseApiUrl } from "../../../../config";
 import { fetchGetReq, fetchPostReq } from "../../../../services/restService";
 import Spinner from "../../../shared/spinner";
 import { Link } from "react-router-dom";
+import {RefreshButton} from "../../../shared/RefreshButton";
 
 function CsvInfoPage() {
   const get_csv_list_endpoint = baseApiUrl + "/api/get_list_of_csv";
   // const post_metaData_endpoint = baseApiUrl + "/api/get_meta_data";
-  const [isloading, setIsloading] = useState(true);
+  const [isloading, setIsloading] = useState(false);
   const [csvRowsData, setCsvRowsData] = useState();
 
   // ------------------------------------------------------ POSTING DATA FROM HERE --------------------------------------
@@ -21,6 +22,7 @@ function CsvInfoPage() {
   }, []);
 
   const getCsvData = async () => {
+    setIsloading(true)
     const csvList = await fetchGetReq(get_csv_list_endpoint);
     console.log(csvList.result, "this is csv lsit");
     setCsvRowsData(csvList.result);
@@ -31,6 +33,7 @@ function CsvInfoPage() {
 
   return (
     <>
+      <RefreshButton onClick={()=> getCsvData()} />
       <div className="layout-right-side justify-content-center">
         <div>
           <Container>
