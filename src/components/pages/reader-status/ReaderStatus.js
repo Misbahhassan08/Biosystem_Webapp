@@ -6,6 +6,7 @@ import { rackStatusEndPoint } from "../../../config";
 import Spinner from "../../shared/spinner";
 import { fetchGetReq } from "../../../services/restService";
 import {RefreshButton} from "../../shared/RefreshButton";
+import Carbon from "../../../assets/icons/co2.svg"
 
 function ReaderStatus() {
   const [status, setStatus] = useState();
@@ -80,7 +81,8 @@ function ReaderStatus() {
                                 {index.temp}°C
                               </div>
                               <div className="status-info text-light mx-3">
-                                <FaIcons.FaGlassMartiniAlt className="color-yellow" />
+                                {/*<FaIcons.FaGlassMartiniAlt className="color-yellow" />*/}
+                                <img src={Carbon} alt="Carbon Icon" className={'carbon-icon'}/>
                                 {index.progress}%
                               </div>
                             </div>

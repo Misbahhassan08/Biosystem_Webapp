@@ -1891,3 +1891,9 @@ button[type="submit"].mobile1:hover {
 .floating-btn:hover{
   background-color: #005884;
 }
+
+.carbon-icon {
+  width: 35px;
+  height: 35px;
+  margin-right: 5px;
+}
